@@ -1,0 +1,493 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		294ADC6820E6F1370053937E /* Agents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29F2431120DF0DF400927629 /* Agents.swift */; };
+		294ADC6A20E70C3C0053937E /* SimpleActionTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 294ADC6920E70C3C0053937E /* SimpleActionTracker.swift */; };
+		294ADC6B20E70C3C0053937E /* SimpleActionTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 294ADC6920E70C3C0053937E /* SimpleActionTracker.swift */; };
+		299BB9C020E58BD100E427E4 /* VacuumWorld.swift in Sources */ = {isa = PBXBuildFile; fileRef = 299BB9BF20E58BD100E427E4 /* VacuumWorld.swift */; };
+		299BB9C120E58BD100E427E4 /* VacuumWorld.swift in Sources */ = {isa = PBXBuildFile; fileRef = 299BB9BF20E58BD100E427E4 /* VacuumWorld.swift */; };
+		29F2430120DF0DA900927629 /* AImaKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29F242F720DF0DA900927629 /* AImaKit.framework */; };
+		29F2430620DF0DA900927629 /* AImaKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29F2430520DF0DA900927629 /* AImaKitTests.swift */; };
+		29F2430820DF0DA900927629 /* AImaKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 29F242FA20DF0DA900927629 /* AImaKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		29F2431220DF0DF400927629 /* Agents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29F2431120DF0DF400927629 /* Agents.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		29F2430220DF0DA900927629 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29F242EE20DF0DA900927629 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 29F242F620DF0DA900927629;
+			remoteInfo = AImaKit;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		294ADC6920E70C3C0053937E /* SimpleActionTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleActionTracker.swift; sourceTree = "<group>"; };
+		299BB9BA20E2DC6400E427E4 /* LICENSE.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = LICENSE.md; sourceTree = "<group>"; };
+		299BB9BB20E2DC6400E427E4 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		299BB9BC20E2DC6500E427E4 /* CONTRIBUTING.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CONTRIBUTING.md; sourceTree = "<group>"; };
+		299BB9BF20E58BD100E427E4 /* VacuumWorld.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VacuumWorld.swift; sourceTree = "<group>"; };
+		29F242F720DF0DA900927629 /* AImaKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AImaKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		29F242FA20DF0DA900927629 /* AImaKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AImaKit.h; sourceTree = "<group>"; };
+		29F242FB20DF0DA900927629 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		29F2430020DF0DA900927629 /* AImaKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AImaKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		29F2430520DF0DA900927629 /* AImaKitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AImaKitTests.swift; sourceTree = "<group>"; };
+		29F2430720DF0DA900927629 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		29F2431120DF0DF400927629 /* Agents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Agents.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		29F242F320DF0DA900927629 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		29F242FD20DF0DA900927629 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				29F2430120DF0DA900927629 /* AImaKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		29F242ED20DF0DA900927629 = {
+			isa = PBXGroup;
+			children = (
+				299BB9BC20E2DC6500E427E4 /* CONTRIBUTING.md */,
+				299BB9BA20E2DC6400E427E4 /* LICENSE.md */,
+				299BB9BB20E2DC6400E427E4 /* README.md */,
+				29F242F920DF0DA900927629 /* AImaKit */,
+				29F2430420DF0DA900927629 /* AImaKitTests */,
+				29F242F820DF0DA900927629 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		29F242F820DF0DA900927629 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				29F242F720DF0DA900927629 /* AImaKit.framework */,
+				29F2430020DF0DA900927629 /* AImaKitTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		29F242F920DF0DA900927629 /* AImaKit */ = {
+			isa = PBXGroup;
+			children = (
+				29F242FA20DF0DA900927629 /* AImaKit.h */,
+				29F242FB20DF0DA900927629 /* Info.plist */,
+				29F2431120DF0DF400927629 /* Agents.swift */,
+				299BB9BF20E58BD100E427E4 /* VacuumWorld.swift */,
+				294ADC6920E70C3C0053937E /* SimpleActionTracker.swift */,
+			);
+			path = AImaKit;
+			sourceTree = "<group>";
+		};
+		29F2430420DF0DA900927629 /* AImaKitTests */ = {
+			isa = PBXGroup;
+			children = (
+				29F2430520DF0DA900927629 /* AImaKitTests.swift */,
+				29F2430720DF0DA900927629 /* Info.plist */,
+			);
+			path = AImaKitTests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		29F242F420DF0DA900927629 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				29F2430820DF0DA900927629 /* AImaKit.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		29F242F620DF0DA900927629 /* AImaKit */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 29F2430B20DF0DA900927629 /* Build configuration list for PBXNativeTarget "AImaKit" */;
+			buildPhases = (
+				29F242F220DF0DA900927629 /* Sources */,
+				29F242F320DF0DA900927629 /* Frameworks */,
+				29F242F420DF0DA900927629 /* Headers */,
+				29F242F520DF0DA900927629 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = AImaKit;
+			productName = AImaKit;
+			productReference = 29F242F720DF0DA900927629 /* AImaKit.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		29F242FF20DF0DA900927629 /* AImaKitTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 29F2430E20DF0DA900927629 /* Build configuration list for PBXNativeTarget "AImaKitTests" */;
+			buildPhases = (
+				29F242FC20DF0DA900927629 /* Sources */,
+				29F242FD20DF0DA900927629 /* Frameworks */,
+				29F242FE20DF0DA900927629 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				29F2430320DF0DA900927629 /* PBXTargetDependency */,
+			);
+			name = AImaKitTests;
+			productName = AImaKitTests;
+			productReference = 29F2430020DF0DA900927629 /* AImaKitTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		29F242EE20DF0DA900927629 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0940;
+				LastUpgradeCheck = 0940;
+				ORGANIZATIONNAME = "Dhave King";
+				TargetAttributes = {
+					29F242F620DF0DA900927629 = {
+						CreatedOnToolsVersion = 9.4.1;
+						LastSwiftMigration = 0940;
+					};
+					29F242FF20DF0DA900927629 = {
+						CreatedOnToolsVersion = 9.4.1;
+					};
+				};
+			};
+			buildConfigurationList = 29F242F120DF0DA900927629 /* Build configuration list for PBXProject "AImaKit" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 29F242ED20DF0DA900927629;
+			productRefGroup = 29F242F820DF0DA900927629 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				29F242F620DF0DA900927629 /* AImaKit */,
+				29F242FF20DF0DA900927629 /* AImaKitTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		29F242F520DF0DA900927629 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		29F242FE20DF0DA900927629 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		29F242F220DF0DA900927629 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				29F2431220DF0DF400927629 /* Agents.swift in Sources */,
+				299BB9C020E58BD100E427E4 /* VacuumWorld.swift in Sources */,
+				294ADC6A20E70C3C0053937E /* SimpleActionTracker.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		29F242FC20DF0DA900927629 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				294ADC6B20E70C3C0053937E /* SimpleActionTracker.swift in Sources */,
+				294ADC6820E6F1370053937E /* Agents.swift in Sources */,
+				29F2430620DF0DA900927629 /* AImaKitTests.swift in Sources */,
+				299BB9C120E58BD100E427E4 /* VacuumWorld.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		29F2430320DF0DA900927629 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 29F242F620DF0DA900927629 /* AImaKit */;
+			targetProxy = 29F2430220DF0DA900927629 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		29F2430920DF0DA900927629 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		29F2430A20DF0DA900927629 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		29F2430C20DF0DA900927629 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = "";
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_VERSION = A;
+				INFOPLIST_FILE = AImaKit/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = TheDek.AImaKit;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SKIP_INSTALL = NO;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.0;
+			};
+			name = Debug;
+		};
+		29F2430D20DF0DA900927629 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = "";
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_VERSION = A;
+				INFOPLIST_FILE = AImaKit/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = TheDek.AImaKit;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SKIP_INSTALL = NO;
+				SWIFT_VERSION = 4.0;
+			};
+			name = Release;
+		};
+		29F2430F20DF0DA900927629 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = UCU7LB9MW7;
+				INFOPLIST_FILE = AImaKitTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = TheDek.AImaKitTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+			};
+			name = Debug;
+		};
+		29F2431020DF0DA900927629 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = UCU7LB9MW7;
+				INFOPLIST_FILE = AImaKitTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = TheDek.AImaKitTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		29F242F120DF0DA900927629 /* Build configuration list for PBXProject "AImaKit" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				29F2430920DF0DA900927629 /* Debug */,
+				29F2430A20DF0DA900927629 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		29F2430B20DF0DA900927629 /* Build configuration list for PBXNativeTarget "AImaKit" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				29F2430C20DF0DA900927629 /* Debug */,
+				29F2430D20DF0DA900927629 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		29F2430E20DF0DA900927629 /* Build configuration list for PBXNativeTarget "AImaKitTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				29F2430F20DF0DA900927629 /* Debug */,
+				29F2431020DF0DA900927629 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 29F242EE20DF0DA900927629 /* Project object */;
+}
