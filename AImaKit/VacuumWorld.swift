@@ -2,7 +2,7 @@
 //  VacuumWorld.swift
 //  AImaKit
 //
-//  Created by Dhave King on 6/28/18.
+//  Created by Dave King on 6/28/18.
 //
 
 import Foundation

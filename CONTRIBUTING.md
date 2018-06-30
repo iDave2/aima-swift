@@ -6,7 +6,7 @@ I'm new to open source (and github and swift and ...) so will be fumbling along 
 completing AIMA Chapter 2, and welcome all contributions whether you are also learning
 or are an expert with good tips (or both).  Here are scattered notes on state of the art.
 
-Documentation and modeling borrow extensively from aima-python and aima-java (thank, guys).
+Documentation and modeling borrow from aima-python and aima-java (thanks, guys).
 
 ## Coding Guidelines
 In general, imitate [Swift authors](https://docs.swift.org/swift-book/LanguageGuide/TheBasics.html) 
