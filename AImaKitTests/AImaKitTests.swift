@@ -19,16 +19,18 @@ class AImaKitTests: XCTestCase {
     // Put teardown code here. This method is called after the invocation of each test method in the class.
     super.tearDown()
   }
-  
+
   func testReflexVacuumAgent() {
     // This is an example of a functional test case.
     // Use XCTAssert and related functions to verify your tests produce the correct results.
+    
+    typealias VW = VacuumWorld
 
-    func run(_ leftState: LocationState, _ rightState: LocationState,
-             _ location: Location, _ steps: Int = 8) -> String
+    func run(_ leftState: VW.LocationState, _ rightState: VW.LocationState,
+             _ location: VW.Location, _ steps: Int = 8) -> String
     {
-      let environment = VacuumEnvironment(leftState, rightState)
-      let agent = ReflexVacuumAgent()
+      let environment = VW.Environment(leftState, rightState)
+      let agent = VW.ReflexAgent()
       environment.addEnvironmentObject(agent, at: location)
       let view = SimpleActionTracker()
       environment.addEnvironmentView(view)
@@ -63,5 +65,5 @@ class AImaKitTests: XCTestCase {
       // Put the code you want to measure the time of here.
     }
   }
-    
+
 }

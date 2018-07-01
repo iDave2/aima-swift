@@ -22,8 +22,8 @@ public class SimpleActionTracker: EnvironmentView {
   }
 
   public override func agentActed
-    (_: Agent, _: Percept, _ action: Action, _: Environment) -> Void
+    (_: IAgent, _: Percept, _ action: IAction, _: IEnvironment) -> Void
   {
-    actions.append(action.rawValue)
+    actions.append(action.getValue())
   }
 }

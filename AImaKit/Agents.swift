@@ -10,11 +10,20 @@ import Foundation
 // ////////////////////////////////////////////////////////////////////////////
 
 /**
- * Describes an Action that can or has been taken by an Agent via one of its
- * Actuators.
+ * Describes an `Action` that can or has been taken by an `Agent` via one of its
+ * actuators.
+ *
+ * Different task environments (PEAS) adopt this protocol to define their
+ * particular actuator requirements.  For example,
+ * ```swift
+ * enum Action: String, IAction {
+ *   case noOp, moveRight, moveUp, drinkJava, etc
+ *   func getValue() -> String { return self.rawValue }
+ * }
+ * ```
  */
-public enum Action: String {
-  case noOp, suck, moveLeft, moveRight, moveUp, moveDown, etc
+public protocol IAction {
+  func getValue() -> String // Adopters typically { return self.rawValue }
 }
 
 // ////////////////////////////////////////////////////////////////////////////
@@ -29,7 +38,7 @@ public enum Action: String {
  * - Parameter percept: The current percept of a sequence perceived by the Agent.
  * - Returns: The Action to be taken in response to the currently perceived percept.
  */
-public typealias AgentProgram = (_ percept: Percept) -> Action
+public typealias AgentProgram = (_ percept: Percept) -> IAction
 //
 // Swift: That says AgentProgram is a function type that takes a Percept
 // and returns an Action.
@@ -42,7 +51,7 @@ public typealias AgentProgram = (_ percept: Percept) -> Action
  *
  * Agents interact with environments through sensors and actuators.
  */
-public class Agent: EnvironmentObject {
+public class IAgent: EnvironmentObject {
   /**
    * The *agent function* that maps percepts to actions.
    */
@@ -60,7 +69,7 @@ public class Agent: EnvironmentObject {
    *
    * - Parameter program: The agent's program.
    */
-  public init(_ program: @escaping AgentProgram = { _ in return .noOp }) {
+  public init(_ program: @escaping AgentProgram) {
     execute = program
   }
 }
@@ -99,7 +108,7 @@ public class EnvironmentView: EnvironmentObject {
    * - Parameter agent: The Agent just added to the Environment.
    * - Parameter source: The Environment to which the agent was added.
    */
-  public func agentAdded(_ agent: Agent, _ source: Environment) -> Void {
+  public func agentAdded(_ agent: IAgent, _ source: IEnvironment) -> Void {
   
   }
 
@@ -112,7 +121,7 @@ public class EnvironmentView: EnvironmentObject {
    * - Parameter source: The Environment in which the agent has acted.
    */
   public func agentActed
-    (_ agent: Agent, _ percept: Percept, _ action: Action, _ source: Environment) -> Void
+    (_ agent: IAgent, _ percept: Percept, _ action: IAction, _ source: IEnvironment) -> Void
   {
   
   }
@@ -163,11 +172,11 @@ public class Object: Hashable {
  * this for your particular Task Environment and override the crashers with
  * appropriate behavior.
  */
-public class Environment {
-  var envObjects = Dictionary<EnvironmentObject, Location>()
-  var agents = Set<Agent>()
+public class IEnvironment {
+  var envObjects = Dictionary<EnvironmentObject, VacuumWorld.Location>()
+  var agents = Set<IAgent>()
   var views = Set<EnvironmentView>()
-  var performanceMeasures: [Agent: Double] = [:]
+  var performanceMeasures: [IAgent: Double] = [:]
 
   //
   // PUBLIC METHODS
@@ -176,11 +185,11 @@ public class Environment {
   //
   // Methods to be implemented by subclasses.
 
-  public func executeAction(_: Agent, _: Action) -> Void {
+  public func executeAction(_: IAgent, _: IAction) -> Void {
     fatalError("World is not a complete Environment; subclasses must override this method.")
   }
 
-  public func getPerceptSeenBy(_: Agent) -> Percept {
+  public func getPerceptSeenBy(_: IAgent) -> Percept {
     fatalError("World is not a complete Environment; subclasses must override this method.")
   }
 
@@ -194,23 +203,23 @@ public class Environment {
 
   //
   // START-Environment
-  public func getAgents() -> Set<Agent> {
+  public func getAgents() -> Set<IAgent> {
     let copy = agents
     return copy
   }
 
-  public func getEnvironmentObjects() -> Dictionary<EnvironmentObject, Location> {
+  public func getEnvironmentObjects() -> Dictionary<EnvironmentObject, VacuumWorld.Location> {
     let copy = envObjects
     return copy
   }
 
-  public func addEnvironmentObject(_ thing: EnvironmentObject, at location: Location?) -> Void {
+  public func addEnvironmentObject(_ thing: EnvironmentObject, at location: VacuumWorld.Location?) -> Void {
     if envObjects.keys.contains(thing) {
       return // There is only one of each Object.
     }
-    let position = location ?? Location.random()
+    let position = location ?? VacuumWorld.Location.random()
     envObjects[thing] = position
-    if let agent = thing as? Agent {
+    if let agent = thing as? IAgent {
       agents.insert(agent)
       performanceMeasures[agent] = 0.0
       // notifyEnvironmentViews(agent);
@@ -219,7 +228,7 @@ public class Environment {
 
   public func removeEnvironmentObject(_ thing: EnvironmentObject) -> Void {
     envObjects[thing] = nil
-    if let agent = thing as? Agent {
+    if let agent = thing as? IAgent {
       performanceMeasures.removeValue(forKey: agent)
       agents.remove(agent);
     }
@@ -264,11 +273,11 @@ public class Environment {
     return true;
   }
 
-  public func getPerformanceMeasure(forAgent: Agent) -> Double? {
+  public func getPerformanceMeasure(forAgent: IAgent) -> Double? {
     return performanceMeasures[forAgent]
   }
 
-  func updatePerformanceMeasure(forAgent: Agent, addTo: Double) -> Void {
+  func updatePerformanceMeasure(forAgent: IAgent, addTo: Double) -> Void {
     if performanceMeasures[forAgent] != nil {
       performanceMeasures[forAgent]! += addTo
     }
@@ -295,13 +304,13 @@ public class Environment {
   // PROTECTED METHODS
   //
 
-  func notifyEnvironmentViews(_ agent: Agent) -> Void {
+  func notifyEnvironmentViews(_ agent: IAgent) -> Void {
     for view in views {
       view.agentAdded(agent, self);
     }
   }
 
-  func notifyEnvironmentViews(_ agent: Agent, _ percept: Percept, _ action: Action) -> Void {
+  func notifyEnvironmentViews(_ agent: IAgent, _ percept: Percept, _ action: IAction) -> Void {
     for view in views {
       view.agentActed(agent, percept, action, self);
     }
