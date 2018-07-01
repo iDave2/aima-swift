@@ -10,7 +10,7 @@ import Foundation
 public enum Location {
   case left, right
   static func random() -> Location {
-    return (arc4random() % 2 == 0) ? .left : .right
+    return Bool.random() ? .left : .right
   }
 }
 
