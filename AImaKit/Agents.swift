@@ -1,8 +1,12 @@
 //
 //  Agents.swift
-//  AIma
+//  AImaKit
 //
 //  Created by Dave King on 6/23/18.
+//
+//  The notation `ISomeType` used in this file means that that type is meant
+//  to be subclassed by actual `SomeType`s that satisfy requirements of a
+//  particular task environment.
 //
 
 import Foundation
@@ -63,9 +67,7 @@ public class IAgent: EnvironmentObject {
   internal(set) public var isAlive = true
   
   /**
-   * Custom initializer sets AgentProgram for this agent.  If no AgentProgram
-   * is provided, a default program that always returns `Action.noOp` is used.
-   * NOOP means "no operation" or "do nothing."
+   * Custom initializer sets AgentProgram for this agent.
    *
    * - Parameter program: The agent's program.
    */
@@ -77,30 +79,28 @@ public class IAgent: EnvironmentObject {
 // ////////////////////////////////////////////////////////////////////////////
 
 /**
- * Top of the `Environment` hierarchy, instances of this class will crash like
- * the Python examples since Swift lacks proper abstract classes.  So subclass
- * this for your particular Task Environment and override the crashers with
- * appropriate behavior.
+ * Top of the `Environment` hierarchy, this class defines most of the common
+ * functionality of any environment but must be subclassed to complete the
+ * definition and avoid a runtime crash.
  */
 public class IEnvironment {
-  var envObjects = Dictionary<EnvironmentObject, VacuumWorld.Location>()
+  var envObjects = Dictionary<EnvironmentObject, ILocation>()
   var agents = Set<IAgent>()
   var views = Set<EnvironmentView>()
   var performanceMeasures: [IAgent: Double] = [:]
 
-  //
-  // PUBLIC METHODS
-  //
-  
-  //
   // Methods to be implemented by subclasses.
 
   public func executeAction(_: IAgent, _: IAction) -> Void {
-    fatalError("World is not a complete Environment; subclasses must override this method.")
+    fatalError("IEnvironment subclass must define executeAction(agent:action:)!")
   }
 
   public func getPerceptSeenBy(_: IAgent) -> IPercept {
-    fatalError("World is not a complete Environment; subclasses must override this method.")
+    fatalError("IEnvironment subclass must define getPerceptSeenBy(agent:)!")
+  }
+
+  public func getRandomLocation() -> ILocation {
+    fatalError("IEnvironment subclass must define getRandomLocation()!")
   }
 
 //  /**
@@ -118,16 +118,17 @@ public class IEnvironment {
     return copy
   }
 
-  public func getEnvironmentObjects() -> Dictionary<EnvironmentObject, VacuumWorld.Location> {
+  public func getEnvironmentObjects() -> Dictionary<EnvironmentObject, ILocation> {
     let copy = envObjects
     return copy
   }
 
-  public func addEnvironmentObject(_ thing: EnvironmentObject, at location: VacuumWorld.Location?) -> Void {
+  public func addEnvironmentObject(_ thing: EnvironmentObject, at location: ILocation?) -> Void
+  {
     if envObjects.keys.contains(thing) {
-      return // There is only one of each Object.
+      return // There is only one of each Object, the thing is already here.
     }
-    let position = location ?? VacuumWorld.Location.random()
+    let position = location ?? getRandomLocation() // A default, if necessary.
     envObjects[thing] = position
     if let agent = thing as? IAgent {
       agents.insert(agent)
@@ -251,7 +252,7 @@ public class EnvironmentView: EnvironmentObject {
    * - Parameter message: The message received.
    */
   public func notify(_ message: String) -> Void {
-  
+
   }
 
   /**
@@ -268,16 +269,33 @@ public class EnvironmentView: EnvironmentObject {
   /**
    * Indicates the Environment has changed as a result of an Agent's action.
    *
-   * - Parameter agent: The Agent that performed the Action.
-   * - Parameter percept: The Percept the Agent received from the environment.
-   * - Parameter action: The Action the Agent performed.
-   * - Parameter source: The Environment in which the agent has acted.
+   * - Parameters:
+   *   - agent:   The Agent that performed the Action.
+   *   - percept: The Percept the Agent received from the environment.
+   *   - action:  The Action the Agent performed.
+   *   - source:  The Environment in which the agent has acted.
    */
-  public func agentActed
-    (_ agent: IAgent, _ percept: IPercept, _ action: IAction, _ source: IEnvironment) -> Void
+  public func agentActed(_ agent:   IAgent,
+                         _ percept: IPercept,
+                         _ action:  IAction,
+                         _ source:  IEnvironment
+                        ) -> Void
   {
   
   }
+}
+
+// ////////////////////////////////////////////////////////////////////////////
+
+/**
+ * `EnvironmentObject`s typically have a `Location` but we do not explicitly
+ * associate the two because some `Agent`s are so dumb that they don't know
+ * where they are and are not supposed to peek.
+ */
+public protocol ILocation {
+//  class func random() -> ILocation {
+//    return ILocation() // Subclasses best override, not much choice here!
+//  }
 }
 
 // ////////////////////////////////////////////////////////////////////////////

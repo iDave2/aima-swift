@@ -27,14 +27,14 @@ public class VacuumWorld { // Begin VacuumWorld namespace.
     public func getValue() -> String { return self.rawValue }
   }
 
-  public enum Location {
+  public enum Location: String, ILocation {
     case left, right
     static func random() -> Location {
       return Bool.random() ? .left : .right
     }
   }
 
-  public enum LocationState {
+  public enum LocationState: String {
     case clean, dirty
   }
 
@@ -77,26 +77,29 @@ public class VacuumWorld { // Begin VacuumWorld namespace.
       guard let action = anAction as? Action else {
         fatalError("Expected VacuumWorld.Action, got \(anAction).  Aborting")
       }
-      guard let position = envObjects[agent] else {
+      guard let position = envObjects[agent] as? Location else {
         fatalError("Attempt to execute action for nonexistent agent \(agent).")
       }
       switch action {
         case .suck:
           locationState[position] = .clean
         case .moveLeft:
-          envObjects[agent] = .left
+          envObjects[agent] = Location.left
         case .moveRight:
-          envObjects[agent] = .right
+          envObjects[agent] = Location.right
       }
     }
-
+    
     public override func getPerceptSeenBy(_ agent: IAgent) -> IPercept {
-      guard let position = envObjects[agent] else {
+      guard let position = envObjects[agent] as? Location else {
         fatalError("Attempt to retrieve percept for nonexistent agent \(agent).")
       }
       return Percept(location: position, state: locationState[position]!)
     }
 
+    public override func getRandomLocation() -> ILocation {
+      return Location.random()
+    }
   }
 
   /**
@@ -151,8 +154,5 @@ public class VacuumWorld { // Begin VacuumWorld namespace.
         }
       })
     }
-
   }
-
-
 } // End VacuumWorld namespace.
