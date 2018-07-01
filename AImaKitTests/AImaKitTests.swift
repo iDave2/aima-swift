@@ -26,8 +26,12 @@ class AImaKitTests: XCTestCase {
     
     typealias VW = VacuumWorld
 
-    func run(_ leftState: VW.LocationState, _ rightState: VW.LocationState,
-             _ location: VW.Location, _ steps: Int = 8) -> String
+    func run(_ leftState:  VW.LocationState,
+             _ rightState: VW.LocationState,
+             _ location:   VW.Location,
+             _ ruleBased:  Bool = false,
+             _ steps:      Int = 8
+            ) -> String
     {
       let environment = VW.Environment(leftState, rightState)
       let agent = VW.ReflexAgent()
@@ -44,12 +48,12 @@ class AImaKitTests: XCTestCase {
       "moveRight, moveLeft, moveRight, moveLeft, moveRight, moveLeft, moveRight, moveLeft")
 
     result = run(.clean, .dirty, .left)
-    print("(.clean, .dirty, .left) -> \(result)")
+    print("(.clean, .dirty, .left, true) -> \(result)")
     XCTAssert(result ==
       "moveRight, suck, moveLeft, moveRight, moveLeft, moveRight, moveLeft, moveRight")
 
     result = run(.dirty, .clean, .right)
-    print("(.dirty, .clean, .right) -> \(result)")
+    print("(.dirty, .clean, .right, true) -> \(result)")
     XCTAssert(result ==
       "moveLeft, suck, moveRight, moveLeft, moveRight, moveLeft, moveRight, moveLeft")
 

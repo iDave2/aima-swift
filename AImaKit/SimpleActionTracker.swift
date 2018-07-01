@@ -22,7 +22,7 @@ public class SimpleActionTracker: EnvironmentView {
   }
 
   public override func agentActed
-    (_: IAgent, _: Percept, _ action: IAction, _: IEnvironment) -> Void
+    (_: IAgent, _: IPercept, _ action: IAction, _: IEnvironment) -> Void
   {
     actions.append(action.getValue())
   }

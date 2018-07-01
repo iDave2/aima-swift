@@ -38,7 +38,7 @@ public protocol IAction {
  * - Parameter percept: The current percept of a sequence perceived by the Agent.
  * - Returns: The Action to be taken in response to the currently perceived percept.
  */
-public typealias AgentProgram = (_ percept: Percept) -> IAction
+public typealias AgentProgram = (_ percept: IPercept) -> IAction
 //
 // Swift: That says AgentProgram is a function type that takes a Percept
 // and returns an Action.
@@ -77,96 +77,6 @@ public class IAgent: EnvironmentObject {
 // ////////////////////////////////////////////////////////////////////////////
 
 /**
- * An `EnvironmentObject` can be added to an `Environment`.
- */
-public class EnvironmentObject: Object {
-  // Not clear this distinction is needed (yet) but there it is.
-  // It seems Percept must be a protocol if we want to tag enums with it...
-}
-
-// ////////////////////////////////////////////////////////////////////////////
-
-/**
- * Superclass for a hierarchy of observers and trackers to view the interaction
- * of Agent(s) with an Environment.  Subclasses must override default NOOP
- * implementations with desired behavior.
- */
-public class EnvironmentView: EnvironmentObject {
-  /**
-   * A simple notification message from an object in the Environment.
-   *
-   * - Parameter message: The message received.
-   */
-  public func notify(_ message: String) -> Void {
-  
-  }
-
-  /**
-   * Indicates an Agent has been added to the environment and what it
-   * perceives initially.
-   *
-   * - Parameter agent: The Agent just added to the Environment.
-   * - Parameter source: The Environment to which the agent was added.
-   */
-  public func agentAdded(_ agent: IAgent, _ source: IEnvironment) -> Void {
-  
-  }
-
-  /**
-   * Indicates the Environment has changed as a result of an Agent's action.
-   *
-   * - Parameter agent: The Agent that performed the Action.
-   * - Parameter percept: The Percept the Agent received from the environment.
-   * - Parameter action: The Action the Agent performed.
-   * - Parameter source: The Environment in which the agent has acted.
-   */
-  public func agentActed
-    (_ agent: IAgent, _ percept: Percept, _ action: IAction, _ source: IEnvironment) -> Void
-  {
-  
-  }
-}
-
-// ////////////////////////////////////////////////////////////////////////////
-
-/**
- * Artificial Intelligence A Modern Approach (3rd Edition): pg 34.
- *
- * We use the term percept to refer the agent's perceptual inputs at any given
- * instant.
- */
-public protocol Percept {
-
-}
-
-// ////////////////////////////////////////////////////////////////////////////
-
-/**
- * Named in honor of Java's `Object`, this superclass provides a default
- * equivalence relation and hash code for any Swift types you want to use
- * in a `Collection` (like `Array` or `Set`).  Subclasses may override
- * default implementations if necessary.
- */
-public class Object: Hashable {
-
-  // Explicitly increase access level from default 'internal' to 'public'.
-  public init() {
-  
-  }
-  
-  // Two object or instance references are equal if and only if they point to
-  // the same address, the same memory.
-  public static func == (lhs: Object, rhs: Object) -> Bool {
-    return lhs === rhs
-  }
-  
-  // These hash values also use address-like discrimination.
-  public var hashValue: Int { return ObjectIdentifier(self).hashValue }
-}
-
-// ////////////////////////////////////////////////////////////////////////////
-
-/**
  * Top of the `Environment` hierarchy, instances of this class will crash like
  * the Python examples since Swift lacks proper abstract classes.  So subclass
  * this for your particular Task Environment and override the crashers with
@@ -189,7 +99,7 @@ public class IEnvironment {
     fatalError("World is not a complete Environment; subclasses must override this method.")
   }
 
-  public func getPerceptSeenBy(_: IAgent) -> Percept {
+  public func getPerceptSeenBy(_: IAgent) -> IPercept {
     fatalError("World is not a complete Environment; subclasses must override this method.")
   }
 
@@ -310,10 +220,100 @@ public class IEnvironment {
     }
   }
 
-  func notifyEnvironmentViews(_ agent: IAgent, _ percept: Percept, _ action: IAction) -> Void {
+  func notifyEnvironmentViews(_ agent: IAgent, _ percept: IPercept, _ action: IAction) -> Void {
     for view in views {
       view.agentActed(agent, percept, action, self);
     }
   }
 
 }
+// ////////////////////////////////////////////////////////////////////////////
+
+/**
+ * An `EnvironmentObject` can be added to an `Environment`.
+ */
+public class EnvironmentObject: Object {
+  // Not clear this distinction is needed (yet) but there it is.
+  // It seems Percept must be a protocol if we want to tag enums with it...
+}
+
+// ////////////////////////////////////////////////////////////////////////////
+
+/**
+ * Superclass for a hierarchy of observers and trackers to view the interaction
+ * of Agent(s) with an Environment.  Subclasses must override default NOOP
+ * implementations with desired behavior.
+ */
+public class EnvironmentView: EnvironmentObject {
+  /**
+   * A simple notification message from an object in the Environment.
+   *
+   * - Parameter message: The message received.
+   */
+  public func notify(_ message: String) -> Void {
+  
+  }
+
+  /**
+   * Indicates an Agent has been added to the environment and what it
+   * perceives initially.
+   *
+   * - Parameter agent: The Agent just added to the Environment.
+   * - Parameter source: The Environment to which the agent was added.
+   */
+  public func agentAdded(_ agent: IAgent, _ source: IEnvironment) -> Void {
+  
+  }
+
+  /**
+   * Indicates the Environment has changed as a result of an Agent's action.
+   *
+   * - Parameter agent: The Agent that performed the Action.
+   * - Parameter percept: The Percept the Agent received from the environment.
+   * - Parameter action: The Action the Agent performed.
+   * - Parameter source: The Environment in which the agent has acted.
+   */
+  public func agentActed
+    (_ agent: IAgent, _ percept: IPercept, _ action: IAction, _ source: IEnvironment) -> Void
+  {
+  
+  }
+}
+
+// ////////////////////////////////////////////////////////////////////////////
+
+/**
+ * Named in honor of Java's `Object`, this superclass provides a default
+ * equivalence relation and hash code for any Swift types you want to use
+ * in a `Collection` (like `Array` or `Set`).  Subclasses may override
+ * default implementations if necessary.
+ */
+public class Object: Hashable {
+
+  // Explicitly increase access level from default 'internal' to 'public'.
+  public init() {
+  
+  }
+  
+  // Two object or instance references are equal if and only if they point to
+  // the same address, the same memory.
+  public static func == (lhs: Object, rhs: Object) -> Bool {
+    return lhs === rhs
+  }
+  
+  // These hash values also use address-like discrimination.
+  public var hashValue: Int { return ObjectIdentifier(self).hashValue }
+}
+
+// ////////////////////////////////////////////////////////////////////////////
+
+/**
+ * Artificial Intelligence A Modern Approach (3rd Edition): pg 34.
+ *
+ * We use the term percept to refer the agent's perceptual inputs at any given
+ * instant.
+ */
+public protocol IPercept {
+
+}
+
