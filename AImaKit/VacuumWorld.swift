@@ -109,8 +109,6 @@ public class VacuumWorld { // Begin VacuumWorld task environment.
    * Figure 2.8: The agent program for a simple reflex agent in the two-state
    * vacuum environment. This program implements the action function tabulated
    * in Figure 2.3.
-   *
-   * Documentation care of Ciaran O'Reilly.
    */
   public class ReflexAgent: IAgent {
     // Swift: The python solutions, where ReflexVacuumAgent() is just a function
