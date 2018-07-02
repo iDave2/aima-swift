@@ -7,8 +7,12 @@ implementation of algorithms from [Russell](http://www.cs.berkeley.edu/~russell/
 [Artificial Intelligence - A Modern Approach 3rd Edition](http://aima.cs.berkeley.edu/).
 
 ## Getting Started
-Until a manual build is available, please use a recent Xcode + Swift.  I'm using Xcode v9.4.1 and Swift v4.1.2
-but may soon upgrade to v10 so that internet documentation matches local behavior.
+The project uses Xcode 10 and Swift 4.2 which are Beta at time of writing.  You can download Xcode Beta
+releases from [this page](https://developer.apple.com/support/beta-software/).  The download unzips into
+`Xcode-beta.app` and includes the newer `Swift` in its toolchain.  In order to activate newer `Swift`
+everywhere, either use [xcode-select](http://iosdevelopertips.com/xcode/xcode-select-managing-multiple-versions-of-xcode.html)
+or run Preferences > Locations from the `Xcode-beta` IDE and select it as the location for Command Line Tools.
+Then `Swift` is magically v4.2 everywhere.
 
 To download the repository:
 
@@ -24,10 +28,13 @@ tells Swift where to find the AImaKit framework and lets you easily run tests fr
 ```bash
 $ cat test.swift 
 import AImaKit
+  
+typealias VW = VacuumWorld
 
-let agent = ReflexVacuumAgent()
-let percept = LocalVacuumPercept(location: .left, state: .dirty)
-let action = agent.execute(percept)
+let agent = VW.ReflexAgent() // Create an agent.
+let stuff = Set<EnvironmentObject>([Dirt()]) // Create one dirt. 
+let percept = VW.Percept(location: VW.left, objects: stuff) // One dirt?
+let action = agent.execute(percept) // Give me one dirt, Vasili.
 print("Agent sees \(percept), does \"\(action).\"")
 ``` 
 

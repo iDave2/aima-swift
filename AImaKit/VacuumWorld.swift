@@ -33,14 +33,19 @@ public class VacuumWorld { // Begin VacuumWorld task environment.
   public enum LocationState { case clean, dirty }
 
   // Simplify / clarify a common type. Got stuff?
-  typealias Stuff = Set<EnvironmentObject>
+  public typealias Stuff = Set<EnvironmentObject>
 
   /**
    * Sensor requirements for the simple vacuum environment and its agents.
    */
   public struct Percept: IPercept, Hashable {
-    var location: Location
-    var objects: Stuff
+    private(set) public var location: Location
+    private(set) public var objects: Stuff
+    // Override default internal access level.
+    public init(location: Location, objects: Stuff) {
+      self.location = location
+      self.objects = objects
+    }
   }
 
   /**
