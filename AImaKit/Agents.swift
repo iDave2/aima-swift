@@ -141,7 +141,7 @@ public class IEnvironment {
    * - Returns: An immutable `Dictionary<EnvironmentObject, Location>` satisfying
    * input criteria.
    */
-  public func getEnvironmentObjects(at location: Location?)
+  public func getObjects(at location: Location?)
               -> Dictionary<EnvironmentObject, Location>
   {
     var workArea = [EnvironmentObject: Location]() // Start with empty dictionary.
@@ -167,7 +167,7 @@ public class IEnvironment {
    *   - thing:  The object to add to environment.
    *   - location:  Optional location at which to place it.
    */
-  public func addEnvironmentObject(_ thing: EnvironmentObject, at location: Location?)
+  public func addObject(_ thing: EnvironmentObject, at location: Location?)
   {
     if envObjects.keys.contains(thing) {
       return // There is only one of each Object, the thing is already here.
@@ -181,7 +181,7 @@ public class IEnvironment {
     }
   }
 
-  public func removeEnvironmentObject(_ thing: EnvironmentObject) {
+  public func removeObject(_ thing: EnvironmentObject) {
     envObjects[thing] = nil // Same effect as removeValue(forKey:).
     if let agent = thing as? IAgent {
       performanceMeasures.removeValue(forKey: agent)

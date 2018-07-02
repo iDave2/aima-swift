@@ -91,7 +91,7 @@ public class VacuumWorld { // Begin VacuumWorld task environment.
       guard let agentLocation = envObjects[agent] else {
         fatalError("Attempt to retrieve percept for nonexistent agent \(agent).")
       }
-      let things = Set(getEnvironmentObjects(at: agentLocation).keys)
+      let things = Set(getObjects(at: agentLocation).keys)
       return Percept(location: agentLocation, objects: things)
     }
   }
