@@ -84,23 +84,38 @@ public class IAgent: EnvironmentObject {
  * definition and avoid a runtime crash.
  */
 public class IEnvironment {
-  var envObjects = Dictionary<EnvironmentObject, ILocation>()
   var agents = Set<IAgent>()
-  var views = Set<EnvironmentView>()
+  var envObjects = Dictionary<EnvironmentObject, Location>()
   var performanceMeasures: [IAgent: Double] = [:]
+  var space = Space(0..<1) // Some kind of default, a single 1D point?
+  var views = Set<EnvironmentView>()
 
   // Methods to be implemented by subclasses.
 
-  public func executeAction(_: IAgent, _: IAction) -> Void {
+  /**
+   * Alter environment according to action just taken by incoming agent.
+   * For example, if a vacuum agent just did `Suck` then remove all `Dirt`
+   * from its current location (assuming `Suck` is 100% successful).
+   *
+   * This method must be overriden by concrete subclasses.
+   *
+   * - Parameters:
+   *   - agent: The agent that chose this action.
+   *   - action: The action chosen by this agent
+   */
+  public func executeAction(_ agent: IAgent, _ action: IAction) {
     fatalError("IEnvironment subclass must define executeAction(agent:action:)!")
   }
 
-  public func getPerceptSeenBy(_: IAgent) -> IPercept {
+  /**
+   * Create the `Percept` seen by this `Agent` at its current `Location`.
+   *
+   * This method must be overriden by concrete subclasses.
+   *
+   * - Parameter agent: The agent requesting another `Percept`.
+   */
+  public func getPerceptSeenBy(_ agent: IAgent) -> IPercept {
     fatalError("IEnvironment subclass must define getPerceptSeenBy(agent:)!")
-  }
-
-  public func getRandomLocation() -> ILocation {
-    fatalError("IEnvironment subclass must define getRandomLocation()!")
   }
 
 //  /**
@@ -118,27 +133,56 @@ public class IEnvironment {
     return copy
   }
 
-  public func getEnvironmentObjects() -> Dictionary<EnvironmentObject, ILocation> {
-    let copy = envObjects
-    return copy
+  /**
+   * Return all environment objects, along with their location, either from a
+   * specified location or, if no location is provided, from the entire environment.
+   *
+   * - Parameter location: Optional location to retrieve objects from.
+   * - Returns: An immutable `Dictionary<EnvironmentObject, Location>` satisfying
+   * input criteria.
+   */
+  public func getEnvironmentObjects(at location: Location?)
+              -> Dictionary<EnvironmentObject, Location>
+  {
+    var workArea = [EnvironmentObject: Location]() // Start with empty dictionary.
+    if location == nil {
+      workArea = envObjects     // Add all entries.
+    } else {
+      for (key, value) in envObjects {
+        if value == location {
+          workArea[key] = value // Add only those with matching location.
+        }
+      }
+    }
+    // I think this only makes `result` (the reference) and `Location`s immutable...
+    let result = workArea
+    return result
   }
 
-  public func addEnvironmentObject(_ thing: EnvironmentObject, at location: ILocation?) -> Void
+  /**
+   * Add an object to the environment optionally specifying its location.
+   * If no location is provided, a random location will be chosen.
+   *
+   * - Parameters:
+   *   - thing:  The object to add to environment.
+   *   - location:  Optional location at which to place it.
+   */
+  public func addEnvironmentObject(_ thing: EnvironmentObject, at location: Location?)
   {
     if envObjects.keys.contains(thing) {
       return // There is only one of each Object, the thing is already here.
     }
-    let position = location ?? getRandomLocation() // A default, if necessary.
+    let position = location ?? space.randomLocation()
     envObjects[thing] = position
     if let agent = thing as? IAgent {
       agents.insert(agent)
       performanceMeasures[agent] = 0.0
-      // notifyEnvironmentViews(agent);
+      notifyEnvironmentViews(agent);
     }
   }
 
-  public func removeEnvironmentObject(_ thing: EnvironmentObject) -> Void {
-    envObjects[thing] = nil
+  public func removeEnvironmentObject(_ thing: EnvironmentObject) {
+    envObjects[thing] = nil // Same effect as removeValue(forKey:).
     if let agent = thing as? IAgent {
       performanceMeasures.removeValue(forKey: agent)
       agents.remove(agent);
@@ -151,7 +195,7 @@ public class IEnvironment {
 //   * {@link #getPerceptSeenBy(Agent)}, {@link #executeAction(Agent, Action)},
 //   * and {@link #createExogenousChange()}.
 //   */
-  public func step() -> Void {
+  public func step() {
     for agent in agents {
       if agent.isAlive {
         let percept = getPerceptSeenBy(agent)
@@ -163,13 +207,13 @@ public class IEnvironment {
 //    createExogenousChange();
   }
 
-  public func step(_ count: Int) -> Void {
+  public func step(_ count: Int) {
     for _ in 1...count {
       step();
     }
   }
 
-  public func stepUntilDone() -> Void {
+  public func stepUntilDone() {
     while !isDone() {
       step();
     }
@@ -188,21 +232,21 @@ public class IEnvironment {
     return performanceMeasures[forAgent]
   }
 
-  func updatePerformanceMeasure(forAgent: IAgent, addTo: Double) -> Void {
+  func updatePerformanceMeasure(forAgent: IAgent, addTo: Double) {
     if performanceMeasures[forAgent] != nil {
       performanceMeasures[forAgent]! += addTo
     }
   }
 
-  public func addEnvironmentView(_ view: EnvironmentView) ->Void {
+  public func addEnvironmentView(_ view: EnvironmentView) {
     views.insert(view)
   }
 
-  public func removeEnvironmentView(_ view: EnvironmentView) -> Void {
+  public func removeEnvironmentView(_ view: EnvironmentView) {
     views.remove(view);
   }
 
-  public func notifyViews(_ message: String) -> Void {
+  public func notifyViews(_ message: String) {
     for view in views {
       view.notify(message);
     }
@@ -215,13 +259,13 @@ public class IEnvironment {
   // PROTECTED METHODS
   //
 
-  func notifyEnvironmentViews(_ agent: IAgent) -> Void {
+  func notifyEnvironmentViews(_ agent: IAgent) {
     for view in views {
       view.agentAdded(agent, self);
     }
   }
 
-  func notifyEnvironmentViews(_ agent: IAgent, _ percept: IPercept, _ action: IAction) -> Void {
+  func notifyEnvironmentViews(_ agent: IAgent, _ percept: IPercept, _ action: IAction) {
     for view in views {
       view.agentActed(agent, percept, action, self);
     }
@@ -251,7 +295,7 @@ public class EnvironmentView: EnvironmentObject {
    *
    * - Parameter message: The message received.
    */
-  public func notify(_ message: String) -> Void {
+  public func notify(_ message: String) {
 
   }
 
@@ -262,7 +306,7 @@ public class EnvironmentView: EnvironmentObject {
    * - Parameter agent: The Agent just added to the Environment.
    * - Parameter source: The Environment to which the agent was added.
    */
-  public func agentAdded(_ agent: IAgent, _ source: IEnvironment) -> Void {
+  public func agentAdded(_ agent: IAgent, _ source: IEnvironment) {
   
   }
 
@@ -279,7 +323,7 @@ public class EnvironmentView: EnvironmentObject {
                          _ percept: IPercept,
                          _ action:  IAction,
                          _ source:  IEnvironment
-                        ) -> Void
+                        )
   {
   
   }
@@ -287,15 +331,67 @@ public class EnvironmentView: EnvironmentObject {
 
 // ////////////////////////////////////////////////////////////////////////////
 
+public typealias Location = [Int]
+
+// ////////////////////////////////////////////////////////////////////////////
+
 /**
- * `EnvironmentObject`s typically have a `Location` but we do not explicitly
- * associate the two because some `Agent`s are so dumb that they don't know
- * where they are and are not supposed to peek.
+ * For problems involving N-dimensional Cartesian locations, it is simpler to
+ * implement one concrete model than multiple custom spaces like `(left, right)`
+ * and is arguably clearer.
+ *
+ * This class models an N-dimensional `Space` of integer coordinates where `N >= 1`.
+ * Each dimension is initialized with a half-open interval, or `Range`, like `0..<10`
+ * or -5..<5.  A location then is just an array of integers.
  */
-public protocol ILocation {
-//  class func random() -> ILocation {
-//    return ILocation() // Subclasses best override, not much choice here!
-//  }
+public class Space {
+  let ranges: [Range<Int>]
+
+  /**
+   * Method initializes `Space` instance with one or more `Range`s.
+   *
+   * - Parameters:
+   *     - firstRange: The first range, required.
+   *     - moreRanges: Zero or more additional ranges or dimensions.
+   */
+  public init(_ firstRange: Range<Int>, _ moreRanges: Range<Int>...) {
+    ranges = [firstRange] + moreRanges
+  }
+  
+  /**
+   * - Returns: The number of dimensions of this space (i.e., the number of
+   *            ranges supplied at initialization).
+   */
+  public func getDimension() -> Int { return ranges.count }
+  
+  /**
+   * Method checks whether a given `location` is _inside_ this `Space`.
+   *
+   * A `location` is _inside_ iff it's dimension is no greater than the `Space`'s
+   * and each of its coordinates is contained in the corresponding `Space` range.
+   *
+   * - Parameter location: The location to test for containment.
+   * - Returns: True if `location` is inside this `Space`; otherwise, false.
+   */
+  public func contains(_ location: [Int]) -> Bool {
+    if ranges.count < location.count {
+      return false
+    }
+    for i in 0..<location.count {
+      if !ranges[i].contains(location[i]) {
+        return false
+      }
+    }
+    return true
+  }
+
+  public func randomLocation() -> [Int] {
+    var location = [Int]()
+    for range in ranges {
+      location.append(Int.random(in: range))
+    }
+    return location
+  }
 }
 
 // ////////////////////////////////////////////////////////////////////////////
@@ -321,6 +417,13 @@ public class Object: Hashable {
   
   // These hash values also use address-like discrimination.
   public var hashValue: Int { return ObjectIdentifier(self).hashValue }
+}
+
+/**
+ * Environment object to represent dirt at a single location.
+ */
+public class Dirt: EnvironmentObject { // Dirt is uncountable?  Dirt() == Dirt()?
+
 }
 
 // ////////////////////////////////////////////////////////////////////////////

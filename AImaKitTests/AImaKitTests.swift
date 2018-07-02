@@ -21,46 +21,46 @@ class AImaKitTests: XCTestCase {
   }
 
   func testReflexVacuumAgent() {
-    // This is an example of a functional test case.
-    // Use XCTAssert and related functions to verify your tests produce the correct results.
     
     typealias VW = VacuumWorld
 
-    func run(_ leftState:  VW.LocationState,
-             _ rightState: VW.LocationState,
-             _ location:   VW.Location,
-             _ ruleBased:  Bool = false,
-             _ steps:      Int = 8
+    func run(_ leftState:     VW.LocationState,
+             _ rightState:    VW.LocationState,
+             _ agentLocation: Location,
+             _ ruleBased:     Bool = false,
+             _ steps:         Int = 7
             ) -> String
     {
-      let environment = VW.Environment(leftState, rightState)
+      let environment = VW.Environment(Space(0..<2)) // Two locations, left and right.
       let agent = VW.ReflexAgent()
-      environment.addEnvironmentObject(agent, at: location)
+      environment.addEnvironmentObject(agent, at: agentLocation)
+      if leftState == .dirty {
+        environment.addEnvironmentObject(Dirt(), at: VW.left)
+      }
+      if rightState == .dirty {
+        environment.addEnvironmentObject(Dirt(), at: VW.right)
+      }
       let view = SimpleActionTracker()
       environment.addEnvironmentView(view)
       environment.step(steps)
       return view.getActions()
     }
 
-    var result = run(.clean, .clean, .left)
-    print("(.clean, .clean, .left) -> \(result)")
-    XCTAssert(result ==
-      "moveRight, moveLeft, moveRight, moveLeft, moveRight, moveLeft, moveRight, moveLeft")
+    var result = run(.clean, .clean, VW.left)
+    print("(.clean, .clean, VW.left) -> \(result)")
+    XCTAssert(result == "moveRight, moveLeft, moveRight, moveLeft, moveRight, moveLeft, moveRight")
 
-    result = run(.clean, .dirty, .left)
-    print("(.clean, .dirty, .left, true) -> \(result)")
-    XCTAssert(result ==
-      "moveRight, suck, moveLeft, moveRight, moveLeft, moveRight, moveLeft, moveRight")
+    result = run(.clean, .dirty, VW.left, true)
+    print("(.clean, .dirty, VW.left, true) -> \(result)")
+    XCTAssert(result == "moveRight, suck, moveLeft, moveRight, moveLeft, moveRight, moveLeft")
 
-    result = run(.dirty, .clean, .right)
-    print("(.dirty, .clean, .right, true) -> \(result)")
-    XCTAssert(result ==
-      "moveLeft, suck, moveRight, moveLeft, moveRight, moveLeft, moveRight, moveLeft")
+    result = run(.dirty, .clean, VW.right, true)
+    print("(.dirty, .clean, VW.right, true) -> \(result)")
+    XCTAssert(result == "moveLeft, suck, moveRight, moveLeft, moveRight, moveLeft, moveRight")
 
-    result = run(.dirty, .dirty, .right)
-    print("(.dirty, .dirty, .right) -> \(result)")
-    XCTAssert(result ==
-      "suck, moveLeft, suck, moveRight, moveLeft, moveRight, moveLeft, moveRight")
+    result = run(.dirty, .dirty, VW.right)
+    print("(.dirty, .dirty, VW.right) -> \(result)")
+    XCTAssert(result == "suck, moveLeft, suck, moveRight, moveLeft, moveRight, moveLeft")
   }
   
   func testPerformanceExample() {

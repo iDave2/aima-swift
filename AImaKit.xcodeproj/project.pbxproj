@@ -434,7 +434,7 @@
 					"@executable_path/../Frameworks",
 					"@loader_path/../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = TheDek.AImaKitTests;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.github.idave2.aima-swift.AImaKitTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
 			};
@@ -453,7 +453,7 @@
 					"@executable_path/../Frameworks",
 					"@loader_path/../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = TheDek.AImaKitTests;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.github.idave2.aima-swift.AImaKitTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
 			};

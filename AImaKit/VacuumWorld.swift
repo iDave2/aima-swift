@@ -17,7 +17,7 @@ import Foundation
  * Assume for the moment, that sucking is 100% effective. The goal is to
  * clean up all the dirt.
  */
-public class VacuumWorld { // Begin VacuumWorld namespace.
+public class VacuumWorld { // Begin VacuumWorld task environment.
 
   /**
    * Actuator requirements for the simple vacuum environment and its agents.
@@ -27,34 +27,20 @@ public class VacuumWorld { // Begin VacuumWorld namespace.
     public func getValue() -> String { return self.rawValue }
   }
 
-  public enum Location: String, ILocation {
-    case left, right
-    static func random() -> Location {
-      return Bool.random() ? .left : .right
-    }
-  }
+  // Setup notation for clear statements of the left-right world
+  // for agents and applications that use it.
+  public static let left = [0], right = [1] // Those are 1D locations.
+  public enum LocationState { case clean, dirty }
 
-  public enum LocationState: String {
-    case clean, dirty
-  }
+  // Simplify / clarify a common type. Got stuff?
+  typealias Stuff = Set<EnvironmentObject>
 
   /**
    * Sensor requirements for the simple vacuum environment and its agents.
-   *
-   * Swift: Note that `Percept` is _not_ an `Object` so its equivalence relation
-   * and hash code are not based strictly on instance address like `Object`s; rather,
-   * we let the compiler provide `Equatable` and `Hashable` implementations
-   * automatically, based on the equatable and hashable members of `Percept`,
-   * but the Swift compiler (evidently) won't do this for us unless we explicitly
-   * request `Hashable` in the definition.  OK?
    */
   public struct Percept: IPercept, Hashable {
     var location: Location
-    var state: LocationState
-    public init(location: Location, state: LocationState) {
-      self.location = location
-      self.state = state
-    }
+    var objects: Stuff
   }
 
   /**
@@ -62,43 +48,51 @@ public class VacuumWorld { // Begin VacuumWorld namespace.
    */
   public class Environment: IEnvironment {
 
-    var locationState: [Location: LocationState]
+    // var locationState: [Location: LocationState]
 
-    /// Initialize a vacuum environment.
-    ///
-    /// - Parameters:
-    ///   - leftState: `LocationState` (.clean or .dirty) of left position.
-    ///   - rightState: `LocationState` of right position.
-    public init(_ leftState: LocationState, _ rightState: LocationState) {
-      locationState = [.left: leftState, .right: rightState]
+    /**
+     * Initialize a `VacuumEnvironment` with the given `Space`.
+     *
+     * - Parameter space: The space to use for this environment.
+     */
+    public init(_ space: Space) {
+      super.init()
+      self.space = space
     }
 
-    public override func executeAction(_ agent: IAgent, _ anAction: IAction) -> Void {
+    public override func executeAction(_ agent: IAgent, _ anAction: IAction) {
       guard let action = anAction as? Action else {
         fatalError("Expected VacuumWorld.Action, got \(anAction).  Aborting")
       }
-      guard let position = envObjects[agent] as? Location else {
+      guard let agentLocation = envObjects[agent] else {
         fatalError("Attempt to execute action for nonexistent agent \(agent).")
       }
       switch action {
-        case .suck:
-          locationState[position] = .clean
+        case .suck: // Vacuum away all dirt from agent's location.
+          let newDictionary = envObjects.filter() { element -> Bool in
+            let (object, location) = element
+            return location != agentLocation || type(of: object) != Dirt.self
+          }
+          envObjects = newDictionary
         case .moveLeft:
-          envObjects[agent] = Location.left
+          let newLocation = [agentLocation[0] - 1] + agentLocation[1...]
+          if space.contains(newLocation) {
+            envObjects[agent] = newLocation
+          }
         case .moveRight:
-          envObjects[agent] = Location.right
+          let newLocation = [agentLocation[0] + 1] + agentLocation[1...]
+          if space.contains(newLocation) {
+            envObjects[agent] = newLocation
+          }
       }
     }
     
     public override func getPerceptSeenBy(_ agent: IAgent) -> IPercept {
-      guard let position = envObjects[agent] as? Location else {
+      guard let agentLocation = envObjects[agent] else {
         fatalError("Attempt to retrieve percept for nonexistent agent \(agent).")
       }
-      return Percept(location: position, state: locationState[position]!)
-    }
-
-    public override func getRandomLocation() -> ILocation {
-      return Location.random()
+      let things = Set(getEnvironmentObjects(at: agentLocation).keys)
+      return Percept(location: agentLocation, objects: things)
     }
   }
 
@@ -132,25 +126,32 @@ public class VacuumWorld { // Begin VacuumWorld namespace.
      */
     public init(ruleBased: Bool = false) {
       super.init({ (_ scene: IPercept) -> Action in
+      
         guard let percept = scene as? Percept else {
           fatalError("Expected VacuumWorld.Percept, got \(scene), aborting.")
         }
+
+        precondition(percept.location == left || percept.location == right)
+        
+        let isDirty = percept.objects.contains(where: { type(of: $0) == Dirt.self } )
+        let state: LocationState = isDirty ? .dirty : .clean
+        
         if ruleBased  // Rule-based flavor.
         {
-          let rules: [Percept: Action] = [
-            Percept(location: .left, state: .clean): .moveRight,
-            Percept(location: .left, state: .dirty): .suck,
-            Percept(location: .right, state: .clean): .moveLeft,
-            Percept(location: .right, state: .dirty): .suck,
+          let rules: [Location: [LocationState: Action]] = [
+            left:  [.clean: .moveRight],
+            left:  [.dirty: .suck],
+            right: [.clean: .moveLeft],
+            right: [.dirty: .suck],
           ]
-          return rules[percept]! // Prove this is safe.
+          return rules[percept.location]![state]!
         }
         else          // Algorithm-based variation.
         {
-          if percept.state == .dirty {
+          if isDirty {
             return .suck
           }
-          return percept.location == .left ? .moveRight : .moveLeft;
+          return percept.location == left ? .moveRight : .moveLeft;
         }
       })
     }
