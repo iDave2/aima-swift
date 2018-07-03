@@ -18,26 +18,9 @@
 
 import Foundation
 
-// ////////////////////////////////////////////////////////////////////////////
-
-/**
- * Describes an `Action` that can or has been taken by an `Agent` via one of its
- * actuators.
- *
- * Different task environments (PEAS) adopt this protocol to define their
- * particular actuator requirements.  For example,
- * ```swift
- * enum Action: String, IAction {
- *   case noOp, moveRight, moveUp, drinkJava, etc
- *   func getValue() -> String { return self.rawValue }
- * }
- * ```
- */
-public protocol IAction {
-  func getValue() -> String // Adopters typically { return self.rawValue }
-}
-
-// ////////////////////////////////////////////////////////////////////////////
+// *-****+****-****+****-****+****-****+****-****+****-****+****-****+****-****
+// ---  AGENTS  ---
+// *-****+****-****+****-****+****-****+****-****+****-****+****-****+****-****
 
 /**
  * "An __agent__ is anything that can be viewed as perceiving its
@@ -55,7 +38,7 @@ public protocol IAction {
  *
  * A performance measure, or the program that implements it,
  * evaluates or _scores_ an agent's choices.  It is like a judge in a game.
- * Explain how this Judge is like or unlike the Agent defined above.
+ * Explain how this `Judge` is like or unlike the `Agent` defined above.
  */
 public class IAgent: EnvironmentObject {
   /**
@@ -96,6 +79,31 @@ public protocol IPercept {
 // ////////////////////////////////////////////////////////////////////////////
 
 /**
+ * Describes an `Action` that can or has been taken by an `Agent` via
+ * one of its actuators.
+ */
+public protocol IAction {
+
+  /**
+   * Adopters of this protocol must implement `getValue()` so that
+   * functions defined abstractly using `IAction` as a parameter can
+   * display information about the actual `Action` they are referencing.
+   *
+   * Here is an example for the case in which `IAction` is implemented
+   * as a Swift enum:
+   * ```swift
+   * enum Action: String, IAction {
+   *   case noOp, moveRight, moveUp, drinkJava, etc
+   *   func getValue() -> String { return self.rawValue }
+   * }
+   * ```
+   */
+  func getValue() -> String // Adopters typically { return self.rawValue }
+}
+
+// ////////////////////////////////////////////////////////////////////////////
+
+/**
  * "Mathematically speaking, we say that an agent's behavior is described by
  * the __agent function__ that maps any given percept sequence to an action.
  * [The agent function is] an _external_ characterization of the agent.
@@ -111,6 +119,10 @@ public typealias AgentProgram = (_ percept: IPercept) -> IAction
 // Swift: That says AgentProgram is a function type that takes a Percept
 // and returns an Action.
 //
+
+// *-****+****-****+****-****+****-****+****-****+****-****+****-****+****-****
+// ---  ENVIRONMENTS  ---
+// *-****+****-****+****-****+****-****+****-****+****-****+****-****+****-****
 
 // ////////////////////////////////////////////////////////////////////////////
 
