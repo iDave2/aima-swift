@@ -18,6 +18,7 @@
 
 import Foundation
 
+
 // *-****+****-****+****-****+****-****+****-****+****-****+****-****+****-****
 // ---  AGENTS  ---
 // *-****+****-****+****-****+****-****+****-****+****-****+****-****+****-****
@@ -60,7 +61,6 @@ public class IAgent: EnvironmentObject {
     execute = program
   }
 }
-
 
 // ////////////////////////////////////////////////////////////////////////////
 
@@ -120,11 +120,10 @@ public typealias AgentProgram = (_ percept: IPercept) -> IAction
 // and returns an Action.
 //
 
+
 // *-****+****-****+****-****+****-****+****-****+****-****+****-****+****-****
 // ---  ENVIRONMENTS  ---
 // *-****+****-****+****-****+****-****+****-****+****-****+****-****+****-****
-
-// ////////////////////////////////////////////////////////////////////////////
 
 /**
  * Top of the `Environment` hierarchy, this class defines most of the common
@@ -318,6 +317,7 @@ public class IEnvironment {
   }
 
 }
+
 // ////////////////////////////////////////////////////////////////////////////
 
 /**
@@ -331,9 +331,9 @@ public class EnvironmentObject: Object {
 // ////////////////////////////////////////////////////////////////////////////
 
 /**
- * Superclass for a hierarchy of observers and trackers to view the interaction
- * of Agent(s) with an Environment.  Subclasses may override default NOOP
- * implementations with desired behavior.
+ * Superclass for a hierarchy of observers and trackers to view the
+ * interaction of Agent(s) with an Environment.  Subclasses may override
+ * default NOOP implementations with desired behavior.
  */
 public class EnvironmentView: EnvironmentObject {
   /**
@@ -375,23 +375,20 @@ public class EnvironmentView: EnvironmentObject {
   }
 }
 
-// ////////////////////////////////////////////////////////////////////////////
 
-/**
- * A `Location` is just a set of coordinates in its underlying `Space`.
- */
-public typealias Location = [Int]
-
-// ////////////////////////////////////////////////////////////////////////////
+// *-****+****-****+****-****+****-****+****-****+****-****+****-****+****-****
+// ---  EUCLIDEAN SPACE  ---
+// *-****+****-****+****-****+****-****+****-****+****-****+****-****+****-****
 
 /**
  * For problems involving N-dimensional Cartesian locations, it is simpler to
  * implement one concrete model than multiple custom spaces like `(left, right)`
  * and is arguably clearer.
  *
- * This class models an N-dimensional `Space` of integer coordinates where `N >= 1`.
- * Each dimension is initialized with a half-open interval, or `Range`, like `0..<10`
- * or -5..<5.  A location then is just an array of integers.
+ * This class models an N-dimensional `Space` of integer coordinates where
+ * `N >= 1`.  Each dimension is initialized with a half-open interval, or
+ * `Range`, like `0..<10` or `-5..<5`.  A `Location` then is just an array
+ * of integers.
  */
 public class Space {
   let ranges: [Range<Int>]
@@ -414,12 +411,12 @@ public class Space {
   public func getDimension() -> Int { return ranges.count }
   
   /**
-   * Method checks whether a given `location` is _inside_ this `Space`.
+   * Method checks whether a given `Location` is _inside_ this `Space`.
    *
    * A `location` is _inside_ iff it's dimension is no greater than the `Space`'s
    * and each of its coordinates is contained in the corresponding `Space` range.
    *
-   * - Parameter location: The location to test for containment.
+   * - Parameter location: The `Location` to test for containment.
    * - Returns: True if `location` is inside this `Space`; otherwise, false.
    */
   public func contains(_ location: Location) -> Bool {
@@ -449,6 +446,16 @@ public class Space {
 // ////////////////////////////////////////////////////////////////////////////
 
 /**
+ * A `Location` is just an array of coordinates in its underlying `Space`.
+ */
+public typealias Location = [Int]
+
+
+// *-****+****-****+****-****+****-****+****-****+****-****+****-****+****-****
+// ---  LANGUAGE  ---
+// *-****+****-****+****-****+****-****+****-****+****-****+****-****+****-****
+
+/**
  * Named in honor of Java's `Object`, this superclass provides a default
  * equivalence relation and hash code for any Swift types you want to use
  * in a `Collection` (like `Array` or `Set`).  Subclasses may override
@@ -469,11 +476,4 @@ public class Object: Hashable {
   
   // These hash values also use address-like discrimination.
   public var hashValue: Int { return ObjectIdentifier(self).hashValue }
-}
-
-/**
- * Environment object to represent dirt at a single location.
- */
-public class Dirt: EnvironmentObject { // Dirt is uncountable?  Dirt() == Dirt()?
-
 }

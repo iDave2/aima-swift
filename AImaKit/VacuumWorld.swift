@@ -7,6 +7,10 @@
 
 import Foundation
 
+// *-****+****-****+****-****+****-****+****-****+****-****+****-****+****-****
+// ---  VACUUM WORLD  ---
+// *-****+****-****+****-****+****-****+****-****+****-****+****-****+****-****
+
 /**
  * Artificial Intelligence A Modern Approach (3rd Edition): pg 58.
  *
@@ -19,6 +23,24 @@ import Foundation
  */
 public class VacuumWorld { // Begin VacuumWorld task environment.
 
+  // Setup notation for clear statements of the left-right world
+  // for agents and applications that use it.
+  public static let left = [0], right = [1] // One dimensional space.
+  public enum LocationState { case clean, dirty }
+  
+  /**
+   * `Dirt` is an `EnvironmentObject` in the `VacuumWorld`.
+   *
+   * These `Dirt` are countable so you can have two `Dirt`s or even more.
+   *
+   * __Exercise__
+   *
+   * Explain what "two `Dirt`s" means.
+   */
+  public class Dirt: EnvironmentObject { // Dirt is uncountable?  Dirt() == Dirt()?
+    
+  }
+
   /**
    * Actuator requirements for the simple vacuum environment and its agents.
    */
@@ -26,11 +48,6 @@ public class VacuumWorld { // Begin VacuumWorld task environment.
     case suck, moveLeft, moveRight
     public func getValue() -> String { return self.rawValue }
   }
-
-  // Setup notation for clear statements of the left-right world
-  // for agents and applications that use it.
-  public static let left = [0], right = [1] // Those are 1D locations.
-  public enum LocationState { case clean, dirty }
 
   // Simplify / clarify a common type. Got stuff?
   public typealias Stuff = Set<EnvironmentObject>
@@ -41,7 +58,8 @@ public class VacuumWorld { // Begin VacuumWorld task environment.
   public struct Percept: IPercept, Hashable {
     private(set) public var location: Location
     private(set) public var objects: Stuff
-    // Override default internal access level.
+
+    // Override default internal access level for memberwise initializer.
     public init(location: Location, objects: Stuff) {
       self.location = location
       self.objects = objects
@@ -112,6 +130,11 @@ public class VacuumWorld { // Begin VacuumWorld task environment.
    * Figure 2.8: The agent program for a simple reflex agent in the two-state
    * vacuum environment. This program implements the action function tabulated
    * in Figure 2.3.
+   *
+   * This reflex agent _function_ may be implemented with a table-based,
+   * rule-based, or simple handwritten _program_.  It is only when we go
+   * to model-based, where state or memory is added, that the agent gets
+   * scary smart (or at least noticably smarter).
    */
   public class ReflexAgent: IAgent {
     // Swift: The python solutions, where ReflexVacuumAgent() is just a function
@@ -137,7 +160,7 @@ public class VacuumWorld { // Begin VacuumWorld task environment.
         let isDirty = percept.objects.contains(where: { type(of: $0) == Dirt.self } )
         let state: LocationState = isDirty ? .dirty : .clean
         
-        if ruleBased  // Rule-based flavor.
+        if ruleBased  // Rule-based flavor uses dictionary of dictionaries.
         {
           let rules: [Location: [LocationState: Action]] = [
             left:  [.clean: .moveRight],
@@ -155,6 +178,6 @@ public class VacuumWorld { // Begin VacuumWorld task environment.
           return percept.location == left ? .moveRight : .moveLeft;
         }
       })
-    }
+    } // End agent program.
   }
 } // End VacuumWorld namespace.
