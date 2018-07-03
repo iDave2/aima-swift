@@ -4,9 +4,16 @@
 //
 //  Created by Dave King on 6/23/18.
 //
+//  Should this earlier comment,
+//
 //  The notation `ISomeType` used in this file means that that type is meant
 //  to be subclassed by actual `SomeType`s that satisfy requirements of a
 //  particular task environment.
+//
+//  be replaced with this?
+//
+//  This top-level file contains global symbols prefixed with `AIma` so that
+//  `AImaKit` symbols do not conflict with other frameworks like `UIKit`.
 //
 
 import Foundation
@@ -33,27 +40,22 @@ public protocol IAction {
 // ////////////////////////////////////////////////////////////////////////////
 
 /**
- * Artificial Intelligence A Modern Approach (3rd Edition): pg 35.
+ * "An __agent__ is anything that can be viewed as perceiving its
+ * __environment__ through __sensors__ and acting upon that environment
+ * through __actuators__." -- AIMA3e, page 34.
  *
- * An agent's behavior is described by the 'agent function' that maps any given
- * percept sequence to an action. Internally, the agent function for an
- * artificial agent will be implemented by an agent program.
+ * "When an agent is plunked down in an environment, it generates a sequence
+ * of actions according to the percepts it receives. This sequence of actions
+ * causes the environment to go through a sequence of states.  If the sequence
+ * is _desirable_, then the agent has _performed well_.  This notion of
+ * desirability is captured by a __performance measure__ that evaluates any
+ * given sequence of environment states." -- AIMA3e, page 37, italics mine.
  *
- * - Parameter percept: The current percept of a sequence perceived by the Agent.
- * - Returns: The Action to be taken in response to the currently perceived percept.
- */
-public typealias AgentProgram = (_ percept: IPercept) -> IAction
-//
-// Swift: That says AgentProgram is a function type that takes a Percept
-// and returns an Action.
-//
-
-// ////////////////////////////////////////////////////////////////////////////
-
-/**
- * Artificial Intelligence A Modern Approach (3rd Edition): Figure 2.1, page 35.
+ * __Exercise__
  *
- * Agents interact with environments through sensors and actuators.
+ * A performance measure, or the program that implements it,
+ * evaluates or _scores_ an agent's choices.  It is like a judge in a game.
+ * Explain how this Judge is like or unlike the Agent defined above.
  */
 public class IAgent: EnvironmentObject {
   /**
@@ -75,6 +77,40 @@ public class IAgent: EnvironmentObject {
     execute = program
   }
 }
+
+
+// ////////////////////////////////////////////////////////////////////////////
+
+/**
+ * "We use the term __percept__ to refer to the agent's perceptual inputs at
+ * any given instant.  An agent's __percept sequence__ is the complete history
+ * of everything the agent has ever perceived.  In general, _an agent's choice
+ * of action at any given instant can depend on the entire percept sequence
+ * observed to date, but not on anything it hasn't perceived_." -- AIMA3e,
+ * page 34.
+ */
+public protocol IPercept {
+
+}
+
+// ////////////////////////////////////////////////////////////////////////////
+
+/**
+ * "Mathematically speaking, we say that an agent's behavior is described by
+ * the __agent function__ that maps any given percept sequence to an action.
+ * [The agent function is] an _external_ characterization of the agent.
+ * _Internally_, the agent function for an artificial agent will be
+ * implemented by an __agent program__.  It is important to keep these two
+ * ideas distinct." -- AIMA3e, page 35.
+ *
+ * - Parameter percept: The current percept of a sequence perceived by the Agent.
+ * - Returns: The Action to be taken in response to the currently perceived percept.
+ */
+public typealias AgentProgram = (_ percept: IPercept) -> IAction
+//
+// Swift: That says AgentProgram is a function type that takes a Percept
+// and returns an Action.
+//
 
 // ////////////////////////////////////////////////////////////////////////////
 
@@ -138,12 +174,10 @@ public class IEnvironment {
    * specified location or, if no location is provided, from the entire environment.
    *
    * - Parameter location: Optional location to retrieve objects from.
-   * - Returns: An immutable `Dictionary<EnvironmentObject, Location>` satisfying
+   * - Returns: A `Dictionary<EnvironmentObject, Location>` satisfying
    * input criteria.
    */
-  public func getObjects(at location: Location?)
-              -> Dictionary<EnvironmentObject, Location>
-  {
+  public func getObjects(at location: Location?) -> Dictionary<EnvironmentObject, Location> {
     var workArea = [EnvironmentObject: Location]() // Start with empty dictionary.
     if location == nil {
       workArea = envObjects     // Add all entries.
@@ -286,7 +320,7 @@ public class EnvironmentObject: Object {
 
 /**
  * Superclass for a hierarchy of observers and trackers to view the interaction
- * of Agent(s) with an Environment.  Subclasses must override default NOOP
+ * of Agent(s) with an Environment.  Subclasses may override default NOOP
  * implementations with desired behavior.
  */
 public class EnvironmentView: EnvironmentObject {
@@ -331,6 +365,9 @@ public class EnvironmentView: EnvironmentObject {
 
 // ////////////////////////////////////////////////////////////////////////////
 
+/**
+ * A `Location` is just a set of coordinates in its underlying `Space`.
+ */
 public typealias Location = [Int]
 
 // ////////////////////////////////////////////////////////////////////////////
@@ -373,7 +410,7 @@ public class Space {
    * - Parameter location: The location to test for containment.
    * - Returns: True if `location` is inside this `Space`; otherwise, false.
    */
-  public func contains(_ location: [Int]) -> Bool {
+  public func contains(_ location: Location) -> Bool {
     if ranges.count < location.count {
       return false
     }
@@ -385,7 +422,10 @@ public class Space {
     return true
   }
 
-  public func randomLocation() -> [Int] {
+  /**
+   * Returns: A random location inside the space.
+   */
+  public func randomLocation() -> Location {
     var location = [Int]()
     for range in ranges {
       location.append(Int.random(in: range))
@@ -425,16 +465,3 @@ public class Object: Hashable {
 public class Dirt: EnvironmentObject { // Dirt is uncountable?  Dirt() == Dirt()?
 
 }
-
-// ////////////////////////////////////////////////////////////////////////////
-
-/**
- * Artificial Intelligence A Modern Approach (3rd Edition): pg 34.
- *
- * We use the term percept to refer the agent's perceptual inputs at any given
- * instant.
- */
-public protocol IPercept {
-
-}
-

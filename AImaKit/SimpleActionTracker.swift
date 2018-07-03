@@ -10,8 +10,6 @@ import Foundation
 /**
  * Environment view implementation which logs performed action and
  * provides a comma-separated String with all actions performed so far.
- *
- * Courtesy of Ruediger Lunde.
  */
 public class SimpleActionTracker: EnvironmentView {
 
@@ -21,9 +19,7 @@ public class SimpleActionTracker: EnvironmentView {
     return actions.joined(separator: ", ")
   }
 
-  public override func agentActed
-    (_: IAgent, _: IPercept, _ action: IAction, _: IEnvironment) -> Void
-  {
+  public override func agentActed(_: IAgent, _: IPercept, _ action: IAction, _: IEnvironment) {
     actions.append(action.getValue())
   }
 }

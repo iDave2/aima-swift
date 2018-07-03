@@ -63,6 +63,12 @@ etc...
 ```
 So we'll use that until it doesn't work.  ThisLongRunOnNote probably needs a wiki page...
 
+All of which implies another coding guideline:
+
+- Prefix all global names with `AIma` so that `AImaKit` does not conflict with other frameworks
+like `UIKit`.
+- Minimize global symbols?
+
 ## Issues
 - Finish chapter 2.
 - Figure out how Apple builds frameworks from command line and implement.
