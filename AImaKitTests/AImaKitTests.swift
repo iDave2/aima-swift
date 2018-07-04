@@ -23,6 +23,8 @@ class AImaKitTests: XCTestCase {
   func testReflexVacuumAgent() {
     
     typealias VW = VacuumWorld
+    
+    let judge = VW.ReflexJudge()
 
     func run(_ leftState:     VW.LocationState,
              _ rightState:    VW.LocationState,
@@ -40,6 +42,7 @@ class AImaKitTests: XCTestCase {
       if rightState == .dirty {
         environment.addObject(VW.Dirt(), at: VW.right)
       }
+      environment.addObject(judge)
       let view = SimpleActionTracker()
       environment.addEnvironmentView(view)
       environment.step(steps)

@@ -211,16 +211,16 @@ public class IEnvironment {
   // This is just not working for me.  Getting errors like "inner dict is a let constant"
   // or iterators returning a tuple rather than a dictionary?  It is treating contained
   // dictionary as a let struct?
-  // var agents = Dictionary<IAgent, Dictionary<IJudge, Double>>()
-  class Score { // A score given by this judge to an agent.
-    let judge: IJudge
-    var value: Double
-    init(judge: IJudge, value: Double) {
-      self.judge = judge
-      self.value = value
-    }
-  }
-  var agents = Dictionary<IAgent, [Score]>()
+  var agentScores = Dictionary<IAgent, Dictionary<IJudge, Double>>()
+//  public class Score { // A score given by this judge to an agent.
+//    let judge: IJudge
+//    var value: Double
+//    init(judge: IJudge, value: Double) {
+//      self.judge = judge
+//      self.value = value
+//    }
+//  }
+//  var agentScores = Dictionary<IAgent, [Score]>()
 
   var envObjects = Dictionary<EnvironmentObject, Location>()
   // let performanceMeasures: [IAgent: Double] = [:]
@@ -319,25 +319,46 @@ public class IEnvironment {
    *   - thing:  The object to add to environment.
    *   - location:  Optional location at which to place it.
    */
-  public func addObject(_ thing: EnvironmentObject, at location: Location?)
+  public func addObject(_ thing: EnvironmentObject, at location: Location? = nil)
   {
     if envObjects.keys.contains(thing) {
       return // There is only one of each Object, the thing is already here.
     }
     let position = location ?? space.randomLocation()
-    envObjects[thing] = position
-    if let agent = thing as? IAgent {
-      agents[agent] = []  // Agent has no judges or scores yet.
-      // performanceMeasures[agent] = 0.0
+    if let agent = thing as? IAgent
+    {
+      envObjects[agent] = position     // Place agent on gameboard.
+      agentScores[agent] = [:]         // Agent has no judges or scores yet.
       notifyEnvironmentViews(agent);
+    }
+    else if let judge = thing as? IJudge
+    {
+      /*
+       * Swift collection iterators like "for (key, value) in myDictionary" are
+       * tricky.  Swift unwraps them for you but then makes them "let constants"
+       * so you cannot modify values this way.  Probably safer overall...
+       *
+       * Add new Judge to each Agent's scoring dictionary.
+       */
+      for agent in agentScores.keys {
+        agentScores[agent]![judge] = 0.0
+      }
+    }
+    else
+    {
+      envObjects[thing] = position     // Place everything else on gameboard.
     }
   }
 
   public func removeObject(_ thing: EnvironmentObject) {
     envObjects[thing] = nil // Same effect as removeValue(forKey:).
     if let agent = thing as? IAgent {
-      // performanceMeasures.removeValue(forKey: agent)
-      agents[agent] = nil // .remove(agent);
+      agentScores[agent] = nil // Removes both key and value.
+    }
+    if let judge = thing as? IJudge {
+      for agent in agentScores.keys {
+        agentScores[agent]![judge] = nil
+      }
     }
   }
 
@@ -348,15 +369,25 @@ public class IEnvironment {
 //   * and {@link #createExogenousChange()}.
 //   */
   public func step() {
-    for (agent, scores) in agents {
+    for agent in agentScores.keys {
       if agent.isAlive {
+        //
+        // Synthesize an AgentPercept and ask Agent to map it to an AgentAction.
+        //
         let agentPercept = getPerceptSeenBy(agent)
         let agentAction = agent.execute(agentPercept)
+        //
+        // Map AgentAction onto actual Environment changes and save
+        // as list of JudgePercepts for any interested Judges.
+        //
         let environmentChanges = executeAction(agent, agentAction)
+        //
+        // Let each Judge update score for this Agent.
+        //
+        var scores = agentScores[agent]!  // That is Dictionary<IJudge, Double>.
         for judgePercept in environmentChanges {
-          for score in scores {
-            let nextValue = score.judge.execute(judgePercept)
-            score.value += nextValue
+          for judge in scores.keys {
+            scores[judge]! += judge.execute(judgePercept)
           }
         }
         notifyEnvironmentViews(agent, agentPercept, agentAction);
@@ -378,7 +409,7 @@ public class IEnvironment {
   }
 
   public func isDone() -> Bool {
-    for agent in agents.keys {
+    for agent in agentScores.keys {
       if agent.isAlive {
         return false
       }
@@ -386,14 +417,8 @@ public class IEnvironment {
     return true;
   }
 
-  public func getPerformanceMeasure(forAgent: IAgent) -> Double? {
-    return 0.0 //performanceMeasures[forAgent]
-  }
-
-  func updatePerformanceMeasure(forAgent: IAgent, addTo: Double) {
-    // if performanceMeasures[forAgent] != nil {
-    //   performanceMeasures[forAgent]! += addTo
-    // }
+  public func getScores(forAgent: IAgent) -> [IJudge: Double]? {
+    return agentScores[forAgent]
   }
 
   public func addEnvironmentView(_ view: EnvironmentView) {
