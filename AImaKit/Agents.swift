@@ -384,10 +384,10 @@ public class IEnvironment {
         //
         // Let each Judge update score for this Agent.
         //
-        var scores = agentScores[agent]!  // That is Dictionary<IJudge, Double>.
+        // var scores = agentScores[agent]!  // That is Dictionary<IJudge, Double>.
         for judgePercept in environmentChanges {
-          for judge in scores.keys {
-            scores[judge]! += judge.execute(judgePercept)
+          for judge in agentScores[agent]!.keys {
+            agentScores[agent]![judge]! += judge.execute(judgePercept)
           }
         }
         notifyEnvironmentViews(agent, agentPercept, agentAction);

@@ -23,15 +23,13 @@ class AImaKitTests: XCTestCase {
   func testReflexVacuumAgent() {
     
     typealias VW = VacuumWorld
-    
-    let judge = VW.ReflexJudge()
 
     func run(_ leftState:     VW.LocationState,
              _ rightState:    VW.LocationState,
              _ agentLocation: Location,
              _ ruleBased:     Bool = false,
              _ steps:         Int = 7
-            ) -> String
+            ) -> (String, Double)
     {
       let environment = VW.Environment(Space(0..<2)) // Two locations, left and right.
       let agent = VW.ReflexAgent()
@@ -42,28 +40,44 @@ class AImaKitTests: XCTestCase {
       if rightState == .dirty {
         environment.addObject(VW.Dirt(), at: VW.right)
       }
+      let judge = VW.ReflexJudge()
       environment.addObject(judge)
       let view = SimpleActionTracker()
       environment.addEnvironmentView(view)
       environment.step(steps)
-      return view.getActions()
+      var score = -10_000.0
+      if let scores = environment.getScores(forAgent: agent) { // [IJudge: Double]?
+        if scores.count > 0 && scores[judge] != nil {
+          score = scores[judge]!
+        }
+      }
+      return (view.getActions(), score)
     }
+    
+    var scores: [Double] = []
+    var sum = 0.0
 
-    var result = run(.clean, .clean, VW.left)
-    print("(.clean, .clean, VW.left) -> \(result)")
-    XCTAssert(result == "moveRight, moveLeft, moveRight, moveLeft, moveRight, moveLeft, moveRight")
+    var (actions, score) = run(.clean, .clean, VW.left)
+    scores.append(score); sum += score
+    print("(.clean, .clean, VW.left) -> \(actions)")
+    XCTAssert(actions == "moveRight, moveLeft, moveRight, moveLeft, moveRight, moveLeft, moveRight")
 
-    result = run(.clean, .dirty, VW.left, true)
-    print("(.clean, .dirty, VW.left, true) -> \(result)")
-    XCTAssert(result == "moveRight, suck, moveLeft, moveRight, moveLeft, moveRight, moveLeft")
+    (actions, score) = run(.clean, .dirty, VW.left, true)
+    scores.append(score); sum += score
+    print("(.clean, .dirty, VW.left, true) -> \(actions)")
+    XCTAssert(actions == "moveRight, suck, moveLeft, moveRight, moveLeft, moveRight, moveLeft")
 
-    result = run(.dirty, .clean, VW.right, true)
-    print("(.dirty, .clean, VW.right, true) -> \(result)")
-    XCTAssert(result == "moveLeft, suck, moveRight, moveLeft, moveRight, moveLeft, moveRight")
+    (actions, score) = run(.dirty, .clean, VW.right, true)
+    scores.append(score); sum += score
+    print("(.dirty, .clean, VW.right, true) -> \(actions)")
+    XCTAssert(actions == "moveLeft, suck, moveRight, moveLeft, moveRight, moveLeft, moveRight")
 
-    result = run(.dirty, .dirty, VW.right)
-    print("(.dirty, .dirty, VW.right) -> \(result)")
-    XCTAssert(result == "suck, moveLeft, suck, moveRight, moveLeft, moveRight, moveLeft")
+    (actions, score) = run(.dirty, .dirty, VW.right)
+    scores.append(score); sum += score
+    print("(.dirty, .dirty, VW.right) -> \(actions)")
+    XCTAssert(actions == "suck, moveLeft, suck, moveRight, moveLeft, moveRight, moveLeft")
+    
+    print("\nScores: \(scores), average:", sum / Double(scores.count))
   }
   
   func testPerformanceExample() {
