@@ -238,7 +238,7 @@ public class VacuumWorld { // Begin VacuumWorld task environment.
      */
     public init() {
       super.init({ (_ scene: IPercept) -> Double in
-        print("\nIN JUDGE WITH PERCEPT \(scene)\n")
+        // print("\nIN JUDGE WITH PERCEPT \(scene)\n")
         guard let percept = scene as? JudgePercept else {
           fatalError("Expected VacuumWorld.JudgePercept, got \(scene), aborting.")
         }

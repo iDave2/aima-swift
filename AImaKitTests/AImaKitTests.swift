@@ -54,6 +54,8 @@ class AImaKitTests: XCTestCase {
       return (view.getActions(), score)
     }
     
+    print("")
+    
     var scores: [Double] = []
     var sum = 0.0
 
@@ -77,7 +79,8 @@ class AImaKitTests: XCTestCase {
     print("(.dirty, .dirty, VW.right) -> \(actions)")
     XCTAssert(actions == "suck, moveLeft, suck, moveRight, moveLeft, moveRight, moveLeft")
     
-    print("\nScores: \(scores), average:", sum / Double(scores.count))
+    print("Scores: \(scores), average:", sum / Double(scores.count))
+    print("")
   }
   
   func testPerformanceExample() {
