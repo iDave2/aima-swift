@@ -41,26 +41,26 @@ import Foundation
  * evaluates or _scores_ an agent's choices.  It is like a judge in a game.
  * Explain how this `Judge` is like or unlike the `Agent` defined above.
  */
-public class IAgent: EnvironmentObject {
-  /**
-   * The *agent function* that maps percepts to actions.
-   */
-  public let execute: AgentProgram
-
-  /**
-   * Life-cycle indicator as to the liveness of an Agent.
-   */
-  internal(set) public var isAlive = true
-  
-  /**
-   * Custom initializer sets AgentProgram for this agent.
-   *
-   * - Parameter program: The agent's program.
-   */
-  public init(_ program: @escaping AgentProgram) {
-    execute = program
-  }
-}
+//public class IAgent: EnvironmentObject {
+//  /**
+//   * The *agent function* that maps percepts to actions.
+//   */
+//  let execute: AgentProgram
+//
+//  /**
+//   * Life-cycle indicator as to the liveness of an Agent.
+//   */
+//  var isAlive = true
+//
+//  /**
+//   * Custom initializer sets AgentProgram for this agent.
+//   *
+//   * - Parameter program: The agent's program.
+//   */
+//  public init(_ program: @escaping AgentProgram) {
+//    execute = program
+//  }
+//}
 
 // ////////////////////////////////////////////////////////////////////////////
 
@@ -113,29 +113,136 @@ public protocol IAction {
  *
  * - Parameter percept: The current percept of a sequence perceived by the Agent.
  * - Returns: The Action to be taken in response to the currently perceived percept.
+*/
+public typealias ActorProgram<T> = (_ percept: IPercept) -> T
+public typealias AgentProgram = ActorProgram<IAction>
+public typealias JudgeProgram = ActorProgram<Double>
+public class IActor<T>: EnvironmentObject { // Erase `EnvironmentObject`?
+  /**
+   * The *agent function* that maps percepts to actions.
+   */
+  let execute: ActorProgram<T>
+
+  /**
+   * Custom initializer sets AgentProgram for this agent.
+   *
+   * - Parameter program: The agent's program.
+   */
+  public init(_ program: @escaping ActorProgram<T>) {
+    execute = program
+  }
+}
+
+/**
+ * An `Agent` is an `Actor` that returns an `Action`.
  */
-public typealias AgentProgram = (_ percept: IPercept) -> IAction
+public class IAgent: IActor<IAction> {
+  /**
+   * Life-cycle indicator as to the liveness of an Agent.
+   */
+  var isAlive = true
+}
+
+/**
+ * A `Judge` is an `Actor` that returns a `Double` representing the score
+ * assigned to an `Agent`'s last `Action`.
+ */
+public class IJudge: IActor<Double> {
+
+}
 //
 // Swift: That says AgentProgram is a function type that takes a Percept
 // and returns an Action.
 //
 
+/**
+ * We treat _performance measurement programs_ as `Agent`s but call them
+ * `Judge`s to simplify discourse.
+ *
+ * Like `Agent`s, `Judge`s must be initialized with their program and, if
+ * they maintain state, that state must be contained within the judge's
+ * program.  `Judge`s cannot look around and see the entire task environment;
+ * they can only see the `Percept`s handed to them by their `Environment`.
+ *
+ * Unlike `Agent` `Percept`s which might resemble `(Location, Dirty)` or
+ * `(Location, Clean)`, the only thing a `Judge` sees is _changes_ to the
+ * `Environment`:  at each time step, the `Environment` passes a list of
+ * changes an `Agent`'s actions may have caused to the `Judge` for scoring.
+ * So `Judge`s _know nothing_ about the `Agent`s causing the change.  For
+ * example, a pretty `Agent` might skew the `Judge`s scoring; we prevent
+ * that...
+ */
+//public class IJudge: IAgent {
+//}
+//extension Double: IAction {
+//  public func getValue() -> String { return String(self) }
+//}
+//public class IJudge: Object {
+//  /**
+//   * The *judge function* that maps percepts to actions.
+//   */
+//  internal(set) var execute: JudgeProgram
+//
+//  /**
+//   * Custom initializer sets AgentProgram for this agent.
+//   *
+//   * - Parameter program: The agent's program.
+//   */
+//  public init(_ program: @escaping JudgeProgram) {
+//    execute = program
+//  }
+//}
 
 // *-****+****-****+****-****+****-****+****-****+****-****+****-****+****-****
 // ---  ENVIRONMENTS  ---
 // *-****+****-****+****-****+****-****+****-****+****-****+****-****+****-****
 
 /**
- * Top of the `Environment` hierarchy, this class defines most of the common
+ * Root of the `Environment` hierarchy, this class defines common
  * functionality of any environment but must be subclassed to complete the
  * definition and avoid a runtime crash.
  */
+//struct Thing {
+//  var agent: IAgent
+//  var judges: Dictionary<IJudge, Double>
+//}
 public class IEnvironment {
-  var agents = Set<IAgent>()
+
+  // This is just not working for me.  Getting errors like "inner dict is a let constant"
+  // or iterators returning a tuple rather than a dictionary?  It is treating contained
+  // dictionary as a let struct?
+  // var agents = Dictionary<IAgent, Dictionary<IJudge, Double>>()
+  class Score { // A score given by this judge to an agent.
+    let judge: IJudge
+    var value: Double
+    init(judge: IJudge, value: Double) {
+      self.judge = judge
+      self.value = value
+    }
+  }
+  var agents = Dictionary<IAgent, [Score]>()
+
   var envObjects = Dictionary<EnvironmentObject, Location>()
-  var performanceMeasures: [IAgent: Double] = [:]
-  var space = Space(0..<1) // Some kind of default, a single 1D point?
+  // let performanceMeasures: [IAgent: Double] = [:]
+  
+  ///
+  /// The Euclidean space used by this environment.
+  ///
+  let space: Space
+  
+  ///
+  /// The views or observers watching this environment.
+  ///
   var views = Set<EnvironmentView>()
+
+  /**
+   * Initialize the root environment with a `Space`.
+   *
+   * - Parameter space: The space to use for this environment.
+   */
+  public init(_ space: Space) {
+    self.space = space
+  }
 
   // Methods to be implemented by subclasses.
 
@@ -150,7 +257,7 @@ public class IEnvironment {
    *   - agent: The agent that chose this action.
    *   - action: The action chosen by this agent
    */
-  public func executeAction(_ agent: IAgent, _ action: IAction) {
+  public func executeAction(_ agent: IAgent, _ action: IAction) -> [IPercept] {
     fatalError("IEnvironment subclass must define executeAction(agent:action:)!")
   }
 
@@ -175,10 +282,10 @@ public class IEnvironment {
 
   //
   // START-Environment
-  public func getAgents() -> Set<IAgent> {
-    let copy = agents
-    return copy
-  }
+//  public func getAgents() -> Set<IAgent> {
+//    let copy = agents
+//    return copy
+//  }
 
   /**
    * Return all environment objects, along with their location, either from a
@@ -220,8 +327,8 @@ public class IEnvironment {
     let position = location ?? space.randomLocation()
     envObjects[thing] = position
     if let agent = thing as? IAgent {
-      agents.insert(agent)
-      performanceMeasures[agent] = 0.0
+      agents[agent] = []  // Agent has no judges or scores yet.
+      // performanceMeasures[agent] = 0.0
       notifyEnvironmentViews(agent);
     }
   }
@@ -229,8 +336,8 @@ public class IEnvironment {
   public func removeObject(_ thing: EnvironmentObject) {
     envObjects[thing] = nil // Same effect as removeValue(forKey:).
     if let agent = thing as? IAgent {
-      performanceMeasures.removeValue(forKey: agent)
-      agents.remove(agent);
+      // performanceMeasures.removeValue(forKey: agent)
+      agents[agent] = nil // .remove(agent);
     }
   }
 
@@ -241,12 +348,18 @@ public class IEnvironment {
 //   * and {@link #createExogenousChange()}.
 //   */
   public func step() {
-    for agent in agents {
+    for (agent, scores) in agents {
       if agent.isAlive {
-        let percept = getPerceptSeenBy(agent)
-        let action = agent.execute(percept)
-        executeAction(agent, action);
-        notifyEnvironmentViews(agent, percept, action);
+        let agentPercept = getPerceptSeenBy(agent)
+        let agentAction = agent.execute(agentPercept)
+        let environmentChanges = executeAction(agent, agentAction)
+        for judgePercept in environmentChanges {
+          for score in scores {
+            let nextValue = score.judge.execute(judgePercept)
+            score.value += nextValue
+          }
+        }
+        notifyEnvironmentViews(agent, agentPercept, agentAction);
       }
     }
 //    createExogenousChange();
@@ -265,7 +378,7 @@ public class IEnvironment {
   }
 
   public func isDone() -> Bool {
-    for agent in agents {
+    for agent in agents.keys {
       if agent.isAlive {
         return false
       }
@@ -274,13 +387,13 @@ public class IEnvironment {
   }
 
   public func getPerformanceMeasure(forAgent: IAgent) -> Double? {
-    return performanceMeasures[forAgent]
+    return 0.0 //performanceMeasures[forAgent]
   }
 
   func updatePerformanceMeasure(forAgent: IAgent, addTo: Double) {
-    if performanceMeasures[forAgent] != nil {
-      performanceMeasures[forAgent]! += addTo
-    }
+    // if performanceMeasures[forAgent] != nil {
+    //   performanceMeasures[forAgent]! += addTo
+    // }
   }
 
   public func addEnvironmentView(_ view: EnvironmentView) {
@@ -386,22 +499,29 @@ public class EnvironmentView: EnvironmentObject {
  * and is arguably clearer.
  *
  * This class models an N-dimensional `Space` of integer coordinates where
- * `N >= 1`.  Each dimension is initialized with a half-open interval, or
+ * `N >= 0`.  Each dimension is initialized with a half-open interval, or
  * `Range`, like `0..<10` or `-5..<5`.  A `Location` then is just an array
  * of integers.
+ *
+ * The default initializer generates the special case of `N = 0` and permits
+ * expressions like
+ * ```swift
+ * let mySpace = Space()
+ * ```
+ * which gives you a concrete representation of nothing (in case you
+ * are working on big bang theory).
  */
 public class Space {
   let ranges: [Range<Int>]
 
   /**
-   * Method initializes `Space` instance with one or more `Range`s.
+   * Method initializes `Space` instance with zero or more `Range`s.
    *
    * - Parameters:
-   *     - firstRange: The first range, required.
-   *     - moreRanges: Zero or more additional ranges or dimensions.
+   *     - ranges: The list of ranges, one per dimension.
    */
-  public init(_ firstRange: Range<Int>, _ moreRanges: Range<Int>...) {
-    ranges = [firstRange] + moreRanges
+  public init(_ ranges: Range<Int>...) {
+    self.ranges = ranges
   }
   
   /**
@@ -420,10 +540,22 @@ public class Space {
    * - Returns: True if `location` is inside this `Space`; otherwise, false.
    */
   public func contains(_ location: Location) -> Bool {
+    //
+    // Does nothing contain nothing?
+    //
+    if ranges.isEmpty || location.isEmpty {
+      return false
+    }
+    //
+    // The relation is `contains`, not `intersects`.
+    //
     if ranges.count < location.count {
       return false
     }
-    for i in 0..<location.count {
+    //
+    // Check each coordinate for containment.
+    //
+    for i in 0 ..< min(ranges.count, location.count) {
       if !ranges[i].contains(location[i]) {
         return false
       }

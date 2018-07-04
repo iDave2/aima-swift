@@ -35,10 +35,10 @@ class AImaKitTests: XCTestCase {
       let agent = VW.ReflexAgent()
       environment.addObject(agent, at: agentLocation)
       if leftState == .dirty {
-        environment.addObject(Dirt(), at: VW.left)
+        environment.addObject(VW.Dirt(), at: VW.left)
       }
       if rightState == .dirty {
-        environment.addObject(Dirt(), at: VW.right)
+        environment.addObject(VW.Dirt(), at: VW.right)
       }
       let view = SimpleActionTracker()
       environment.addEnvironmentView(view)

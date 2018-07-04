@@ -28,34 +28,36 @@ public class VacuumWorld { // Begin VacuumWorld task environment.
   public static let left = [0], right = [1] // One dimensional space.
   public enum LocationState { case clean, dirty }
   
+  // Simplify / clarify a common type. Got stuff?
+  public typealias Stuff = Set<EnvironmentObject>
+
   /**
    * `Dirt` is an `EnvironmentObject` in the `VacuumWorld`.
-   *
-   * These `Dirt` are countable so you can have two `Dirt`s or even more.
-   *
-   * __Exercise__
-   *
-   * Explain what "two `Dirt`s" means.
    */
   public class Dirt: EnvironmentObject { // Dirt is uncountable?  Dirt() == Dirt()?
     
   }
 
   /**
-   * Actuator requirements for the simple vacuum environment and its agents.
+   * What an `Agent` can do.
    */
-  public enum Action: String, IAction {
+  public enum AgentAction: String, IAction {
     case suck, moveLeft, moveRight
     public func getValue() -> String { return self.rawValue }
   }
 
-  // Simplify / clarify a common type. Got stuff?
-  public typealias Stuff = Set<EnvironmentObject>
+  /**
+   * What an `Environment` can do.
+   */
+  public enum EnvironmentAction: String, IAction {
+    case noOp, moveAgent, removeDirt
+    public func getValue() -> String { return self.rawValue }
+  }
 
   /**
-   * Sensor requirements for the simple vacuum environment and its agents.
+   * What an `Agent` sees.
    */
-  public struct Percept: IPercept, Hashable {
+  public struct AgentPercept: IPercept, Hashable {
     private(set) public var location: Location
     private(set) public var objects: Stuff
 
@@ -65,9 +67,36 @@ public class VacuumWorld { // Begin VacuumWorld task environment.
       self.objects = objects
     }
   }
+  
+  /**
+   * What a `Judge` sees.
+   */
+  public struct JudgePercept: IPercept, Hashable {
+    let action: EnvironmentAction
+    let location: Location // Location _after_ action taken.
+  }
+  
+  public typealias Changes = [JudgePercept]
+
+//  public struct JudgePercept: IPercept, Hashable {
+//    private(set) public var location: Location
+//    private(set) public var objects: Stuff
+//
+//    // Override default internal access level for memberwise initializer.
+//    public init(location: Location, objects: Stuff) {
+//      self.location = location
+//      self.objects = objects
+//    }
+//
+//  }
+
+
+  // ****+****-****+****-****+****-****+****-****+****-****+****-****+****-****
+  // --- ENVIRONMENTS ---
+  // ****+****-****+****-****+****-****+****-****+****-****+****-****+****-****
 
   /**
-   * The VacuumWorld environment.
+   * The `VacuumWorld` environment.
    */
   public class Environment: IEnvironment {
 
@@ -76,18 +105,18 @@ public class VacuumWorld { // Begin VacuumWorld task environment.
      *
      * - Parameter space: The space to use for this environment.
      */
-    public init(_ space: Space) {
-      super.init()
-      self.space = space
+    public override init(_ space: Space) {
+      super.init(space)
     }
 
-    public override func executeAction(_ agent: IAgent, _ anAction: IAction) {
-      guard let action = anAction as? Action else {
-        fatalError("Expected VacuumWorld.Action, got \(anAction).  Aborting")
+    public override func executeAction(_ agent: IAgent, _ anAction: IAction) -> [IPercept] {
+      guard let action = anAction as? AgentAction else {
+        fatalError("Expected VacuumWorld.AgentAction, got \(anAction).  Aborting")
       }
       guard let agentLocation = envObjects[agent] else {
         fatalError("Attempt to execute action for nonexistent agent \(agent).")
       }
+      var changes = [JudgePercept]()
       switch action {
         case .suck: // Vacuum away all dirt from agent's location.
           let newDictionary = envObjects.filter() { element -> Bool in
@@ -95,17 +124,25 @@ public class VacuumWorld { // Begin VacuumWorld task environment.
             return location != agentLocation || type(of: object) != Dirt.self
           }
           envObjects = newDictionary
+          changes.append(JudgePercept(action: .removeDirt, location: agentLocation))
         case .moveLeft:
           let newLocation = [agentLocation[0] - 1] + agentLocation[1...]
           if space.contains(newLocation) {
             envObjects[agent] = newLocation
+            changes.append(JudgePercept(action: .moveAgent, location: newLocation))
+          } else {
+            changes.append(JudgePercept(action: .noOp, location: agentLocation))
           }
         case .moveRight:
           let newLocation = [agentLocation[0] + 1] + agentLocation[1...]
           if space.contains(newLocation) {
             envObjects[agent] = newLocation
+            changes.append(JudgePercept(action: .moveAgent, location: newLocation))
+          } else {
+            changes.append(JudgePercept(action: .noOp, location: agentLocation))
           }
-      }
+      } // End switch.
+      return changes
     }
     
     public override func getPerceptSeenBy(_ agent: IAgent) -> IPercept {
@@ -113,9 +150,14 @@ public class VacuumWorld { // Begin VacuumWorld task environment.
         fatalError("Attempt to retrieve percept for nonexistent agent \(agent).")
       }
       let stuff = Set(getObjects(at: agentLocation).keys)
-      return Percept(location: agentLocation, objects: stuff)
+      return AgentPercept(location: agentLocation, objects: stuff)
     }
   }
+
+
+  // ****+****-****+****-****+****-****+****-****+****-****+****-****+****-****
+  // --- AGENTS ---
+  // ****+****-****+****-****+****-****+****-****+****-****+****-****+****-****
 
   /**
    * Artificial Intelligence A Modern Approach (3rd Edition): Figure 2.8, page 48.
@@ -149,10 +191,10 @@ public class VacuumWorld { // Begin VacuumWorld task environment.
      * Initialize a ReflexAgent instance with the REFLEX-VACUUM-AGENT program.
      */
     public init(ruleBased: Bool = false) {
-      super.init({ (_ scene: IPercept) -> Action in
+      super.init({ (_ scene: IPercept) -> AgentAction in
       
-        guard let percept = scene as? Percept else {
-          fatalError("Expected VacuumWorld.Percept, got \(scene), aborting.")
+        guard let percept = scene as? AgentPercept else {
+          fatalError("Expected VacuumWorld.AgentPercept, got \(scene), aborting.")
         }
 
         precondition(percept.location == left || percept.location == right)
@@ -162,7 +204,7 @@ public class VacuumWorld { // Begin VacuumWorld task environment.
         
         if ruleBased  // Rule-based flavor uses dictionary of dictionaries.
         {
-          let rules: [Location: [LocationState: Action]] = [
+          let rules: [Location: [LocationState: AgentAction]] = [
             left:  [.clean: .moveRight],
             left:  [.dirty: .suck],
             right: [.clean: .moveLeft],
@@ -177,7 +219,39 @@ public class VacuumWorld { // Begin VacuumWorld task environment.
           }
           return percept.location == left ? .moveRight : .moveLeft;
         }
-      })
-    } // End agent program.
-  }
+      }) // End agent program.
+    }
+  } // End ReflexAgent.
+
+
+  // ****+****-****+****-****+****-****+****-****+****-****+****-****+****-****
+  // --- JUDGES ---
+  // ****+****-****+****-****+****-****+****-****+****-****+****-****+****-****
+
+  /**
+   * Like `ReflexAgent`, `ReflexJudge` has no state (no memory) and returns
+   * a score based solely on the last change to the environment.
+   */
+  public class ReflexJudge: IJudge {
+    /**
+     * Initialize a ReflexJudge instance with a move(-1), suck(+10) program.
+     */
+    public init() {
+      super.init({ (_ scene: IPercept) -> Double in
+        guard let percept = scene as? JudgePercept else {
+          fatalError("Expected VacuumWorld.JudgePercept, got \(scene), aborting.")
+        }
+        var score = 0.0
+        switch percept.action {
+          case .noOp:
+            score = 0.0 // Is agent smart or did it just bump into a wall?
+          case .moveAgent:
+            score = -1
+          case .removeDirt:
+            score = +10
+        }
+        return score
+      }) // End judge program.
+    } // End ReflexJudge initializer.
+  } // End ReflexJudge.
 } // End VacuumWorld namespace.
