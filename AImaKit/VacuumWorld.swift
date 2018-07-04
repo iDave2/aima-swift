@@ -73,23 +73,9 @@ public class VacuumWorld { // Begin VacuumWorld task environment.
    */
   public struct JudgePercept: IPercept, Hashable {
     let action: EnvironmentAction
-    let location: Location // Location _after_ action taken.
+    let location: Location // Location _after_ agent action taken.
   }
   
-  public typealias Changes = [JudgePercept]
-
-//  public struct JudgePercept: IPercept, Hashable {
-//    private(set) public var location: Location
-//    private(set) public var objects: Stuff
-//
-//    // Override default internal access level for memberwise initializer.
-//    public init(location: Location, objects: Stuff) {
-//      self.location = location
-//      self.objects = objects
-//    }
-//
-//  }
-
 
   // ****+****-****+****-****+****-****+****-****+****-****+****-****+****-****
   // --- ENVIRONMENTS ---
@@ -109,6 +95,10 @@ public class VacuumWorld { // Begin VacuumWorld task environment.
       super.init(space)
     }
 
+    //
+    // Note: This is also, effectively, a getPerceptSeenBy(IJudge:).
+    // Judges see these environment changes.
+    //
     public override func executeAction(_ agent: IAgent, _ anAction: IAction) -> [IPercept] {
       guard let action = anAction as? AgentAction else {
         fatalError("Expected VacuumWorld.AgentAction, got \(anAction).  Aborting")
@@ -176,7 +166,7 @@ public class VacuumWorld { // Begin VacuumWorld task environment.
    * This reflex agent _function_ may be implemented with a table-based,
    * rule-based, or simple handwritten _program_.  It is only when we go
    * to model-based, where state or memory is added, that the agent gets
-   * scary smart (or at least noticably smarter).
+   * scary smart and takes over the planet.  (<- He's exaggerating.)
    */
   public class ReflexAgent: IAgent {
     // Swift: The python solutions, where ReflexVacuumAgent() is just a function
@@ -245,7 +235,7 @@ public class VacuumWorld { // Begin VacuumWorld task environment.
         var score = 0.0
         switch percept.action {
           case .noOp:
-            score = 0.0 // Is agent smart or did it just bump into a wall?
+            score = 0.0 // Is agent smart or lazy or did it just bump into a wall?
           case .moveAgent:
             score = -1
           case .removeDirt:

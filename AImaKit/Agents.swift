@@ -105,43 +105,12 @@ public class IAgent: IActor<IAction> {
   var isAlive = true
 }
 
-// ////////////////////////////////////////////////////////////////////////////
-
-// public typealias JudgeProgram = ActorProgram<Double>
-
 /**
  * The AIMA3e __performance measure__.
  */
 public class IJudge: IActor<Double> {
 
 }
-
-/**
- * The AIMA3e _agent program_.
- */
-//public typealias AgentProgram = ActorProgram<IAction>
-
-
-//public class IAgent: EnvironmentObject {
-//  /**
-//   * The *agent function* that maps percepts to actions.
-//   */
-//  let execute: AgentProgram
-//
-//  /**
-//   * Life-cycle indicator as to the liveness of an Agent.
-//   */
-//  var isAlive = true
-//
-//  /**
-//   * Custom initializer sets AgentProgram for this agent.
-//   *
-//   * - Parameter program: The agent's program.
-//   */
-//  public init(_ program: @escaping AgentProgram) {
-//    execute = program
-//  }
-//}
 
 // ////////////////////////////////////////////////////////////////////////////
 
@@ -164,7 +133,6 @@ public protocol IPercept {
  * one of its actuators.
  */
 public protocol IAction {
-
   /**
    * Adopters of this protocol must implement `getValue()` so that
    * functions defined abstractly using `IAction` as a parameter can
@@ -182,49 +150,6 @@ public protocol IAction {
   func getValue() -> String // Adopters typically { return self.rawValue }
 }
 
-//
-// Swift: That says AgentProgram is a function type that takes a Percept
-// and returns an Action.
-//
-
-/**
- * We treat _performance measurement programs_ as `Agent`s but call them
- * `Judge`s to simplify discourse.
- *
- * Like `Agent`s, `Judge`s must be initialized with their program and, if
- * they maintain state, that state must be contained within the judge's
- * program.  `Judge`s cannot look around and see the entire task environment;
- * they can only see the `Percept`s handed to them by their `Environment`.
- *
- * Unlike `Agent` `Percept`s which might resemble `(Location, Dirty)` or
- * `(Location, Clean)`, the only thing a `Judge` sees is _changes_ to the
- * `Environment`:  at each time step, the `Environment` passes a list of
- * changes an `Agent`'s actions may have caused to the `Judge` for scoring.
- * So `Judge`s _know nothing_ about the `Agent`s causing the change.  For
- * example, a pretty `Agent` might skew the `Judge`s scoring; we prevent
- * that...
- */
-//public class IJudge: IAgent {
-//}
-//extension Double: IAction {
-//  public func getValue() -> String { return String(self) }
-//}
-//public class IJudge: Object {
-//  /**
-//   * The *judge function* that maps percepts to actions.
-//   */
-//  internal(set) var execute: JudgeProgram
-//
-//  /**
-//   * Custom initializer sets AgentProgram for this agent.
-//   *
-//   * - Parameter program: The agent's program.
-//   */
-//  public init(_ program: @escaping JudgeProgram) {
-//    execute = program
-//  }
-//}
-
 // *-****+****-****+****-****+****-****+****-****+****-****+****-****+****-****
 // ---  ENVIRONMENTS  ---
 // *-****+****-****+****-****+****-****+****-****+****-****+****-****+****-****
@@ -234,29 +159,26 @@ public protocol IAction {
  * functionality of any environment but must be subclassed to complete the
  * definition and avoid a runtime crash.
  */
-//struct Thing {
-//  var agent: IAgent
-//  var judges: Dictionary<IJudge, Double>
-//}
 public class IEnvironment {
 
-  // This is just not working for me.  Getting errors like "inner dict is a let constant"
-  // or iterators returning a tuple rather than a dictionary?  It is treating contained
-  // dictionary as a let struct?
-  var agentScores = Dictionary<IAgent, Dictionary<IJudge, Double>>()
-//  public class Score { // A score given by this judge to an agent.
-//    let judge: IJudge
-//    var value: Double
-//    init(judge: IJudge, value: Double) {
-//      self.judge = judge
-//      self.value = value
-//    }
-//  }
-//  var agentScores = Dictionary<IAgent, [Score]>()
+  // STATE
 
+  /**
+   * Except for `Judge`s, every object added to the `Environment` goes into
+   * this dictionary along with its `Location`.
+   */
   var envObjects = Dictionary<EnvironmentObject, Location>()
-  // let performanceMeasures: [IAgent: Double] = [:]
   
+  /**
+   * At each time step, each agent in the environment attempts to perform
+   * an action and each judge scores that effort by observing actual changes
+   * to the environment.
+   *
+   * This dictionary of dictionaries keeps track of those associations and
+   * scores.
+   */
+  var agentScores = Dictionary<IAgent, Dictionary<IJudge, Double>>()
+
   ///
   /// The Euclidean space used by this environment.
   ///
@@ -267,6 +189,8 @@ public class IEnvironment {
   ///
   var views = Set<EnvironmentView>()
 
+  // INITIALIZATION
+
   /**
    * Initialize the root environment with a `Space`.
    *
@@ -276,7 +200,7 @@ public class IEnvironment {
     self.space = space
   }
 
-  // Methods to be implemented by subclasses.
+  // ABSTRACT CRASHERS (override in subtypes)
 
   /**
    * Alter environment according to action just taken by incoming agent.
@@ -303,45 +227,8 @@ public class IEnvironment {
   public func getPerceptSeenBy(_ agent: IAgent) -> IPercept {
     fatalError("IEnvironment subclass must define getPerceptSeenBy(agent:)!")
   }
-
-//  /**
-//   * Method for implementing dynamic environments in which not all changes are
-//   * directly caused by agent action execution. The default implementation
-//   * does nothing.
-//   */
-//  public void createExogenousChange() {
-//  }
-
-  //
-  // START-Environment
-//  public func getAgents() -> Set<IAgent> {
-//    let copy = agents
-//    return copy
-//  }
-
-  /**
-   * Return all environment objects, along with their location, either from a
-   * specified location or, if no location is provided, from the entire environment.
-   *
-   * - Parameter location: Optional location to retrieve objects from.
-   * - Returns: A `Dictionary<EnvironmentObject, Location>` satisfying
-   * input criteria.
-   */
-  public func getObjects(at location: Location?) -> Dictionary<EnvironmentObject, Location> {
-    var workArea = [EnvironmentObject: Location]() // Start with empty dictionary.
-    if location == nil {
-      workArea = envObjects     // Add all entries.
-    } else {
-      for (key, value) in envObjects {
-        if value == location {
-          workArea[key] = value // Add only those with matching location.
-        }
-      }
-    }
-    // I think this only makes `result` (the reference) and `Location`s immutable...
-    let result = workArea
-    return result
-  }
+  
+  // CONFIGURATION
 
   /**
    * Add an object to the environment optionally specifying its location.
@@ -382,6 +269,31 @@ public class IEnvironment {
     }
   }
 
+  /**
+   * Return all environment objects, along with their location, either from a
+   * specified location or, if no location is provided, from the entire environment.
+   *
+   * - Parameter location: Optional location to retrieve objects from.
+   * - Returns: A `Dictionary<EnvironmentObject, Location>` satisfying
+   * input criteria.
+   */
+  public func getObjects(at location: Location?) -> Dictionary<EnvironmentObject, Location> {
+    var workArea = [EnvironmentObject: Location]() // Start with empty dictionary.
+    if location == nil {
+      workArea = envObjects     // Add all entries.
+    } else {
+      for (key, value) in envObjects {
+        if value == location {
+          workArea[key] = value // Add only those with matching location.
+        }
+      }
+    }
+    // I think this only makes `result` (the reference) and `Location`s immutable...
+    let result = workArea
+    return result
+  }
+
+
   public func removeObject(_ thing: EnvironmentObject) {
     envObjects[thing] = nil // Same effect as removeValue(forKey:).
     if let agent = thing as? IAgent {
@@ -394,12 +306,8 @@ public class IEnvironment {
     }
   }
 
-//  /**
-//   * Central template method for controlling agent simulation. The concrete
-//   * behavior is determined by the primitive operations
-//   * {@link #getPerceptSeenBy(Agent)}, {@link #executeAction(Agent, Action)},
-//   * and {@link #createExogenousChange()}.
-//   */
+  // CLOCK (where simulation begins)
+
   public func step() {
     for agent in agentScores.keys {
       if agent.isAlive {
@@ -414,9 +322,10 @@ public class IEnvironment {
         //
         let environmentChanges = executeAction(agent, agentAction)
         //
-        // Let each Judge update score for this Agent.
+        // Request a score from each Judge and update environment with results.
+        // This is effectively an executeAction() for judges except that we've
+        // decoupled the scoring algorithm from the environment.  FWIW.
         //
-        // var scores = agentScores[agent]!  // That is Dictionary<IJudge, Double>.
         for judgePercept in environmentChanges {
           for judge in agentScores[agent]!.keys {
             agentScores[agent]![judge]! += judge.execute(judgePercept)
@@ -425,7 +334,7 @@ public class IEnvironment {
         notifyEnvironmentViews(agent, agentPercept, agentAction);
       }
     }
-//    createExogenousChange();
+    // createExogenousChange();
   }
 
   public func step(_ count: Int) {
@@ -448,10 +357,14 @@ public class IEnvironment {
     }
     return true;
   }
+  
+  // PERFORMANCE
 
   public func getScores(forAgent: IAgent) -> [IJudge: Double]? {
     return agentScores[forAgent]
   }
+  
+  // OBSERVERS
 
   public func addEnvironmentView(_ view: EnvironmentView) {
     views.insert(view)
@@ -461,18 +374,11 @@ public class IEnvironment {
     views.remove(view);
   }
 
-  public func notifyViews(_ message: String) {
+  func notifyViews(_ message: String) {
     for view in views {
       view.notify(message);
     }
   }
-
-  // END-Environment
-  //
-
-  //
-  // PROTECTED METHODS
-  //
 
   func notifyEnvironmentViews(_ agent: IAgent) {
     for view in views {
