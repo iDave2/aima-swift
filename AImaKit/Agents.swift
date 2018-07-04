@@ -6,14 +6,14 @@
 //
 //  Should this earlier comment,
 //
-//  The notation `ISomeType` used in this file means that that type is meant
-//  to be subclassed by actual `SomeType`s that satisfy requirements of a
-//  particular task environment.
+//   "The notation `ISomeType` used in this file means that that type is meant
+//    to be subclassed by actual `SomeType`s that satisfy requirements of a
+//    particular task environment."
 //
 //  be replaced with this?
 //
-//  This top-level file contains global symbols prefixed with `AIma` so that
-//  `AImaKit` symbols do not conflict with other frameworks like `UIKit`.
+//   "This top-level file contains global symbols prefixed with `AIma` so that
+//    `AImaKit` symbols do not conflict with other frameworks like `UIKit`."
 //
 
 import Foundation
@@ -35,12 +35,93 @@ import Foundation
  * desirability is captured by a __performance measure__ that evaluates any
  * given sequence of environment states." -- AIMA3e, page 37, italics mine.
  *
- * __Exercise__
+ * So a performance measure, or the program that implements it, takes a
+ * sequence of environment states (like a percept sequence), and returns a
+ * _score_ (like an action).  In the effort to reuse solutions, we introduce
+ * the following type hierarchy:
+ * ```
+ *   Actor - An abstract superclass of all agent flavors.
+ *     Agent - The AIMA3e agent (as used in the book).
+ *     Judge - The AIMA3e performance measure.
+ * ```
+ * `Action`s returned by different `Actor` subtypes may differ.  An `Agent`
+ * may return `Suck` while its `Judge` returns `+10`.
  *
- * A performance measure, or the program that implements it,
- * evaluates or _scores_ an agent's choices.  It is like a judge in a game.
- * Explain how this `Judge` is like or unlike the `Agent` defined above.
+ * `Environment`s synthesize `Percept`s for `Agent`s and `Judge`s and these
+ * may also differ.  For example, while an `Agent` may see a sequence of
+ * `Percept`s in the local vicinity like `(Location, Dirty)`, its `Judge` sees
+ * a sequence of `Environment` changes like `(dirtRemoved, atLocation)`.  If
+ * an `Agent` tries to `MoveLeft` through a wall, its `Judge` might see `NoOp`
+ * since nothing changed in the environment.
+ *
+ * This decouples `Agent`s, `Judge`s, and their `Environment`s somewhat.
+ * A `Judge` has no idea how its `Agent`s work, it just sees changes to
+ * the `Environment`.
  */
+public class IActor<T>: EnvironmentObject {
+  /**
+   * The *agent function* that maps percepts to actions.
+   */
+  let execute: ActorProgram<T>
+
+  /**
+   * Custom initializer defines program used by this agent.
+   *
+   * - Parameter program: The agent's program.
+   */
+  public init(_ program: @escaping ActorProgram<T>) {
+    execute = program
+  }
+}
+
+// ////////////////////////////////////////////////////////////////////////////
+
+/**
+ * "Mathematically speaking, we say that an agent's behavior is described by
+ * the __agent function__ that maps any given percept sequence to an action.
+ * [The agent function is] an _external_ characterization of the agent.
+ * _Internally_, the agent function for an artificial agent will be
+ * implemented by an __agent program__.  It is important to keep these two
+ * ideas distinct." -- AIMA3e, page 35.
+ *
+ * `ActorProgram<T>` is a generic function that takes a `Percept` and returns
+ * a `T` which, in this case, represents an `Action`.
+ *
+ * - Parameter percept: The current `Percept` of a sequence perceived by the
+ *   `Actor`.
+ * - Returns: The `Action` to be taken in response to the current `Percept`.
+*/
+public typealias ActorProgram<T> = (_ percept: IPercept) -> T
+
+// ////////////////////////////////////////////////////////////////////////////
+
+/**
+ * The AIMA3e __agent__.
+ */
+public class IAgent: IActor<IAction> {
+  /**
+   * Life-cycle indicator as to the liveness of an Agent.
+   */
+  var isAlive = true
+}
+
+// ////////////////////////////////////////////////////////////////////////////
+
+// public typealias JudgeProgram = ActorProgram<Double>
+
+/**
+ * The AIMA3e __performance measure__.
+ */
+public class IJudge: IActor<Double> {
+
+}
+
+/**
+ * The AIMA3e _agent program_.
+ */
+//public typealias AgentProgram = ActorProgram<IAction>
+
+
 //public class IAgent: EnvironmentObject {
 //  /**
 //   * The *agent function* that maps percepts to actions.
@@ -101,55 +182,6 @@ public protocol IAction {
   func getValue() -> String // Adopters typically { return self.rawValue }
 }
 
-// ////////////////////////////////////////////////////////////////////////////
-
-/**
- * "Mathematically speaking, we say that an agent's behavior is described by
- * the __agent function__ that maps any given percept sequence to an action.
- * [The agent function is] an _external_ characterization of the agent.
- * _Internally_, the agent function for an artificial agent will be
- * implemented by an __agent program__.  It is important to keep these two
- * ideas distinct." -- AIMA3e, page 35.
- *
- * - Parameter percept: The current percept of a sequence perceived by the Agent.
- * - Returns: The Action to be taken in response to the currently perceived percept.
-*/
-public typealias ActorProgram<T> = (_ percept: IPercept) -> T
-public typealias AgentProgram = ActorProgram<IAction>
-public typealias JudgeProgram = ActorProgram<Double>
-public class IActor<T>: EnvironmentObject { // Erase `EnvironmentObject`?
-  /**
-   * The *agent function* that maps percepts to actions.
-   */
-  let execute: ActorProgram<T>
-
-  /**
-   * Custom initializer sets AgentProgram for this agent.
-   *
-   * - Parameter program: The agent's program.
-   */
-  public init(_ program: @escaping ActorProgram<T>) {
-    execute = program
-  }
-}
-
-/**
- * An `Agent` is an `Actor` that returns an `Action`.
- */
-public class IAgent: IActor<IAction> {
-  /**
-   * Life-cycle indicator as to the liveness of an Agent.
-   */
-  var isAlive = true
-}
-
-/**
- * A `Judge` is an `Actor` that returns a `Double` representing the score
- * assigned to an `Agent`'s last `Action`.
- */
-public class IJudge: IActor<Double> {
-
-}
 //
 // Swift: That says AgentProgram is a function type that takes a Percept
 // and returns an Action.

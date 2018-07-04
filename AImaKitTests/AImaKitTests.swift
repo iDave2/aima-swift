@@ -33,18 +33,18 @@ class AImaKitTests: XCTestCase {
     {
       let environment = VW.Environment(Space(0..<2)) // Two locations, left and right.
       let agent = VW.ReflexAgent()
+      let judge = VW.ReflexJudge()
       environment.addObject(agent, at: agentLocation)
+      environment.addObject(judge) // Judges don't go on the gameboard.
       if leftState == .dirty {
         environment.addObject(VW.Dirt(), at: VW.left)
       }
       if rightState == .dirty {
         environment.addObject(VW.Dirt(), at: VW.right)
       }
-      let judge = VW.ReflexJudge()
-      environment.addObject(judge)
       let view = SimpleActionTracker()
       environment.addEnvironmentView(view)
-      environment.step(steps)
+      environment.step(steps) // Run the simulation.
       var score = -10_000.0
       if let scores = environment.getScores(forAgent: agent) { // [IJudge: Double]?
         if scores.count > 0 && scores[judge] != nil {
