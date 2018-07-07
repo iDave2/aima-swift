@@ -37,7 +37,7 @@ import Foundation
  *
  * So a performance measure, or the program that implements it, takes a
  * sequence of environment states (like a percept sequence), and returns a
- * _score_ (like an action).  In the effort to reuse solutions, we introduce
+ * _score_ (like an action).  In the effort to reuse solutions, consider
  * the following type hierarchy:
  * ```
  *   Actor - An abstract superclass of all agent flavors.
@@ -54,9 +54,12 @@ import Foundation
  * an `Agent` tries to `MoveLeft` through a wall, its `Judge` might see `NoOp`
  * since nothing changed in the environment.
  *
- * This decouples `Agent`s, `Judge`s, and their `Environment`s somewhat.
- * A `Judge` has no idea how its `Agent`s work, it just sees changes to
- * the `Environment`.
+ * This decouples `Agent`s, `Judge`s, and their `Environment`s somewhat:
+ *
+ * - A `Judge` has no idea how its `Agent`s work;  it just sees changes to
+ *   the `Environment`.
+ * - An `Environment` does not know what formula its `Judge`s use to score
+ *   changes; it just gives them a `Percept` and gets back a score.
  */
 public class IActor<T>: EnvironmentObject {
   /**
@@ -535,6 +538,36 @@ public class Space {
       location.append(Int.random(in: range))
     }
     return location
+  }
+  
+  /**
+   * Generate a model of this space initialized with the given value.
+   *
+   * There are no doubt better ways to do this but, for now, here is
+   * an example of usage:
+   * ```
+   * let space = Space(0..<3, 0..<2, 0..<1)  // That's 3x2x1 cuboid.
+   * guard let array = space.toArray(repeating: "unknown") as? [[[String]]] else {
+   *   fatalError("Cannot construct array from space \(space).")
+   * }
+   * print("let array: [[[String]]] =", array)
+   * ```
+   *
+   * - Parameter repeating: The value to initialize array with.
+   * - Returns: An N-dimensional array initialized with incoming element
+   *            or nil if Space is Nothing or something else failed.
+   */
+  public func toArray<Element>(repeating: Array<Element>.Element) -> AnyObject? {
+    if ranges.isEmpty {
+      return nil
+    }
+    var backward = ranges
+    backward.reverse()           // Why must this be "in place?" Odd.
+    var any = repeating as Any   // Any's type will keep changing.
+    for range in backward {
+      any = Array(repeating: any, count: range.count) as AnyObject
+    }
+    return any as AnyObject
   }
 }
 

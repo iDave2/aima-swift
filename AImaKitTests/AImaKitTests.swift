@@ -89,5 +89,13 @@ class AImaKitTests: XCTestCase {
       // Put the code you want to measure the time of here.
     }
   }
+  
+  func testSpaceToArray() {
+    let space = Space(0..<3, 0..<2, 0..<1)
+    guard let array = space.toArray(repeating: "unknown") as? [[[String]]] else {
+      fatalError("Cannot construct array from space \(space).")
+    }
+    print("let array: [[[String]]] =", array)
+  }
 
 }

@@ -26,7 +26,7 @@ public class VacuumWorld { // Begin VacuumWorld task environment.
   // Setup notation for clear statements of the left-right world
   // for agents and applications that use it.
   public static let left = [0], right = [1] // One dimensional space.
-  public enum LocationState { case clean, dirty }
+  public enum LocationState { case clean, dirty, unknown }
   
   // Simplify / clarify a common type. Got stuff?
   public typealias Stuff = Set<EnvironmentObject>
@@ -39,10 +39,10 @@ public class VacuumWorld { // Begin VacuumWorld task environment.
   }
 
   /**
-   * What an `Agent` can do.
+   * Our agents can do some or all of these things.
    */
   public enum AgentAction: String, IAction {
-    case suck, moveLeft, moveRight
+    case noOp, suck, moveLeft, moveRight, moveUp, moveDown, overheat, blueScreen, etc
     public func getValue() -> String { return self.rawValue }
   }
 
@@ -50,7 +50,7 @@ public class VacuumWorld { // Begin VacuumWorld task environment.
    * What an `Environment` can do.
    */
   public enum EnvironmentAction: String, IAction {
-    case noOp, moveAgent, removeDirt
+    case noOp, seeBump, moveAgent, removeDirt, unplugAgent
     public func getValue() -> String { return self.rawValue }
   }
 
@@ -73,7 +73,7 @@ public class VacuumWorld { // Begin VacuumWorld task environment.
    */
   public struct JudgePercept: IPercept, Hashable {
     let action: EnvironmentAction
-    let location: Location // Location _after_ agent action taken.
+    let location: Location // Location _after_ environment processes agent action.
   }
   
 
@@ -108,13 +108,8 @@ public class VacuumWorld { // Begin VacuumWorld task environment.
       }
       var changes = [JudgePercept]()
       switch action {
-        case .suck: // Vacuum away all dirt from agent's location.
-          let newDictionary = envObjects.filter() { element -> Bool in
-            let (object, location) = element
-            return location != agentLocation || type(of: object) != Dirt.self
-          }
-          envObjects = newDictionary
-          changes.append(JudgePercept(action: .removeDirt, location: agentLocation))
+        case .moveDown:
+          break
         case .moveLeft:
           let newLocation = [agentLocation[0] - 1] + agentLocation[1...]
           if space.contains(newLocation) {
@@ -131,6 +126,19 @@ public class VacuumWorld { // Begin VacuumWorld task environment.
           } else {
             changes.append(JudgePercept(action: .noOp, location: agentLocation))
           }
+        case .moveUp:
+          break
+        case .noOp:
+          break
+        case .suck: // Vacuum away all dirt from agent's location.
+          let newDictionary = envObjects.filter() { element -> Bool in
+            let (object, location) = element
+            return location != agentLocation || type(of: object) != Dirt.self
+          }
+          envObjects = newDictionary
+          changes.append(JudgePercept(action: .removeDirt, location: agentLocation))
+        default:
+          break
       } // End switch.
       return changes
     }
@@ -150,7 +158,9 @@ public class VacuumWorld { // Begin VacuumWorld task environment.
   // ****+****-****+****-****+****-****+****-****+****-****+****-****+****-****
 
   /**
-   * Artificial Intelligence A Modern Approach (3rd Edition): Figure 2.8, page 48.
+   * This is a simple reflex agent for the two-state vacuum environment.
+   *
+   * Figure 2.8, AIMA3e, page 48:
    *
    * ```
    * function REFLEX-VACUUM-AGENT([location, status]) returns an action
@@ -159,14 +169,14 @@ public class VacuumWorld { // Begin VacuumWorld task environment.
    *   else if location = B then return Left
    * ```
    *
-   * Figure 2.8: The agent program for a simple reflex agent in the two-state
-   * vacuum environment. This program implements the action function tabulated
-   * in Figure 2.3.
+   * A reflex agent (I think) means the agent bases its next decision only on
+   * the current percept:  if location is dirty then `Suck`, if location is
+   * clean then move away from wall, etc.  A model-based agent adds memory,
+   * it remembers which squares are clean and does not waste time rechecking,
+   * so it is smarter, scores higher.
    *
    * This reflex agent _function_ may be implemented with a table-based,
-   * rule-based, or simple handwritten _program_.  It is only when we go
-   * to model-based, where state or memory is added, that the agent gets
-   * scary smart and takes over the planet.  (<- He's exaggerating.)
+   * rule-based, or simple handwritten _program_.
    */
   public class ReflexAgent: IAgent {
     // Swift: The python solutions, where ReflexVacuumAgent() is just a function
@@ -187,6 +197,7 @@ public class VacuumWorld { // Begin VacuumWorld task environment.
           fatalError("Expected VacuumWorld.AgentPercept, got \(scene), aborting.")
         }
 
+        // Make sure we are using the simple two-state world.
         precondition(percept.location == left || percept.location == right)
         
         let isDirty = percept.objects.contains(where: { type(of: $0) == Dirt.self } )
@@ -212,6 +223,84 @@ public class VacuumWorld { // Begin VacuumWorld task environment.
       }) // End agent program.
     }
   } // End ReflexAgent.
+
+  /**
+   * A model-based agent has memory; it slowly builds an internal picture of
+   * the environment so can make more intelligent decisions.
+   *
+   * Figure 2.12, AIMA3e, page 51:
+   * ```
+   * function MODEL-BASED-REFLEX-AGENT(percept) returns an action
+   *   persistent: state, the agent's current conception of the world state
+   *               model, a description of how the next state depends on current state and action
+   *               rules, a set of condition-action rules
+   *               action, the most recent action, initially none
+   *
+   *   state  <- UPDATE-STATE(state, action, percept, model)
+   *   rule   <- RULE-MATCH(state, rules)
+   *   action <- rule.ACTION
+   *   return action
+   * ```
+   * AIMA3e still refers to this model-based agent as a reflex agent even though
+   * it seems (to me) to be Learning and Using More Than One Percept to make
+   * decisions.  No doubt it will become clearer as we go.
+   *
+   * This solution copies the simple
+   * [aima-python](https://github.com/aimacode/aima-python/blob/master/agents.py)
+   * example.
+   */
+  public class ModelBasedAgent: IAgent {
+
+    private static func getProgram(ruleBased: Bool = false) -> ActorProgram<AgentAction> {
+      var model: [LocationState] = [.unknown, .unknown]
+      func program(_ scene: IPercept) -> AgentAction {
+
+        // Begin agent program. Check input for sanity.
+        guard let percept = scene as? AgentPercept else {
+          fatalError("Expected VacuumWorld.AgentPercept, got \(scene), aborting.")
+        }
+        precondition(percept.location == left || percept.location == right)
+        let isDirty = percept.objects.contains(where: { type(of: $0) == Dirt.self } )
+        let state: LocationState = isDirty ? .dirty : .clean
+
+        // Remember state of current location.
+        model[percept.location == left ? 0 : 1] = state
+
+        // Do nothing if every location is clean (this is the new model-based feature).
+        if model[0] == .clean && model[1] == .clean {
+          return .noOp
+        }
+
+        // Remainder is like brainless reflex agent above.
+
+        if ruleBased  // Rule-based flavor uses dictionary of dictionaries.
+        {
+          let rules: [Location: [LocationState: AgentAction]] = [
+            left:  [.clean: .moveRight],
+            left:  [.dirty: .suck],
+            right: [.clean: .moveLeft],
+            right: [.dirty: .suck],
+          ]
+          return rules[percept.location]![state]!
+        }
+        else          // Algorithm-based variation.
+        {
+          if isDirty {
+            return .suck
+          }
+          return percept.location == left ? .moveRight : .moveLeft;
+        }
+      }
+      return program
+    }
+
+    /**
+     * Initialize a ModelBasedAgent with its program.
+     */
+    public init(ruleBased: Bool = false) {
+      super.init(ModelBasedAgent.getProgram(ruleBased: ruleBased))
+    }
+  } // End ModelBasedAgent.
 
 
   // ****+****-****+****-****+****-****+****-****+****-****+****-****+****-****
@@ -240,6 +329,8 @@ public class VacuumWorld { // Begin VacuumWorld task environment.
             score = -1
           case .removeDirt:
             score = +10
+          default:
+            break
         }
         return score
       }) // End judge program.
