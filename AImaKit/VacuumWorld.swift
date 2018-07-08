@@ -95,10 +95,11 @@ public class VacuumWorld { // Begin VacuumWorld task environment.
       super.init(space)
     }
 
-    //
-    // Note: This is also, effectively, a getPerceptSeenBy(IJudge:).
-    // Judges see these environment changes.
-    //
+    /**
+     * Map an `AgentAction` to an `EnvironmentAction` or environment change,
+     * if any.  These environment changes then become the `Percept`s seen
+     * by `Judge`s.
+     */
     public override func executeAction(_ agent: IAgent, _ anAction: IAction) -> [IPercept] {
       guard let action = anAction as? AgentAction else {
         fatalError("Expected VacuumWorld.AgentAction, got \(anAction).  Aborting")
@@ -143,6 +144,9 @@ public class VacuumWorld { // Begin VacuumWorld task environment.
       return changes
     }
     
+    /**
+     * Synthesize an `AgentPercept` for requesting `Agent`.
+     */
     public override func getPerceptSeenBy(_ agent: IAgent) -> IPercept {
       guard let agentLocation = envObjects[agent] else {
         fatalError("Attempt to retrieve percept for nonexistent agent \(agent).")

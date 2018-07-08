@@ -162,7 +162,7 @@ public protocol IAction {
    * }
    * ```
    */
-  func getValue() -> String // Adopters typically { return self.rawValue }
+  func getValue() -> String
 }
 
 // *-****+****-****+****-****+****-****+****-****+****-****+****-****+****-****
@@ -599,7 +599,7 @@ public typealias Location = [Int]
  * Named in honor of Java's `Object`, this superclass provides a default
  * equivalence relation and hash code for any Swift types you want to use
  * in a `Collection` (like `Array` or `Set`).  Subclasses may override
- * default implementations if necessary.
+ * default implementations as needed.
  */
 public class Object: Hashable {
 
