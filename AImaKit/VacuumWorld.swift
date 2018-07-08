@@ -225,7 +225,7 @@ public class VacuumWorld { // Begin VacuumWorld task environment.
   } // End ReflexAgent.
 
   /**
-   * A model-based (reflex) agent.
+   * A model-based (reflex) agent or at least an agent with some memory.
    * ```
    * function MODEL-BASED-REFLEX-AGENT(percept) returns an action
    *   persistent: state, the agent's current conception of the world state
@@ -240,22 +240,19 @@ public class VacuumWorld { // Begin VacuumWorld task environment.
    * ```
    * Figure 2.12, AIMA3e, page 51.
    *
-   * Adding state to an agent or its program is challenging in Swift.  We pass around
-   * the agent program, a closure, and it references state in its creating agent, and
-   * that becomes a strong reference cycle (potential memory leak), and the compiler
-   * throws an error.
+   * Adding state to an agent or its program is challenging in Swift which
+   * fails compilation when it detects strong reference cycles like when A
+   * references B and B references A so that memory for neither can be freed
+   * creating a potential memory leak.  In our case, every concrete `Actor`
+   * (i.e., `Agent` or `Judge`) passes its agent program to the superclass
+   * at initialization so that the `Environment` can execute it.  When an
+   * `Agent` creates its program at initialization, and that program in turn
+   * refers back to its `Agent`'s internal state, and we then pass around that
+   * program (a closure) to the `Agent`'s superclass, we have a cycle.
    *
-   * Adding a static function to the class that hides the model in itself and returns
-   * the agent program to the superclass initializer fails because the model is then
-   * also static and not initialized with each test.  Adding a global function to the
-   * module that does this is not an option (for me).
-   *
-   * For now, we manually add a default initializer to the superclass (which sets
-   * agent program to a crashing default function) and then we set the correct
-   * program manually, in our default initializer, as soon as `super.init` returns.
-   *
-   * Mildly inconvenient and not clear if we fixed the cycle or just hid it from
-   * compiler but this is the plan...for now.
+   * There are different ways to handle this; I include two below; see
+   * `MethodKind`.  I do not include the "global function method" illustrated
+   * in aima-python; its grossness-level seems too high.  :)
    */
   public class ModelBasedAgent: IAgent {
 
@@ -266,13 +263,13 @@ public class VacuumWorld { // Begin VacuumWorld task environment.
      */
     var method: MethodKind = .type
     
-    static var ruleBased = false // Algorithm selector.
-    
     /**
      * The instance model used by the instance program when method kind is .instance.
      */
     var instanceModel: [LocationState] = [.unknown, .unknown]
 
+    static var ruleBased = false // Algorithm selector.
+    
     /**
      * Gather logic used by any solution to the problem of avoiding strong
      * reference cycles so we do not repeat it thrice.
@@ -322,6 +319,9 @@ public class VacuumWorld { // Begin VacuumWorld task environment.
       }
     }
     
+    /**
+     * A type-based solution to the cycle problem that uses static text.
+     */
     static func getTypeProgram() -> ActorProgram<AgentAction> {
       var typeModel: [LocationState] = [.unknown, .unknown]
       func typeProgram(_ scene: IPercept) -> AgentAction {
@@ -331,9 +331,8 @@ public class VacuumWorld { // Begin VacuumWorld task environment.
     }
     
     /**
-     * The agent program as instance function and instance model.
-     *
-     *
+     * An instance-based solution for avoiding cycles with agent program and
+     * its agent.
      */
     func instanceProgram(_ scene: IPercept) -> AgentAction {
       return ModelBasedAgent.anyMethod(scene, theModel: &instanceModel)
@@ -348,6 +347,7 @@ public class VacuumWorld { // Begin VacuumWorld task environment.
     public init(ruleBased: Bool = false) {
       ModelBasedAgent.ruleBased = ruleBased
       if method == .instance {
+        // Exercise: Does this fix the cycle or just hide it from compiler???
         super.init()                // Must do this before referencing self.
         execute = instanceProgram   // Now we can fix the pointer.
       } else { // method == .type

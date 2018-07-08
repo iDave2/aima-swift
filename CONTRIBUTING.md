@@ -1,10 +1,12 @@
 Contributing to this project
 ==========================
-:+1::tada: Yes! :tada::+1:
+:+1::tada: I have not thought ahead that far but sure, by all means, welcome. :tada::+1:
 
-I'm new to open source (and github and swift and ...) so will be fumbling along here, 
-completing AIMA Chapter 2, and welcome all contributions, pull requests, advice,
-moral support, and expresso.  Here are scattered notes on state of the art.
+This aima-variant may not follow the book as closely as others.  Significant effort and
+commentary aims at learning Swift, at least at the beginning, but aima is the longer-term 
+goal.
+
+Here are scattered notes on state of the art.
 
 Documentation and modeling borrow from [aima-python](https://github.com/aimacode/aima-python) 
 and [aima-java](https://github.com/aimacode/aima-java) (thanks, guys).

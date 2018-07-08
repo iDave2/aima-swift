@@ -32,8 +32,8 @@ import AImaKit
 typealias VW = VacuumWorld
 
 let agent = VW.ReflexAgent() // Create an agent.
-let stuff = Set<EnvironmentObject>([Dirt()]) // Create one dirt. 
-let percept = VW.Percept(location: VW.left, objects: stuff) // One dirt?
+let stuff = Set<EnvironmentObject>([VW.Dirt()]) // Create one dirt. 
+let percept = VW.AgentPercept(location: VW.left, objects: stuff) // One dirt?
 let action = agent.execute(percept) // Give me one dirt, Vasili.
 print("Agent sees \(percept), does \"\(action).\"")
 ``` 

@@ -65,7 +65,7 @@ public class IActor<T>: EnvironmentObject {
   /**
    * The *agent function* that maps percepts to actions.
    */
-  var execute: ActorProgram<T> = { _ in
+  internal(set) public var execute: ActorProgram<T> = { _ in
     fatalError("Agent program is not initialized!")
   }
   
