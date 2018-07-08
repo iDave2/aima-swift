@@ -65,7 +65,19 @@ public class IActor<T>: EnvironmentObject {
   /**
    * The *agent function* that maps percepts to actions.
    */
-  let execute: ActorProgram<T>
+  var execute: ActorProgram<T> = { _ in
+    fatalError("Agent program is not initialized!")
+  }
+  
+  /**
+   * Internal default initializer lets agent programs referencing subclass
+   * state to compile without strong reference cycle errors.
+   *
+   * Default agent program crashes.
+   */
+  override init() {
+    // Default value above, subclass must fix when this returns.
+  }
 
   /**
    * Custom initializer defines program used by this agent.
@@ -592,9 +604,7 @@ public typealias Location = [Int]
 public class Object: Hashable {
 
   // Explicitly increase access level from default 'internal' to 'public'.
-  public init() {
-  
-  }
+  public init() { }
   
   // Two object or instance references are equal if and only if they point to
   // the same address, the same memory.

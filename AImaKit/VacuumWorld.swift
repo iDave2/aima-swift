@@ -225,10 +225,7 @@ public class VacuumWorld { // Begin VacuumWorld task environment.
   } // End ReflexAgent.
 
   /**
-   * A model-based agent has memory; it slowly builds an internal picture of
-   * the environment so can make more intelligent decisions.
-   *
-   * Figure 2.12, AIMA3e, page 51:
+   * A model-based (reflex) agent.
    * ```
    * function MODEL-BASED-REFLEX-AGENT(percept) returns an action
    *   persistent: state, the agent's current conception of the world state
@@ -241,64 +238,121 @@ public class VacuumWorld { // Begin VacuumWorld task environment.
    *   action <- rule.ACTION
    *   return action
    * ```
-   * AIMA3e still refers to this model-based agent as a reflex agent even though
-   * it seems (to me) to be Learning and Using More Than One Percept to make
-   * decisions.  No doubt it will become clearer as we go.
+   * Figure 2.12, AIMA3e, page 51.
    *
-   * This solution copies the simple
-   * [aima-python](https://github.com/aimacode/aima-python/blob/master/agents.py)
-   * example.
+   * Adding state to an agent or its program is challenging in Swift.  We pass around
+   * the agent program, a closure, and it references state in its creating agent, and
+   * that becomes a strong reference cycle (potential memory leak), and the compiler
+   * throws an error.
+   *
+   * Adding a static function to the class that hides the model in itself and returns
+   * the agent program to the superclass initializer fails because the model is then
+   * also static and not initialized with each test.  Adding a global function to the
+   * module that does this is not an option (for me).
+   *
+   * For now, we manually add a default initializer to the superclass (which sets
+   * agent program to a crashing default function) and then we set the correct
+   * program manually, in our default initializer, as soon as `super.init` returns.
+   *
+   * Mildly inconvenient and not clear if we fixed the cycle or just hid it from
+   * compiler but this is the plan...for now.
    */
   public class ModelBasedAgent: IAgent {
 
-    private static func getProgram(ruleBased: Bool = false) -> ActorProgram<AgentAction> {
-      var model: [LocationState] = [.unknown, .unknown]
-      func program(_ scene: IPercept) -> AgentAction {
+    enum MethodKind { case instance, type }
+    
+    /**
+     * The kind of solution to use, instance- or type-based.
+     */
+    var method: MethodKind = .type
+    
+    static var ruleBased = false // Algorithm selector.
+    
+    /**
+     * The instance model used by the instance program when method kind is .instance.
+     */
+    var instanceModel: [LocationState] = [.unknown, .unknown]
 
-        // Begin agent program. Check input for sanity.
-        guard let percept = scene as? AgentPercept else {
-          fatalError("Expected VacuumWorld.AgentPercept, got \(scene), aborting.")
-        }
-        precondition(percept.location == left || percept.location == right)
-        let isDirty = percept.objects.contains(where: { type(of: $0) == Dirt.self } )
-        let state: LocationState = isDirty ? .dirty : .clean
-
-        // Remember state of current location.
-        model[percept.location == left ? 0 : 1] = state
-
-        // Do nothing if every location is clean (this is the new model-based feature).
-        if model[0] == .clean && model[1] == .clean {
-          return .noOp
-        }
-
-        // Remainder is like brainless reflex agent above.
-
-        if ruleBased  // Rule-based flavor uses dictionary of dictionaries.
-        {
-          let rules: [Location: [LocationState: AgentAction]] = [
-            left:  [.clean: .moveRight],
-            left:  [.dirty: .suck],
-            right: [.clean: .moveLeft],
-            right: [.dirty: .suck],
-          ]
-          return rules[percept.location]![state]!
-        }
-        else          // Algorithm-based variation.
-        {
-          if isDirty {
-            return .suck
-          }
-          return percept.location == left ? .moveRight : .moveLeft;
-        }
+    /**
+     * Gather logic used by any solution to the problem of avoiding strong
+     * reference cycles so we do not repeat it thrice.
+     *
+     * - Parameters:
+     *   - theScene: The incoming percept.
+     *   - theModel: The agent's model or state.
+     *
+     * - Returns: The agent's action for this incoming (percept, model).
+     */
+    static func anyMethod(_ theScene: IPercept, theModel: inout [LocationState]) -> AgentAction {
+      
+      // Begin agent program. Check input for sanity.
+      guard let percept = theScene as? AgentPercept else {
+        fatalError("Expected VacuumWorld.AgentPercept, got \(theScene), aborting.")
       }
-      return program
+      precondition(percept.location == left || percept.location == right)
+      let isDirty = percept.objects.contains(where: { type(of: $0) == Dirt.self } )
+      let state: LocationState = isDirty ? .dirty : .clean
+      
+      // Remember state of current location.
+      theModel[percept.location == left ? 0 : 1] = state
+      
+      // Do nothing if every location is clean (this is the new model-based feature).
+      if theModel[0] == .clean && theModel[1] == .clean {
+        return .noOp
+      }
+      
+      // Remainder is like brainless reflex agent above.
+      
+      if ruleBased  // Rule-based flavor uses dictionary of dictionaries.
+      {
+        let rules: [Location: [LocationState: AgentAction]] = [
+          left:  [.clean: .moveRight],
+          left:  [.dirty: .suck],
+          right: [.clean: .moveLeft],
+          right: [.dirty: .suck],
+          ]
+        return rules[percept.location]![state]!
+      }
+      else          // Algorithm-based variation.
+      {
+        if isDirty {
+          return .suck
+        }
+        return percept.location == left ? .moveRight : .moveLeft;
+      }
+    }
+    
+    static func getTypeProgram() -> ActorProgram<AgentAction> {
+      var typeModel: [LocationState] = [.unknown, .unknown]
+      func typeProgram(_ scene: IPercept) -> AgentAction {
+        return anyMethod(scene, theModel: &typeModel)
+      }
+      return typeProgram
+    }
+    
+    /**
+     * The agent program as instance function and instance model.
+     *
+     *
+     */
+    func instanceProgram(_ scene: IPercept) -> AgentAction {
+      return ModelBasedAgent.anyMethod(scene, theModel: &instanceModel)
     }
 
     /**
      * Initialize a ModelBasedAgent with its program.
+     *
+     * - Parameter ruleBased: Use table of condition-action rules when true;
+     *                        otherwise, use manually coded solution.
      */
     public init(ruleBased: Bool = false) {
-      super.init(ModelBasedAgent.getProgram(ruleBased: ruleBased))
+      ModelBasedAgent.ruleBased = ruleBased
+      if method == .instance {
+        super.init()                // Must do this before referencing self.
+        execute = instanceProgram   // Now we can fix the pointer.
+      } else { // method == .type
+        super.init(ModelBasedAgent.getTypeProgram())  // One fell swoop.
+      }
     }
   } // End ModelBasedAgent.
 
@@ -315,7 +369,7 @@ public class VacuumWorld { // Begin VacuumWorld task environment.
     /**
      * Initialize a ReflexJudge instance with a move(-1), suck(+10) program.
      */
-    public init() {
+    override public init() {
       super.init({ (_ scene: IPercept) -> Double in
         // print("\nIN JUDGE WITH PERCEPT \(scene)\n")
         guard let percept = scene as? JudgePercept else {
