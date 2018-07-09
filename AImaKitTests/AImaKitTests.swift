@@ -23,6 +23,47 @@ class AImaKitTests: XCTestCase {
     super.tearDown()
   }
 
+  // ****+****-****+****-****+****-****+****-****+****-****+****-****+****-****
+  
+  /**
+   * Like the Swift Book example in Automatic Reference Counting chapter,
+   * this test creates objects, deletes their reference, and print statements
+   * in object's init() and deinit() tell us whether we have a leak.
+   *
+   * This immediately showed that our initial .instance solution is a leak
+   * and confirms that the pattern,
+   * ```
+   * init() { // Does this fix the cycle or just hide it from compiler?
+   *   super.init()                // Must do this before referencing self.
+   *   execute = instanceProgram   // Now we can fix the pointer.
+   * }
+   * ```
+   * Uncomment print statements in ModelBasedAgent.init and its super.init
+   * to track whether beans are counted properly.
+   */
+  func testMemoryLeak() {
+    let kind: VW.ModelBasedAgent.MethodKind = .instance
+    var agent: VW.ModelBasedAgent?
+    agent = VW.ModelBasedAgent(methodKind: kind)
+    if agent != nil { // Quiet compiler...
+      agent = nil
+    }
+    agent = VW.ModelBasedAgent(methodKind: kind)
+    agent = nil
+  }
+
+  // ****+****-****+****-****+****-****+****-****+****-****+****-****+****-****
+
+  func testSpaceToArray() {
+    let space = Space(0..<3, 0..<2, 0..<1)
+    guard let array = space.toArray(repeating: "unknown") as? [[[String]]] else {
+      fatalError("Cannot construct array from space \(space).")
+    }
+    print("let array: [[[String]]] =", array)
+  }
+
+  // ****+****-****+****-****+****-****+****-****+****-****+****-****+****-****
+
   func testVacuumWorld() {
     
     let tests: [VWRunArgs] = [
@@ -30,25 +71,25 @@ class AImaKitTests: XCTestCase {
       (VW.left,  .clean, .dirty, true),
       (VW.right, .dirty, .clean, true),
       (VW.right, .dirty, .dirty, false),
-    ]
-
+      ]
+    
     let expectedReflexActions = [
       "moveRight, moveLeft, moveRight, moveLeft, moveRight, moveLeft, moveRight",
       "moveRight, suck, moveLeft, moveRight, moveLeft, moveRight, moveLeft",
       "moveLeft, suck, moveRight, moveLeft, moveRight, moveLeft, moveRight",
       "suck, moveLeft, suck, moveRight, moveLeft, moveRight, moveLeft",
-    ]
-
+      ]
+    
     let expectedModelBasedActions = [
       "moveRight, noOp, noOp, noOp, noOp, noOp, noOp",
       "moveRight, suck, noOp, noOp, noOp, noOp, noOp",
       "moveLeft, suck, noOp, noOp, noOp, noOp, noOp",
       "suck, moveLeft, suck, noOp, noOp, noOp, noOp",
-    ]
-
+      ]
+    
     runVacuumWorld(agentType: "ReflexAgent", tests: tests, results: expectedReflexActions)
     runVacuumWorld(agentType: "ModelBasedAgent", tests: tests, results: expectedModelBasedActions)
-
+    
   }
 
   func runVacuumWorld(agentType: String, tests: [VWRunArgs], results: [String]) {
@@ -103,20 +144,7 @@ class AImaKitTests: XCTestCase {
 
     print("Scores: \(scores), average:", sum / Double(scores.count), "\n")
   }
-  
-//  func testPerformanceExample() {
-//    // This is an example of a performance test case.
-//    self.measure {
-//      // Put the code you want to measure the time of here.
-//    }
-//  }
-  
-  func testSpaceToArray() {
-    let space = Space(0..<3, 0..<2, 0..<1)
-    guard let array = space.toArray(repeating: "unknown") as? [[[String]]] else {
-      fatalError("Cannot construct array from space \(space).")
-    }
-    print("let array: [[[String]]] =", array)
-  }
+
+  // ****+****-****+****-****+****-****+****-****+****-****+****-****+****-****
 
 }

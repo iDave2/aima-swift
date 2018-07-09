@@ -260,12 +260,11 @@ public class VacuumWorld { // Begin VacuumWorld task environment.
    */
   public class ModelBasedAgent: IAgent {
 
-    enum MethodKind { case instance, type }
-    
     /**
      * The kind of solution to use, instance- or type-based.
      */
-    var method: MethodKind = .type
+    public enum MethodKind { case instance, type }
+    var methodKind: MethodKind = .instance
     
     /**
      * The instance model used by the instance program when method kind is .instance.
@@ -342,22 +341,37 @@ public class VacuumWorld { // Begin VacuumWorld task environment.
       return ModelBasedAgent.anyMethod(scene, theModel: &instanceModel)
     }
 
+    lazy var tryThis: (IPercept) -> AgentAction = {
+      [unowned self] scene in
+      return ModelBasedAgent.anyMethod(scene, theModel: &self.instanceModel)
+    }
+
     /**
      * Initialize a ModelBasedAgent with its program.
      *
      * - Parameter ruleBased: Use table of condition-action rules when true;
      *                        otherwise, use manually coded solution.
      */
-    public init(ruleBased: Bool = false) {
+    public init(ruleBased: Bool = false, methodKind: MethodKind = .instance) {
       ModelBasedAgent.ruleBased = ruleBased
-      if method == .instance {
+      self.methodKind = methodKind
+      if methodKind == .instance {
         // Exercise: Does this fix the cycle or just hide it from compiler???
-        super.init()                // Must do this before referencing self.
-        execute = instanceProgram   // Now we can fix the pointer.
-      } else { // method == .type
+//        super.init()                // Must do this before referencing self.
+//        execute = instanceProgram   // Now we can fix the pointer.
+        // super.init(tryThis)
+        super.init()
+        execute = tryThis
+        print("Model-based agent (.instance) initialized.")
+      } else { // methodKind == .type
         super.init(ModelBasedAgent.getTypeProgram())  // One fell swoop.
+        print("Model-based agent (.type) initialized.")
       }
     }
+    
+    // Used in testMemoryLeak.
+    deinit { print("Model-based agent deinitialized.") }
+
   } // End ModelBasedAgent.
 
 
