@@ -77,7 +77,7 @@ public class IActor<T>: EnvironmentObject {
    */
   override init() {
     // Default value above, subclass must fix when this returns.
-    print("IActor<T> default initializer")
+    print("IActor<T> (default) initialized.")
   }
 
   /**
@@ -87,11 +87,11 @@ public class IActor<T>: EnvironmentObject {
    */
   public init(_ program: @escaping ActorProgram<T>) {
     execute = program
-    print("IActor<T> custom initializer")
+    print("IActor<T> (custom) initialized.")
   }
   
   // Used for debugging memory leaks.
-  deinit { print("IActor<T> deinitializer") }
+  deinit { print("IActor<T> deinitialized.") }
 }
 
 // ////////////////////////////////////////////////////////////////////////////

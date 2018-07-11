@@ -42,13 +42,12 @@ class AImaKitTests: XCTestCase {
    * to track whether beans are counted properly.
    */
   func testMemoryLeak() {
-    let kind: VW.ModelBasedAgent.MethodKind = .instance
     var agent: VW.ModelBasedAgent?
-    agent = VW.ModelBasedAgent(methodKind: kind)
+    agent = VW.ModelBasedAgent() // Prints "initializing".
     if agent != nil { // Quiet compiler...
-      agent = nil
+      agent = nil // Should print "deinitializing" if no memory leaks.
     }
-    agent = VW.ModelBasedAgent(methodKind: kind)
+    agent = VW.ModelBasedAgent()
     agent = nil
   }
 

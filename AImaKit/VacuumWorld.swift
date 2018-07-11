@@ -244,66 +244,66 @@ public class VacuumWorld { // Begin VacuumWorld task environment.
    * ```
    * Figure 2.12, AIMA3e, page 51.
    *
-   * Adding state to an agent or its program is challenging in Swift which
-   * fails compilation when it detects strong reference cycles like when A
-   * references B and B references A so that memory for neither can be freed
-   * creating a potential memory leak.  In our case, every concrete `Actor`
-   * (i.e., `Agent` or `Judge`) passes its agent program to the superclass
-   * at initialization so that the `Environment` can execute it.  When an
-   * `Agent` creates its program at initialization, and that program in turn
-   * refers back to its `Agent`'s internal state, and we then pass around that
-   * program (a closure) to the `Agent`'s superclass, we have a cycle.
+   * Adding state to an agent or its program raises a couple of problems
+   * with the current design:
    *
-   * There are different ways to handle this; I include two below; see
-   * `MethodKind`.  I do not include the "global function method" illustrated
-   * in aima-python; its grossness-level seems too high.  :)
+   * - Requiring agents to initialize their superclass with their program is
+   * bad design; a simple requirement that agents include an `execute()` method
+   * is sufficient.  This choice was influenced by a comment on aima-python's
+   * Agent suggesting these agent programs might "cheat".  C'mon, really?
+   * That's like not letting your hand touch any part of your body.  From now
+   * on, the unit of security is the Agent and our Agents (and Judges and
+   * Environments) cannot see each other and do not know how the other works.
+   *
+   * - The other issue was how the first issue introduces memory leaks, which
+   * was fixed here with Swift subtleties (also distracts from the subject),
+   * and which will be not-a-problem in next design.
    */
   public class ModelBasedAgent: IAgent {
 
     /**
-     * The kind of solution to use, instance- or type-based.
+     * The instance model.
      */
-    public enum MethodKind { case instance, type }
-    var methodKind: MethodKind = .instance
-    
-    /**
-     * The instance model used by the instance program when method kind is .instance.
-     */
-    var instanceModel: [LocationState] = [.unknown, .unknown]
+    var model: [LocationState] = [.unknown, .unknown]
 
-    static var ruleBased = false // Algorithm selector.
-    
     /**
-     * Gather logic used by any solution to the problem of avoiding strong
-     * reference cycles so we do not repeat it thrice.
-     *
-     * - Parameters:
-     *   - theScene: The incoming percept.
-     *   - theModel: The agent's model or state.
-     *
-     * - Returns: The agent's action for this incoming (percept, model).
+     * An algorithm selector.
      */
-    static func anyMethod(_ theScene: IPercept, theModel: inout [LocationState]) -> AgentAction {
+    var ruleBased = false
+
+    /**
+     * This model-based agent program.
+     *
+     * In order to reference `self` in this closure, we use `lazy` to tell Swift
+     * we won't access it until _after_ initialization.  To avoid resulting strong
+     * reference cycle, we add capture list `[unowned self]` as described in book's
+     * ARC chapter.
+     *
+     * Swift requires prefix `self.` for instance properties referenced in closures
+     * to "remind" us of potential cycles.
+     */
+    lazy var agentProgram: (_ scene: IPercept) -> AgentAction = {
+      [unowned self] scene in
       
       // Begin agent program. Check input for sanity.
-      guard let percept = theScene as? AgentPercept else {
-        fatalError("Expected VacuumWorld.AgentPercept, got \(theScene), aborting.")
+      guard let percept = scene as? AgentPercept else {
+        fatalError("Expected VacuumWorld.AgentPercept, got \(scene), aborting.")
       }
       precondition(percept.location == left || percept.location == right)
       let isDirty = percept.objects.contains(where: { type(of: $0) == Dirt.self } )
       let state: LocationState = isDirty ? .dirty : .clean
       
       // Remember state of current location.
-      theModel[percept.location == left ? 0 : 1] = state
+      self.model[percept.location == left ? 0 : 1] = state
       
       // Do nothing if every location is clean (this is the new model-based feature).
-      if theModel[0] == .clean && theModel[1] == .clean {
+      if self.model[0] == .clean && self.model[1] == .clean {
         return .noOp
       }
       
       // Remainder is like brainless reflex agent above.
       
-      if ruleBased  // Rule-based flavor uses dictionary of dictionaries.
+      if self.ruleBased  // Rule-based flavor uses dictionary of dictionaries.
       {
         let rules: [Location: [LocationState: AgentAction]] = [
           left:  [.clean: .moveRight],
@@ -321,30 +321,6 @@ public class VacuumWorld { // Begin VacuumWorld task environment.
         return percept.location == left ? .moveRight : .moveLeft;
       }
     }
-    
-    /**
-     * A type-based solution to the cycle problem that uses static text.
-     */
-    static func getTypeProgram() -> ActorProgram<AgentAction> {
-      var typeModel: [LocationState] = [.unknown, .unknown]
-      func typeProgram(_ scene: IPercept) -> AgentAction {
-        return anyMethod(scene, theModel: &typeModel)
-      }
-      return typeProgram
-    }
-    
-    /**
-     * An instance-based solution for avoiding cycles with agent program and
-     * its agent.
-     */
-    func instanceProgram(_ scene: IPercept) -> AgentAction {
-      return ModelBasedAgent.anyMethod(scene, theModel: &instanceModel)
-    }
-
-    lazy var tryThis: (IPercept) -> AgentAction = {
-      [unowned self] scene in
-      return ModelBasedAgent.anyMethod(scene, theModel: &self.instanceModel)
-    }
 
     /**
      * Initialize a ModelBasedAgent with its program.
@@ -352,25 +328,17 @@ public class VacuumWorld { // Begin VacuumWorld task environment.
      * - Parameter ruleBased: Use table of condition-action rules when true;
      *                        otherwise, use manually coded solution.
      */
-    public init(ruleBased: Bool = false, methodKind: MethodKind = .instance) {
-      ModelBasedAgent.ruleBased = ruleBased
-      self.methodKind = methodKind
-      if methodKind == .instance {
-        // Exercise: Does this fix the cycle or just hide it from compiler???
-//        super.init()                // Must do this before referencing self.
-//        execute = instanceProgram   // Now we can fix the pointer.
-        // super.init(tryThis)
-        super.init()
-        execute = tryThis
-        print("Model-based agent (.instance) initialized.")
-      } else { // methodKind == .type
-        super.init(ModelBasedAgent.getTypeProgram())  // One fell swoop.
-        print("Model-based agent (.type) initialized.")
-      }
+    public init(ruleBased: Bool = false) {
+      self.ruleBased = ruleBased
+      super.init()
+      execute = agentProgram // Gross...
+      // print("ModelBasedAgent initialized.")
     }
     
     // Used in testMemoryLeak.
-    deinit { print("Model-based agent deinitialized.") }
+    deinit {
+      // print("ModelBasedAgent deinitialized.")
+    }
 
   } // End ModelBasedAgent.
 
