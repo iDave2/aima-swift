@@ -44,26 +44,26 @@ import Foundation
  * sequence of environment states (like a percept sequence), and returns a
  * _score_ (like an action).  In the effort to reuse solutions, consider
  * the following type hierarchy:
- * ```
+ * ```text
  *   Actor - An abstract superclass of all agent flavors.
  *     Agent - The AIMA3e agent (as used in the book).
  *     Judge - The AIMA3e performance measure.
  * ```
- * `Action`s returned by different `Actor` subtypes may differ.  An `Agent`
+ * `Actions` returned by different `Actor` subtypes may differ.  An `Agent`
  * may return `Suck` while its `Judge` returns `+10`.
  *
- * `Environment`s synthesize `Percept`s for `Agent`s and `Judge`s and these
+ * `Environments` synthesize `Percepts` for `Agents` and `Judges` and these
  * may also differ.  For example, while an `Agent` may see a sequence of
- * `Percept`s in the local vicinity like `(Location, Dirty)`, its `Judge` sees
+ * `Percepts` in the local vicinity like `(Location, Dirty)`, its `Judge` sees
  * a sequence of `Environment` changes like `(dirtRemoved, atLocation)`.  If
  * an `Agent` tries to `MoveLeft` through a wall, its `Judge` might see `NoOp`
  * since nothing changed in the environment.
  *
- * This decouples `Agent`s, `Judge`s, and their `Environment`s somewhat:
+ * This decouples `Agents`, `Judges`, and their `Environments` somewhat:
  *
- * - A `Judge` has no idea how its `Agent`s work;  it just sees changes to
+ * - A `Judge` has no idea how its `Agents` work;  it just sees changes to
  *   the `Environment`.
- * - An `Environment` does not know what formula its `Judge`s use to score
+ * - An `Environment` does not know what formula its `Judges` use to score
  *   changes; it just gives them a `Percept` and gets back a score.
  */
 public class AnActor<T>: EnvironmentObject {
