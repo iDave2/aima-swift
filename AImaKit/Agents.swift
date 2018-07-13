@@ -26,16 +26,19 @@ import Foundation
 // *-****+****-****+****-****+****-****+****-****+****-****+****-****+****-****
 
 /**
- * "An __agent__ is anything that can be viewed as perceiving its
+ * 'An **agent** is anything that can be viewed as perceiving its
  * __environment__ through __sensors__ and acting upon that environment
- * through __actuators__." -- AIMA3e, page 34.
+ * through __actuators__.' -- AIMA3e, page 34.
  *
- * "When an agent is plunked down in an environment, it generates a sequence
+ * See [here](https://github.com/realm/jazzy/issues/992) for jazzy issue with
+ * quotes.
+ *
+ * 'When an agent is plunked down in an environment, it generates a sequence
  * of actions according to the percepts it receives. This sequence of actions
  * causes the environment to go through a sequence of states.  If the sequence
  * is _desirable_, then the agent has _performed well_.  This notion of
  * desirability is captured by a __performance measure__ that evaluates any
- * given sequence of environment states." -- AIMA3e, page 37, italics mine.
+ * given sequence of environment states.' -- AIMA3e, page 37, italics mine.
  *
  * So a performance measure, or the program that implements it, takes a
  * sequence of environment states (like a percept sequence), and returns a
@@ -63,48 +66,48 @@ import Foundation
  * - An `Environment` does not know what formula its `Judge`s use to score
  *   changes; it just gives them a `Percept` and gets back a score.
  */
-public class IActor<T>: EnvironmentObject {
+public class AnActor<T>: EnvironmentObject {
   /**
    * The *agent function* that maps percepts to actions.
    */
-  internal(set) public var execute: ActorProgram<T> = { _ in
+  public func execute(_ percept: IPercept) -> T {
     fatalError("Agent program is not initialized!")
   }
   
-  /**
-   * Internal default initializer lets agent programs referencing subclass
-   * state to compile without strong reference cycle errors.
-   *
-   * Default agent program crashes.
-   */
-  override init() {
-    // Default value above, subclass must fix when this returns.
-    print("IActor<T> (default) initialized.")
-  }
+//  /**
+//   * Internal default initializer lets agent programs referencing subclass
+//   * state to compile without strong reference cycle errors.
+//   *
+//   * Default agent program crashes.
+//   */
+//  override init() {
+//    // Default value above, subclass must fix when this returns.
+//    print("IActor<T> (default) initialized.")
+//  }
 
-  /**
-   * Custom initializer defines program used by this agent.
-   *
-   * - Parameter program: The agent's program.
-   */
-  public init(_ program: @escaping ActorProgram<T>) {
-    execute = program
-    print("IActor<T> (custom) initialized.")
-  }
-  
-  // Used for debugging memory leaks.
-  deinit { print("IActor<T> deinitialized.") }
+//  /**
+//   * Custom initializer defines program used by this agent.
+//   *
+//   * - Parameter program: The agent's program.
+//   */
+//  public init(_ program: @escaping ActorProgram<T>) {
+//    execute = program
+//    print("IActor<T> (custom) initialized.")
+//  }
+//
+//  // Used for debugging memory leaks.
+//  deinit { print("IActor<T> deinitialized.") }
 }
 
 // ////////////////////////////////////////////////////////////////////////////
 
 /**
- * "Mathematically speaking, we say that an agent's behavior is described by
+ * 'Mathematically speaking, we say that an agent's behavior is described by
  * the __agent function__ that maps any given percept sequence to an action.
  * [The agent function is] an _external_ characterization of the agent.
  * _Internally_, the agent function for an artificial agent will be
  * implemented by an __agent program__.  It is important to keep these two
- * ideas distinct." -- AIMA3e, page 35.
+ * ideas distinct.' -- AIMA3e, page 35.
  *
  * `ActorProgram<T>` is a generic function that takes a `Percept` and returns
  * a `T` which, in this case, represents an `Action`.
@@ -113,14 +116,15 @@ public class IActor<T>: EnvironmentObject {
  *   `Actor`.
  * - Returns: The `Action` to be taken in response to the current `Percept`.
 */
-public typealias ActorProgram<T> = (_ percept: IPercept) -> T
+// This is not used anywhere...
+// public typealias ActorProgram<T> = (_ percept: IPercept) -> T
 
 // ////////////////////////////////////////////////////////////////////////////
 
 /**
  * The AIMA3e __agent__.
  */
-public class IAgent: IActor<IAction> {
+public class AnAgent: AnActor<IAction> {
   /**
    * Life-cycle indicator as to the liveness of an Agent.
    */
@@ -130,7 +134,7 @@ public class IAgent: IActor<IAction> {
 /**
  * The AIMA3e __performance measure__.
  */
-public class IJudge: IActor<Double> {
+public class AJudge: AnActor<Double> {
 
 }
 
@@ -170,307 +174,6 @@ public protocol IAction {
    * ```
    */
   func getValue() -> String
-}
-
-// *-****+****-****+****-****+****-****+****-****+****-****+****-****+****-****
-// ---  ENVIRONMENTS  ---
-// *-****+****-****+****-****+****-****+****-****+****-****+****-****+****-****
-
-/**
- * Root of the `Environment` hierarchy, this class defines common
- * functionality of any environment but must be subclassed to complete the
- * definition and avoid a runtime crash.
- */
-public class IEnvironment {
-
-  // STATE
-
-  /**
-   * Except for `Judge`s, every object added to the `Environment` goes into
-   * this dictionary along with its `Location`.
-   */
-  var envObjects = Dictionary<EnvironmentObject, Location>()
-  
-  /**
-   * At each time step, each agent in the environment attempts to perform
-   * an action and each judge scores that effort by observing actual changes
-   * to the environment.
-   *
-   * This dictionary of dictionaries keeps track of those associations and
-   * scores.
-   */
-  var agentScores = Dictionary<IAgent, Dictionary<IJudge, Double>>()
-
-  ///
-  /// The Euclidean space used by this environment.
-  ///
-  let space: Space
-  
-  ///
-  /// The views or observers watching this environment.
-  ///
-  var views = Set<EnvironmentView>()
-
-  // INITIALIZATION
-
-  /**
-   * Initialize the root environment with a `Space`.
-   *
-   * - Parameter space: The space to use for this environment.
-   */
-  public init(_ space: Space) {
-    self.space = space
-  }
-
-  // ABSTRACT CRASHERS (override in subtypes)
-
-  /**
-   * Alter environment according to action just taken by incoming agent.
-   * For example, if a vacuum agent just did `Suck` then remove all `Dirt`
-   * from its current location (assuming `Suck` is 100% successful).
-   *
-   * This method must be overriden by concrete subclasses.
-   *
-   * - Parameters:
-   *   - agent: The agent that chose this action.
-   *   - action: The action chosen by this agent
-   */
-  public func executeAction(_ agent: IAgent, _ action: IAction) -> [IPercept] {
-    fatalError("IEnvironment subclass must define executeAction(agent:action:)!")
-  }
-
-  /**
-   * Create the `Percept` seen by this `Agent` at its current `Location`.
-   *
-   * This method must be overriden by concrete subclasses.
-   *
-   * - Parameter agent: The agent requesting another `Percept`.
-   */
-  public func getPerceptSeenBy(_ agent: IAgent) -> IPercept {
-    fatalError("IEnvironment subclass must define getPerceptSeenBy(agent:)!")
-  }
-  
-  // CONFIGURATION
-
-  /**
-   * Add an object to the environment optionally specifying its location.
-   * If no location is provided, a random location will be chosen.
-   *
-   * - Parameters:
-   *   - thing:  The object to add to environment.
-   *   - location:  Optional location at which to place it.
-   */
-  public func addObject(_ thing: EnvironmentObject, at location: Location? = nil)
-  {
-    if envObjects.keys.contains(thing) {
-      return // There is only one of each Object, the thing is already here.
-    }
-    let position = location ?? space.randomLocation()
-    if let agent = thing as? IAgent
-    {
-      envObjects[agent] = position     // Place agent on gameboard.
-      agentScores[agent] = [:]         // Agent has no judges or scores yet.
-      notifyEnvironmentViews(agent);
-    }
-    else if let judge = thing as? IJudge
-    {
-      /*
-       * Swift collection iterators like "for (key, value) in myDictionary" are
-       * tricky.  Swift unwraps them for you but then makes them "let constants"
-       * so you cannot modify values this way.  Probably safer overall...
-       *
-       * Add new Judge to each Agent's scoring dictionary.
-       */
-      for agent in agentScores.keys {
-        agentScores[agent]![judge] = 0.0
-      }
-    }
-    else
-    {
-      envObjects[thing] = position     // Place everything else on gameboard.
-    }
-  }
-
-  /**
-   * Return all environment objects, along with their location, either from a
-   * specified location or, if no location is provided, from the entire environment.
-   *
-   * - Parameter location: Optional location to retrieve objects from.
-   * - Returns: A `Dictionary<EnvironmentObject, Location>` satisfying
-   * input criteria.
-   */
-  public func getObjects(at location: Location?) -> Dictionary<EnvironmentObject, Location> {
-    var workArea = [EnvironmentObject: Location]() // Start with empty dictionary.
-    if location == nil {
-      workArea = envObjects     // Add all entries.
-    } else {
-      for (key, value) in envObjects {
-        if value == location {
-          workArea[key] = value // Add only those with matching location.
-        }
-      }
-    }
-    // I think this only makes `result` (the reference) and `Location`s immutable...
-    let result = workArea
-    return result
-  }
-
-
-  public func removeObject(_ thing: EnvironmentObject) {
-    envObjects[thing] = nil // Same effect as removeValue(forKey:).
-    if let agent = thing as? IAgent {
-      agentScores[agent] = nil // Removes both key and value.
-    }
-    if let judge = thing as? IJudge {
-      for agent in agentScores.keys {
-        agentScores[agent]![judge] = nil
-      }
-    }
-  }
-
-  // CLOCK (where simulation begins)
-
-  public func step() {
-    for agent in agentScores.keys {
-      if agent.isAlive {
-        //
-        // Synthesize an AgentPercept and ask Agent to map it to an AgentAction.
-        //
-        let agentPercept = getPerceptSeenBy(agent)
-        let agentAction = agent.execute(agentPercept)
-        //
-        // Map AgentAction onto actual Environment changes and save
-        // as list of JudgePercepts for any interested Judges.
-        //
-        let environmentChanges = executeAction(agent, agentAction)
-        //
-        // Request a score from each Judge and update environment with results.
-        // This is effectively an executeAction() for judges except that we've
-        // decoupled the scoring algorithm from the environment.  FWIW.
-        //
-        for judgePercept in environmentChanges {
-          for judge in agentScores[agent]!.keys {
-            agentScores[agent]![judge]! += judge.execute(judgePercept)
-          }
-        }
-        notifyEnvironmentViews(agent, agentPercept, agentAction);
-      }
-    }
-    // createExogenousChange();
-  }
-
-  public func step(_ count: Int) {
-    for _ in 1...count {
-      step();
-    }
-  }
-
-  public func stepUntilDone() {
-    while !isDone() {
-      step();
-    }
-  }
-
-  public func isDone() -> Bool {
-    for agent in agentScores.keys {
-      if agent.isAlive {
-        return false
-      }
-    }
-    return true;
-  }
-  
-  // PERFORMANCE
-
-  public func getScores(forAgent: IAgent) -> [IJudge: Double]? {
-    return agentScores[forAgent]
-  }
-  
-  // OBSERVERS
-
-  public func addEnvironmentView(_ view: EnvironmentView) {
-    views.insert(view)
-  }
-
-  public func removeEnvironmentView(_ view: EnvironmentView) {
-    views.remove(view);
-  }
-
-  func notifyViews(_ message: String) {
-    for view in views {
-      view.notify(message);
-    }
-  }
-
-  func notifyEnvironmentViews(_ agent: IAgent) {
-    for view in views {
-      view.agentAdded(agent, self);
-    }
-  }
-
-  func notifyEnvironmentViews(_ agent: IAgent, _ percept: IPercept, _ action: IAction) {
-    for view in views {
-      view.agentActed(agent, percept, action, self);
-    }
-  }
-
-}
-
-// ////////////////////////////////////////////////////////////////////////////
-
-/**
- * An `EnvironmentObject` can be added to an `Environment`.
- */
-public class EnvironmentObject: Object {
-  // Not clear this distinction is needed (yet) but there it is.
-  // It seems Percept must be a protocol if we want to tag enums with it...
-}
-
-// ////////////////////////////////////////////////////////////////////////////
-
-/**
- * Superclass for a hierarchy of observers and trackers to view the
- * interaction of Agent(s) with an Environment.  Subclasses may override
- * default NOOP implementations with desired behavior.
- */
-public class EnvironmentView: EnvironmentObject {
-  /**
-   * A simple notification message from an object in the Environment.
-   *
-   * - Parameter message: The message received.
-   */
-  public func notify(_ message: String) {
-
-  }
-
-  /**
-   * Indicates an Agent has been added to the environment and what it
-   * perceives initially.
-   *
-   * - Parameter agent: The Agent just added to the Environment.
-   * - Parameter source: The Environment to which the agent was added.
-   */
-  public func agentAdded(_ agent: IAgent, _ source: IEnvironment) {
-  
-  }
-
-  /**
-   * Indicates the Environment has changed as a result of an Agent's action.
-   *
-   * - Parameters:
-   *   - agent:   The Agent that performed the Action.
-   *   - percept: The Percept the Agent received from the environment.
-   *   - action:  The Action the Agent performed.
-   *   - source:  The Environment in which the agent has acted.
-   */
-  public func agentActed(_ agent:   IAgent,
-                         _ percept: IPercept,
-                         _ action:  IAction,
-                         _ source:  IEnvironment
-                        )
-  {
-  
-  }
 }
 
 
