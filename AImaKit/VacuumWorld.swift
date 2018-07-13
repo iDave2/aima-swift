@@ -231,8 +231,9 @@ public class VacuumWorld { // Begin VacuumWorld task environment.
             {
                 if isDirty {
                     action = AgentAction.suck
+                } else {
+                    action = percept.location == left ? .moveRight : .moveLeft;
                 }
-                action = percept.location == left ? .moveRight : .moveLeft;
             }
             return action
         }
@@ -327,8 +328,9 @@ public class VacuumWorld { // Begin VacuumWorld task environment.
             {
                 if isDirty {
                     action = .suck
+                } else {
+                    action = percept.location == left ? .moveRight : .moveLeft;
                 }
-                action = percept.location == left ? .moveRight : .moveLeft;
             }
             return action
         }
