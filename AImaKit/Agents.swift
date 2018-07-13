@@ -18,6 +18,18 @@
 //  VERIFY THIS LINE PUSHES ONTO remotes/origin/adjustment
 //
 
+/**
+ * # Does Anyone Process This?
+ *
+ * Would be swell if we could have header overview on Swift doc pages...
+ * I don't think so. Remember, Swift namespace is big flat entire module.
+ * Probably need more for more.
+ *
+ * - Authors:
+ *   - Dave
+ *   - Susy
+ */
+
 import Foundation
 
 
