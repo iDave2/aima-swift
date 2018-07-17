@@ -32,6 +32,13 @@ xcuserdata
 /AImaKit.xcodeproj/xcshareddata/xcbaselines
 /DerivedData
 
+# Jazzy docs includes personal info in undocumented.json and what appears to
+# be a redundant tar-gzip of its .docset tree which itself looks redundant.
+# We remove these in rake task and result appears to browse fine.  Leaving
+# here for reference or redundancy.
+docs/undocumented.json
+docs/docsets
+
 # Visual Studio cache/options directory
 .vs/
 
