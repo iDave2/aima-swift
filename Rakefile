@@ -20,14 +20,25 @@ end
 
 desc "Clean everything"
 task :cleanall => :clean do
-  sh "rm -fr .ipynb_checkpoints DerivedData"
+  sh "rm -fr .ipynb_checkpoints DerivedData tmp"
 end
 
 desc "Generate documentation"
 task :docs do
+
+  # Save GitHub Pages artifacts.
+  FileUtils.mkdir_p('tmp/docs')
+  FileUtils.mv('docs/_config.yml', 'tmp/docs')
+
+  # Generate documentation.
   xcute "rm -fr docs"
   xcute "jazzy --module AImaKit" 
   xcute "rm -fr docs/{docsets,undocumented.json}"
+
+  # Restore GitHub Pages artifacts.
+  FileUtils.mv('tmp/docs/_config.yml', 'docs')
+  FileUtils.rmdir('tmp/docs')
+
 end
 
 desc "Display list of tasks"

@@ -39,6 +39,7 @@
 		299BB9BB20E2DC6400E427E4 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		299BB9BC20E2DC6500E427E4 /* CONTRIBUTING.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CONTRIBUTING.md; sourceTree = "<group>"; };
 		299BB9BF20E58BD100E427E4 /* VacuumWorld.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VacuumWorld.swift; sourceTree = "<group>"; };
+		299D3FB020FE37B6003D10EA /* Rakefile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Rakefile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		29F242F720DF0DA900927629 /* AImaKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AImaKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		29F242FA20DF0DA900927629 /* AImaKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AImaKit.h; sourceTree = "<group>"; };
 		29F242FB20DF0DA900927629 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -70,6 +71,7 @@
 		29F242ED20DF0DA900927629 = {
 			isa = PBXGroup;
 			children = (
+				299D3FB020FE37B6003D10EA /* Rakefile */,
 				297AF1FD20F950E300E98F6A /* Config.xcconfig */,
 				299BB9BC20E2DC6500E427E4 /* CONTRIBUTING.md */,
 				299BB9BA20E2DC6400E427E4 /* LICENSE.md */,
