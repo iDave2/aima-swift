@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>AnEnvironment Class Reference</title>
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+    
+  </head>
+  <body>
+    <a name="//apple_ref/swift/Class/AnEnvironment" class="dashAnchor"></a>
+    <a title="AnEnvironment Class Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="../index.html">AImaKit Docs</a> (62% documented)</p>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="../index.html">AImaKit Reference</a>
+        <img id="carat" src="../img/carat.png" />
+        AnEnvironment Class Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="../Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Classes.html#/s:7AImaKit6AJudgeC">AJudge</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/AnActor.html">AnActor</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes.html#/s:7AImaKit7AnAgentC">AnAgent</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/AnEnvironment.html">AnEnvironment</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes.html#/s:7AImaKit17EnvironmentObjectC">EnvironmentObject</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/EnvironmentView.html">EnvironmentView</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Object.html">Object</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/SimpleActionTracker.html">SimpleActionTracker</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Space.html">Space</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/VacuumWorld.html">VacuumWorld</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/VacuumWorld/LocationState.html">– LocationState</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/VacuumWorld.html#/s:7AImaKit11VacuumWorldC4DirtC">– Dirt</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/VacuumWorld/AgentAction.html">– AgentAction</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/VacuumWorld/EnvironmentAction.html">– EnvironmentAction</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/VacuumWorld/AgentPercept.html">– AgentPercept</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/VacuumWorld.html#/s:7AImaKit11VacuumWorldC12JudgePerceptV">– JudgePercept</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/VacuumWorld/Environment.html">– Environment</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/VacuumWorld/ReflexAgent.html">– ReflexAgent</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/VacuumWorld/ModelBasedAgent.html">– ModelBasedAgent</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/VacuumWorld/ReflexJudge.html">– ReflexJudge</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Protocols/IAction.html">IAction</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols.html#/s:7AImaKit8IPerceptP">IPercept</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Typealiases.html">Type Aliases</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:7AImaKit8Locationa">Location</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            <h1>AnEnvironment</h1>
+              <div class="declaration">
+                <div class="language">
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">AnEnvironment</span></code></pre>
+
+                </div>
+              </div>
+            <p>Root of the <code>Environment</code> hierarchy, this class defines common
+functionality of any environment but must be subclassed to complete the
+definition and avoid a runtime crash.</p>
+
+          </section>
+          <section class="section task-group-section">
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:7AImaKit13AnEnvironmentCyAcA5SpaceCcfc"></a>
+                    <a name="//apple_ref/swift/Method/init(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:7AImaKit13AnEnvironmentCyAcA5SpaceCcfc">init(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Initialize the root environment with a <code><a href="../Classes/Space.html">Space</a></code>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="n">_</span> <span class="nv">space</span><span class="p">:</span> <span class="kt"><a href="../Classes/Space.html">Space</a></span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>space</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The space to use for this environment.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:7AImaKit13AnEnvironmentC13executeActionySayAA8IPercept_pGAA0C5AgentC_AA7IAction_ptF"></a>
+                    <a name="//apple_ref/swift/Method/executeAction(_:_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:7AImaKit13AnEnvironmentC13executeActionySayAA8IPercept_pGAA0C5AgentC_AA7IAction_ptF">executeAction(_:_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Alter environment according to action just taken by incoming agent.
+ For example, if a vacuum agent just did <code>Suck</code> then remove all <code>Dirt</code>
+ from its current location (assuming <code>Suck</code> is 100% successful).</p>
+<div class="aside aside-attention">
+    <p class="aside-title">Attention</p>
+    <p>This method must be overriden by concrete subclasses.</p>
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">executeAction</span><span class="p">(</span><span class="n">_</span> <span class="nv">agent</span><span class="p">:</span> <span class="kt"><a href="../Classes.html#/s:7AImaKit7AnAgentC">AnAgent</a></span><span class="p">,</span> <span class="n">_</span> <span class="nv">action</span><span class="p">:</span> <span class="kt"><a href="../Protocols/IAction.html">IAction</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt"><a href="../Protocols.html#/s:7AImaKit8IPerceptP">IPercept</a></span><span class="p">]</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>agent</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The agent responsible for this action.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>action</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The action chosen by this agent</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>List of <em>changes to the environment</em>, if any, caused by
+agent&rsquo;s action.  These are the <code>Percepts</code> seen by judges.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:7AImaKit13AnEnvironmentC16getPerceptSeenByyAA8IPercept_pAA0C5AgentCF"></a>
+                    <a name="//apple_ref/swift/Method/getPerceptSeenBy(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:7AImaKit13AnEnvironmentC16getPerceptSeenByyAA8IPercept_pAA0C5AgentCF">getPerceptSeenBy(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Create the <code>Percept</code> seen by this <code>Agent</code> at its current <code><a href="../Typealiases.html#/s:7AImaKit8Locationa">Location</a></code>.</p>
+<div class="aside aside-attention">
+    <p class="aside-title">Attention</p>
+    This method must be overriden by concrete subclasses.
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">getPerceptSeenBy</span><span class="p">(</span><span class="n">_</span> <span class="nv">agent</span><span class="p">:</span> <span class="kt"><a href="../Classes.html#/s:7AImaKit7AnAgentC">AnAgent</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Protocols.html#/s:7AImaKit8IPerceptP">IPercept</a></span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>agent</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The agent requesting another <code>Percept</code>.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>An agent percept.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:7AImaKit13AnEnvironmentC9addObject_2atyAA0dF0C_SaySiGSgtF"></a>
+                    <a name="//apple_ref/swift/Method/addObject(_:at:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:7AImaKit13AnEnvironmentC9addObject_2atyAA0dF0C_SaySiGSgtF">addObject(_:at:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Add an object to the environment optionally specifying its location.
+ If no location is provided, a random one will be chosen.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">addObject</span><span class="p">(</span><span class="n">_</span> <span class="nv">thing</span><span class="p">:</span> <span class="kt"><a href="../Classes.html#/s:7AImaKit17EnvironmentObjectC">EnvironmentObject</a></span><span class="p">,</span> <span class="n">at</span> <span class="nv">location</span><span class="p">:</span> <span class="kt"><a href="../Typealiases.html#/s:7AImaKit8Locationa">Location</a></span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>thing</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The object to add to environment.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>location</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Optional location at which to place it.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:7AImaKit13AnEnvironmentC10getObjects2ats10DictionaryVyAA0D6ObjectCSaySiGGAJSg_tF"></a>
+                    <a name="//apple_ref/swift/Method/getObjects(at:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:7AImaKit13AnEnvironmentC10getObjects2ats10DictionaryVyAA0D6ObjectCSaySiGGAJSg_tF">getObjects(at:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Return all environment objects, along with their location, either from a
+ specified location or, if no location is provided, from the entire environment.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">getObjects</span><span class="p">(</span><span class="n">at</span> <span class="nv">location</span><span class="p">:</span> <span class="kt"><a href="../Typealiases.html#/s:7AImaKit8Locationa">Location</a></span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">Dictionary</span><span class="o">&lt;</span><span class="kt"><a href="../Classes.html#/s:7AImaKit17EnvironmentObjectC">EnvironmentObject</a></span><span class="p">,</span> <span class="kt"><a href="../Typealiases.html#/s:7AImaKit8Locationa">Location</a></span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>location</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Optional location to retrieve objects from.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>A <code>Dictionary&lt;EnvironmentObject, Location&gt;</code> satisfying
+input criteria.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:7AImaKit13AnEnvironmentC4stepyyF"></a>
+                    <a name="//apple_ref/swift/Method/step()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:7AImaKit13AnEnvironmentC4stepyyF">step()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">step</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:7AImaKit13AnEnvironmentC4stepyySiF"></a>
+                    <a name="//apple_ref/swift/Method/step(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:7AImaKit13AnEnvironmentC4stepyySiF">step(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">step</span><span class="p">(</span><span class="n">_</span> <span class="nv">count</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:7AImaKit13AnEnvironmentC9getScores8forAgents10DictionaryVyAA6AJudgeCSdGSgAA0cH0C_tF"></a>
+                    <a name="//apple_ref/swift/Method/getScores(forAgent:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:7AImaKit13AnEnvironmentC9getScores8forAgents10DictionaryVyAA6AJudgeCSdGSgAA0cH0C_tF">getScores(forAgent:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">getScores</span><span class="p">(</span><span class="nv">forAgent</span><span class="p">:</span> <span class="kt"><a href="../Classes.html#/s:7AImaKit7AnAgentC">AnAgent</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt"><a href="../Classes.html#/s:7AImaKit6AJudgeC">AJudge</a></span> <span class="p">:</span> <span class="kt">Double</span><span class="p">]?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:7AImaKit13AnEnvironmentC03addD4ViewyyAA0dF0CF"></a>
+                    <a name="//apple_ref/swift/Method/addEnvironmentView(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:7AImaKit13AnEnvironmentC03addD4ViewyyAA0dF0CF">addEnvironmentView(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">addEnvironmentView</span><span class="p">(</span><span class="n">_</span> <span class="nv">view</span><span class="p">:</span> <span class="kt"><a href="../Classes/EnvironmentView.html">EnvironmentView</a></span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:7AImaKit13AnEnvironmentC06removeD4ViewyyAA0dF0CF"></a>
+                    <a name="//apple_ref/swift/Method/removeEnvironmentView(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:7AImaKit13AnEnvironmentC06removeD4ViewyyAA0dF0CF">removeEnvironmentView(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">removeEnvironmentView</span><span class="p">(</span><span class="n">_</span> <span class="nv">view</span><span class="p">:</span> <span class="kt"><a href="../Classes/EnvironmentView.html">EnvironmentView</a></span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </section>
+        </section>
+        <section id="footer">
+          <p>&copy; 2018 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2018-07-16)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.3</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</div>
+</html>

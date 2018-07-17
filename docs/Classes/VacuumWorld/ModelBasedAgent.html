@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>ModelBasedAgent Class Reference</title>
+    <link rel="stylesheet" type="text/css" href="../../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="../../js/jquery.min.js" defer></script>
+    <script src="../../js/jazzy.js" defer></script>
+    
+  </head>
+  <body>
+    <a name="//apple_ref/swift/Class/ModelBasedAgent" class="dashAnchor"></a>
+    <a title="ModelBasedAgent Class Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="../../index.html">AImaKit Docs</a> (62% documented)</p>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="../../index.html">AImaKit Reference</a>
+        <img id="carat" src="../../img/carat.png" />
+        ModelBasedAgent Class Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="../../Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../../Classes.html#/s:7AImaKit6AJudgeC">AJudge</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Classes/AnActor.html">AnActor</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Classes.html#/s:7AImaKit7AnAgentC">AnAgent</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Classes/AnEnvironment.html">AnEnvironment</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Classes.html#/s:7AImaKit17EnvironmentObjectC">EnvironmentObject</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Classes/EnvironmentView.html">EnvironmentView</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Classes/Object.html">Object</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Classes/SimpleActionTracker.html">SimpleActionTracker</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Classes/Space.html">Space</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Classes/VacuumWorld.html">VacuumWorld</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Classes/VacuumWorld/LocationState.html">– LocationState</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Classes/VacuumWorld.html#/s:7AImaKit11VacuumWorldC4DirtC">– Dirt</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Classes/VacuumWorld/AgentAction.html">– AgentAction</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Classes/VacuumWorld/EnvironmentAction.html">– EnvironmentAction</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Classes/VacuumWorld/AgentPercept.html">– AgentPercept</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Classes/VacuumWorld.html#/s:7AImaKit11VacuumWorldC12JudgePerceptV">– JudgePercept</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Classes/VacuumWorld/Environment.html">– Environment</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Classes/VacuumWorld/ReflexAgent.html">– ReflexAgent</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Classes/VacuumWorld/ModelBasedAgent.html">– ModelBasedAgent</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Classes/VacuumWorld/ReflexJudge.html">– ReflexJudge</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../../Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../../Protocols/IAction.html">IAction</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Protocols.html#/s:7AImaKit8IPerceptP">IPercept</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../../Typealiases.html">Type Aliases</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../../Typealiases.html#/s:7AImaKit8Locationa">Location</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            <h1>ModelBasedAgent</h1>
+              <div class="declaration">
+                <div class="language">
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">ModelBasedAgent</span> <span class="p">:</span> <span class="kt"><a href="../../Classes.html#/s:7AImaKit7AnAgentC">AnAgent</a></span></code></pre>
+
+                </div>
+              </div>
+            <p>A model-based (reflex) agent or at least an agent with some memory.</p>
+<pre class="highlight swift"><code> <span class="n">function</span> <span class="kt">MODEL</span><span class="o">-</span><span class="kt">BASED</span><span class="o">-</span><span class="kt">REFLEX</span><span class="o">-</span><span class="kt">AGENT</span><span class="p">(</span><span class="n">percept</span><span class="p">)</span> <span class="n">returns</span> <span class="n">an</span> <span class="n">action</span>
+   <span class="nv">persistent</span><span class="p">:</span> <span class="n">state</span><span class="p">,</span> <span class="n">the</span> <span class="n">agent</span><span class="err">'</span><span class="n">s</span> <span class="n">current</span> <span class="n">conception</span> <span class="n">of</span> <span class="n">the</span> <span class="n">world</span> <span class="n">state</span>
+               <span class="n">model</span><span class="p">,</span> <span class="n">a</span> <span class="n">description</span> <span class="n">of</span> <span class="n">how</span> <span class="n">the</span> <span class="n">next</span> <span class="n">state</span> <span class="n">depends</span> <span class="n">on</span> <span class="n">current</span> <span class="n">state</span> <span class="n">and</span> <span class="n">action</span>
+               <span class="n">rules</span><span class="p">,</span> <span class="n">a</span> <span class="k">set</span> <span class="n">of</span> <span class="n">condition</span><span class="o">-</span><span class="n">action</span> <span class="n">rules</span>
+               <span class="n">action</span><span class="p">,</span> <span class="n">the</span> <span class="n">most</span> <span class="n">recent</span> <span class="n">action</span><span class="p">,</span> <span class="n">initially</span> <span class="k">none</span>
+
+   <span class="n">state</span>  <span class="o">&lt;-</span> <span class="kt">UPDATE</span><span class="o">-</span><span class="kt">STATE</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="n">action</span><span class="p">,</span> <span class="n">percept</span><span class="p">,</span> <span class="n">model</span><span class="p">)</span>
+   <span class="n">rule</span>   <span class="o">&lt;-</span> <span class="kt">RULE</span><span class="o">-</span><span class="kt">MATCH</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="n">rules</span><span class="p">)</span>
+   <span class="n">action</span> <span class="o">&lt;-</span> <span class="n">rule</span><span class="o">.</span><span class="kt">ACTION</span>
+   <span class="k">return</span> <span class="n">action</span>
+</code></pre>
+
+<p>Figure 2.12, AIMA3e, page 51.</p>
+
+<p>Adding state to an agent or its program raises a couple of problems
+ with the current design:</p>
+
+<ul>
+<li><p>Requiring agents to initialize their superclass with their program is
+bad design; a simple requirement that agents include an <code>execute()</code> method
+is sufficient.  This choice was influenced by a comment on aima-python&rsquo;s
+Agent suggesting these agent programs might <q>cheat</q>.  C&#39;mon, really?
+That&rsquo;s like not letting your hand touch any part of your body.  From now
+on, the unit of security is the Agent and our Agents (and Judges and
+Environments) cannot see each other and do not know how the other works.</p></li>
+<li><p>The other issue was how the first issue introduces memory leaks, which
+was fixed here with Swift subtleties (also distracts from the subject),
+and which will be not-a-problem in next design.</p></li>
+</ul>
+
+          </section>
+          <section class="section task-group-section">
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:7AImaKit11VacuumWorldC15ModelBasedAgentC7executeyAA7IAction_pAA8IPercept_pF"></a>
+                    <a name="//apple_ref/swift/Method/execute(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:7AImaKit11VacuumWorldC15ModelBasedAgentC7executeyAA7IAction_pAA8IPercept_pF">execute(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>This model-based agent program.</p>
+
+<p>In order to reference <code>self</code> in this closure, we use <code>lazy</code> to tell Swift
+ we won&rsquo;t access it until <em>after</em> initialization.  To avoid resulting strong
+ reference cycle, we add capture list <code>[unowned self]</code> as described in book&rsquo;s
+ ARC chapter.</p>
+
+<p>Swift requires prefix <code>self.</code> for instance properties referenced in closures
+ to <q>remind</q> us of potential cycles.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">override</span> <span class="kd">func</span> <span class="nf">execute</span><span class="p">(</span><span class="n">_</span> <span class="nv">scene</span><span class="p">:</span> <span class="kt"><a href="../../Protocols.html#/s:7AImaKit8IPerceptP">IPercept</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../../Protocols/IAction.html">IAction</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </section>
+        </section>
+        <section id="footer">
+          <p>&copy; 2018 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2018-07-16)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.3</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</div>
+</html>

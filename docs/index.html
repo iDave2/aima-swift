@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>AImaKit  Reference</title>
+    <link rel="stylesheet" type="text/css" href="css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="js/jquery.min.js" defer></script>
+    <script src="js/jazzy.js" defer></script>
+    
+  </head>
+  <body>
+    <a title="AImaKit  Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="index.html">AImaKit Docs</a> (62% documented)</p>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="index.html">AImaKit Reference</a>
+        <img id="carat" src="img/carat.png" />
+        AImaKit  Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Classes.html#/s:7AImaKit6AJudgeC">AJudge</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/AnActor.html">AnActor</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes.html#/s:7AImaKit7AnAgentC">AnAgent</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/AnEnvironment.html">AnEnvironment</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes.html#/s:7AImaKit17EnvironmentObjectC">EnvironmentObject</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/EnvironmentView.html">EnvironmentView</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/Object.html">Object</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/SimpleActionTracker.html">SimpleActionTracker</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/Space.html">Space</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/VacuumWorld.html">VacuumWorld</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/VacuumWorld/LocationState.html">– LocationState</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/VacuumWorld.html#/s:7AImaKit11VacuumWorldC4DirtC">– Dirt</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/VacuumWorld/AgentAction.html">– AgentAction</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/VacuumWorld/EnvironmentAction.html">– EnvironmentAction</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/VacuumWorld/AgentPercept.html">– AgentPercept</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/VacuumWorld.html#/s:7AImaKit11VacuumWorldC12JudgePerceptV">– JudgePercept</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/VacuumWorld/Environment.html">– Environment</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/VacuumWorld/ReflexAgent.html">– ReflexAgent</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/VacuumWorld/ModelBasedAgent.html">– ModelBasedAgent</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/VacuumWorld/ReflexJudge.html">– ReflexJudge</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Protocols/IAction.html">IAction</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Protocols.html#/s:7AImaKit8IPerceptP">IPercept</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="Typealiases.html">Type Aliases</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Typealiases.html#/s:7AImaKit8Locationa">Location</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            
+            <h1 id='img-src-https-github-com-aimacode-aima-java-blob-gh-pages-aima3e-images-aima3e-jpg-alt-aima-swift' class='heading'><img src="https://github.com/aimacode/aima-java/blob/gh-pages/aima3e/images/aima3e.jpg" alt="">aima-swift</h1>
+
+<blockquote>
+<p><q>Houston, we have a vacuum cleaner.</q></p>
+</blockquote>
+
+<p>In the spirit of <a href="https://github.com/aimacode/">aimacode</a>, this project aims toward a <a href="https://swift.org">Swift</a> 
+implementation of algorithms from <a href="http://www.cs.berkeley.edu/%7Erussell/">Russell</a> and <a href="http://www.norvig.com/">Norvig&rsquo;s</a> 
+<a href="http://aima.cs.berkeley.edu/">Artificial Intelligence - A Modern Approach 3rd Edition</a>.</p>
+<h2 id='getting-started' class='heading'>Getting Started</h2>
+
+<p>The project uses Xcode 10 and Swift 4.2 which are Beta at time of writing.  You can download Xcode Beta
+releases from <a href="https://developer.apple.com/support/beta-software/">this page</a>.  The download unzips into
+<code>Xcode-beta.app</code> and includes the newer <code>Swift</code> in its toolchain.  In order to activate newer <code>Swift</code>
+everywhere, either use <a href="http://iosdevelopertips.com/xcode/xcode-select-managing-multiple-versions-of-xcode.html">xcode-select</a>
+or run Preferences &gt; Locations from the <code>Xcode-beta</code> IDE and select it as the location for Command Line Tools.
+Then <code>Swift</code> is magically v4.2 everywhere.</p>
+
+<p>To download the repository:</p>
+
+<p><code>git clone https://github.com/iDave2/aima-swift.git</code></p>
+
+<p>To more easily find what Xcode builds, try File &gt; Project Settings and place DerivedData relative to your
+project (i.e., in its root).  If you cloned the repository to, say, <code>~/russell-norvig</code> then an alias like this,</p>
+
+<p><code>alias swift=&quot;swift -F ~/russell-norvig/DerivedData/AImaKit/Build/Products/Debug&quot;</code></p>
+
+<p>tells Swift where to find the AImaKit framework and lets you easily run tests from a command line.  For example,</p>
+<pre class="highlight shell"><code><span class="nv">$ </span><span class="nb">cat </span>test.swift 
+import AImaKit
+
+typealias VW <span class="o">=</span> VacuumWorld
+
+<span class="nb">let </span>agent <span class="o">=</span> VW.ReflexAgent<span class="o">()</span> // Create an agent.
+<span class="nb">let </span>stuff <span class="o">=</span> Set&lt;EnvironmentObject&gt;<span class="o">([</span>VW.Dirt<span class="o">()])</span> // Create one dirt. 
+<span class="nb">let </span>percept <span class="o">=</span> VW.AgentPercept<span class="o">(</span>location: VW.left, objects: stuff<span class="o">)</span> // One dirt?
+<span class="nb">let </span>action <span class="o">=</span> agent.execute<span class="o">(</span>percept<span class="o">)</span> // Give me one dirt, Vasili.
+print<span class="o">(</span><span class="s2">"Agent sees </span><span class="se">\(</span><span class="s2">percept), does </span><span class="se">\"\(</span><span class="s2">action).</span><span class="se">\"</span><span class="s2">"</span><span class="o">)</span>
+</code></pre>
+
+<p>Additional unit tests are available in Xcode target <code>AImaKitTests</code>.</p>
+
+<p>Happy Swifting!</p>
+
+          </section>
+        </section>
+        <section id="footer">
+          <p>&copy; 2018 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2018-07-16)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.3</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</div>
+</html>

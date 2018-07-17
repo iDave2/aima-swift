@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Space Class Reference</title>
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+    
+  </head>
+  <body>
+    <a name="//apple_ref/swift/Class/Space" class="dashAnchor"></a>
+    <a title="Space Class Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="../index.html">AImaKit Docs</a> (62% documented)</p>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="../index.html">AImaKit Reference</a>
+        <img id="carat" src="../img/carat.png" />
+        Space Class Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="../Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Classes.html#/s:7AImaKit6AJudgeC">AJudge</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/AnActor.html">AnActor</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes.html#/s:7AImaKit7AnAgentC">AnAgent</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/AnEnvironment.html">AnEnvironment</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes.html#/s:7AImaKit17EnvironmentObjectC">EnvironmentObject</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/EnvironmentView.html">EnvironmentView</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Object.html">Object</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/SimpleActionTracker.html">SimpleActionTracker</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Space.html">Space</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/VacuumWorld.html">VacuumWorld</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/VacuumWorld/LocationState.html">– LocationState</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/VacuumWorld.html#/s:7AImaKit11VacuumWorldC4DirtC">– Dirt</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/VacuumWorld/AgentAction.html">– AgentAction</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/VacuumWorld/EnvironmentAction.html">– EnvironmentAction</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/VacuumWorld/AgentPercept.html">– AgentPercept</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/VacuumWorld.html#/s:7AImaKit11VacuumWorldC12JudgePerceptV">– JudgePercept</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/VacuumWorld/Environment.html">– Environment</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/VacuumWorld/ReflexAgent.html">– ReflexAgent</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/VacuumWorld/ModelBasedAgent.html">– ModelBasedAgent</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/VacuumWorld/ReflexJudge.html">– ReflexJudge</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Protocols/IAction.html">IAction</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols.html#/s:7AImaKit8IPerceptP">IPercept</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Typealiases.html">Type Aliases</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:7AImaKit8Locationa">Location</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            <h1>Space</h1>
+              <div class="declaration">
+                <div class="language">
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">Space</span></code></pre>
+
+                </div>
+              </div>
+            <p>For problems involving N-dimensional Cartesian locations, it is simpler to
+ implement one concrete model than multiple custom spaces like <code>(left, right)</code>
+ and is arguably clearer.</p>
+
+<p>This class models an N-dimensional <code>Space</code> of integer coordinates where
+ <code>N &gt;= 0</code>.  Each dimension is initialized with a half-open interval, or
+ <code>Range</code>, like <code>0..&lt;10</code> or <code>-5..&lt;5</code>.  A <code><a href="../Typealiases.html#/s:7AImaKit8Locationa">Location</a></code> then is just an array
+ of integers.</p>
+
+<p>The default initializer generates the special case of <code>N = 0</code> and permits
+ expressions like</p>
+<pre class="highlight swift"><code> <span class="k">let</span> <span class="nv">mySpace</span> <span class="o">=</span> <span class="kt">Space</span><span class="p">()</span>
+</code></pre>
+
+<p>which gives you a concrete representation of nothing (in case you
+ are working on big bang theory).</p>
+
+          </section>
+          <section class="section task-group-section">
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:7AImaKit5SpaceCyACs5RangeVySiGd_tcfc"></a>
+                    <a name="//apple_ref/swift/Method/init(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:7AImaKit5SpaceCyACs5RangeVySiGd_tcfc">init(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Method initializes <code>Space</code> instance with zero or more <code>Range</code>s.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="n">_</span> <span class="nv">ranges</span><span class="p">:</span> <span class="kt">Range</span><span class="o">&lt;</span><span class="kt">Int</span><span class="o">&gt;...</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>ranges</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The list of ranges, one per dimension.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:7AImaKit5SpaceC12getDimensionSiyF"></a>
+                    <a name="//apple_ref/swift/Method/getDimension()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:7AImaKit5SpaceC12getDimensionSiyF">getDimension()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">getDimension</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Int</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The number of dimensions of this space (i.e., the number of
+       ranges supplied at initialization).</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:7AImaKit5SpaceC8containsySbSaySiGF"></a>
+                    <a name="//apple_ref/swift/Method/contains(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:7AImaKit5SpaceC8containsySbSaySiGF">contains(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Method checks whether a given <code><a href="../Typealiases.html#/s:7AImaKit8Locationa">Location</a></code> is <em>inside</em> this <code>Space</code>.</p>
+
+<p>A <code>location</code> is <em>inside</em> iff it&rsquo;s dimension is no greater than the <code>Space</code>&lsquo;s
+ and each of its coordinates is contained in the corresponding <code>Space</code> range.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">contains</span><span class="p">(</span><span class="n">_</span> <span class="nv">location</span><span class="p">:</span> <span class="kt"><a href="../Typealiases.html#/s:7AImaKit8Locationa">Location</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>location</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The <code><a href="../Typealiases.html#/s:7AImaKit8Locationa">Location</a></code> to test for containment.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>True if <code>location</code> is inside this <code>Space</code>; otherwise, false.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:7AImaKit5SpaceC14randomLocationSaySiGyF"></a>
+                    <a name="//apple_ref/swift/Method/randomLocation()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:7AImaKit5SpaceC14randomLocationSaySiGyF">randomLocation()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Returns: A random location inside the space.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">randomLocation</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Typealiases.html#/s:7AImaKit8Locationa">Location</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:7AImaKit5SpaceC7toArray9repeatingyXlSgx_tlF"></a>
+                    <a name="//apple_ref/swift/Method/toArray(repeating:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:7AImaKit5SpaceC7toArray9repeatingyXlSgx_tlF">toArray(repeating:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Generate a model of this space initialized with the given value.</p>
+
+<p>There are no doubt better ways to do this but, for now, here is
+ an example of usage:</p>
+<pre class="highlight swift"><code> <span class="k">let</span> <span class="nv">space</span> <span class="o">=</span> <span class="kt">Space</span><span class="p">(</span><span class="mi">0</span><span class="o">..&lt;</span><span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="o">..&lt;</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="o">..&lt;</span><span class="mi">1</span><span class="p">)</span>  <span class="c1">// That's 3x2x1 cuboid.</span>
+ <span class="k">guard</span> <span class="k">let</span> <span class="nv">array</span> <span class="o">=</span> <span class="n">space</span><span class="o">.</span><span class="nf">toArray</span><span class="p">(</span><span class="nv">repeating</span><span class="p">:</span> <span class="s">"unknown"</span><span class="p">)</span> <span class="k">as?</span> <span class="p">[[[</span><span class="kt">String</span><span class="p">]]]</span> <span class="k">else</span> <span class="p">{</span>
+   <span class="nf">fatalError</span><span class="p">(</span><span class="s">"Cannot construct array from space </span><span class="se">\(</span><span class="n">space</span><span class="se">)</span><span class="s">."</span><span class="p">)</span>
+ <span class="p">}</span>
+ <span class="nf">print</span><span class="p">(</span><span class="s">"let array: [[[String]]] ="</span><span class="p">,</span> <span class="n">array</span><span class="p">)</span>
+</code></pre>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="n">toArray</span><span class="o">&lt;</span><span class="kt">Element</span><span class="o">&gt;</span><span class="p">(</span><span class="nv">repeating</span><span class="p">:</span> <span class="kt">Array</span><span class="o">&lt;</span><span class="kt">Element</span><span class="o">&gt;.</span><span class="kt">Element</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">AnyObject</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>repeating</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The value to initialize array with.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>An N-dimensional array initialized with incoming element
+        or nil if Space is Nothing or something else failed.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </section>
+        </section>
+        <section id="footer">
+          <p>&copy; 2018 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2018-07-16)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.3</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</div>
+</html>
