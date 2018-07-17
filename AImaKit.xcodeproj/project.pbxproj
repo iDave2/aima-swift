@@ -12,7 +12,6 @@
 		294ADC6B20E70C3C0053937E /* SimpleActionTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 294ADC6920E70C3C0053937E /* SimpleActionTracker.swift */; };
 		297AF1FB20F7C7E900E98F6A /* Environments.swift in Sources */ = {isa = PBXBuildFile; fileRef = 297AF1FA20F7C7E900E98F6A /* Environments.swift */; };
 		297AF1FC20F8160A00E98F6A /* Environments.swift in Sources */ = {isa = PBXBuildFile; fileRef = 297AF1FA20F7C7E900E98F6A /* Environments.swift */; };
-		297AF1FE20F950E300E98F6A /* Config.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 297AF1FD20F950E300E98F6A /* Config.xcconfig */; };
 		299BB9C020E58BD100E427E4 /* VacuumWorld.swift in Sources */ = {isa = PBXBuildFile; fileRef = 299BB9BF20E58BD100E427E4 /* VacuumWorld.swift */; };
 		299BB9C120E58BD100E427E4 /* VacuumWorld.swift in Sources */ = {isa = PBXBuildFile; fileRef = 299BB9BF20E58BD100E427E4 /* VacuumWorld.swift */; };
 		29F2430120DF0DA900927629 /* AImaKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29F242F720DF0DA900927629 /* AImaKit.framework */; };
@@ -34,7 +33,6 @@
 /* Begin PBXFileReference section */
 		294ADC6920E70C3C0053937E /* SimpleActionTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleActionTracker.swift; sourceTree = "<group>"; };
 		297AF1FA20F7C7E900E98F6A /* Environments.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Environments.swift; sourceTree = "<group>"; };
-		297AF1FD20F950E300E98F6A /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		299BB9BA20E2DC6400E427E4 /* LICENSE.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = LICENSE.md; sourceTree = "<group>"; };
 		299BB9BB20E2DC6400E427E4 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		299BB9BC20E2DC6500E427E4 /* CONTRIBUTING.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CONTRIBUTING.md; sourceTree = "<group>"; };
@@ -72,7 +70,6 @@
 			isa = PBXGroup;
 			children = (
 				299D3FB020FE37B6003D10EA /* Rakefile */,
-				297AF1FD20F950E300E98F6A /* Config.xcconfig */,
 				299BB9BC20E2DC6500E427E4 /* CONTRIBUTING.md */,
 				299BB9BA20E2DC6400E427E4 /* LICENSE.md */,
 				299BB9BB20E2DC6400E427E4 /* README.md */,
@@ -207,7 +204,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				297AF1FE20F950E300E98F6A /* Config.xcconfig in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
