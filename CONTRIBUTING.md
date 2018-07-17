@@ -73,7 +73,6 @@ like `UIKit`.
 
 ## Issues
 - Finish chapter 2.
-- Figure out how Apple builds frameworks from command line and implement.
 - Add GUI's, perhaps separate projects that reference AImaKit.
 - Learn how to distribute a properly signed AImaKit binary for users who prefer to focus on AIMA rather
 than Swift.

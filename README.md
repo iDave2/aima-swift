@@ -39,5 +39,6 @@ print("Agent sees \(percept), does \"\(action).\"")
 ``` 
 
 Additional unit tests are available in Xcode target `AImaKitTests`.
+[GitHub Pages](https://idave2.github.io/aima-swift/) has additional documentation.
 
 Happy Swifting!
