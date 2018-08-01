@@ -6,6 +6,21 @@
 	objectVersion = 50;
 	objects = {
 
+/* Begin PBXAggregateTarget section */
+		29EF3E9A2106960C00BBDE25 /* AggregateShellScript */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 29EF3E9D2106960C00BBDE25 /* Build configuration list for PBXAggregateTarget "AggregateShellScript" */;
+			buildPhases = (
+				29EF3E9F210696DB00BBDE25 /* CopyFiles */,
+				29EF3E9E210696C500BBDE25 /* ShellScript */,
+			);
+			dependencies = (
+			);
+			name = AggregateShellScript;
+			productName = AggregateShellScript;
+		};
+/* End PBXAggregateTarget section */
+
 /* Begin PBXBuildFile section */
 		294ADC6820E6F1370053937E /* Agents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29F2431120DF0DF400927629 /* Agents.swift */; };
 		294ADC6A20E70C3C0053937E /* SimpleActionTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 294ADC6920E70C3C0053937E /* SimpleActionTracker.swift */; };
@@ -29,6 +44,18 @@
 			remoteInfo = AImaKit;
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		29EF3E9F210696DB00BBDE25 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 7;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		294ADC6920E70C3C0053937E /* SimpleActionTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleActionTracker.swift; sourceTree = "<group>"; };
@@ -171,6 +198,9 @@
 				LastUpgradeCheck = 1000;
 				ORGANIZATIONNAME = "Dave King";
 				TargetAttributes = {
+					29EF3E9A2106960C00BBDE25 = {
+						CreatedOnToolsVersion = 10.0;
+					};
 					29F242F620DF0DA900927629 = {
 						CreatedOnToolsVersion = 9.4.1;
 						LastSwiftMigration = 1000;
@@ -195,6 +225,7 @@
 			targets = (
 				29F242F620DF0DA900927629 /* AImaKit */,
 				29F242FF20DF0DA900927629 /* AImaKitTests */,
+				29EF3E9A2106960C00BBDE25 /* AggregateShellScript */,
 			);
 		};
 /* End PBXProject section */
@@ -215,6 +246,26 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		29EF3E9E210696C500BBDE25 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		29F242F220DF0DA900927629 /* Sources */ = {
@@ -251,6 +302,24 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		29EF3E9B2106960C00BBDE25 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = UCU7LB9MW7;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		29EF3E9C2106960C00BBDE25 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = UCU7LB9MW7;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 		29F2430920DF0DA900927629 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -470,6 +539,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		29EF3E9D2106960C00BBDE25 /* Build configuration list for PBXAggregateTarget "AggregateShellScript" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				29EF3E9B2106960C00BBDE25 /* Debug */,
+				29EF3E9C2106960C00BBDE25 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		29F242F120DF0DA900927629 /* Build configuration list for PBXProject "AImaKit" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
