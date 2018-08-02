@@ -66,46 +66,7 @@ public class AnEnvironment: Environment {
         fatalError("AnyEnvironment subclass must define getPerceptSeenBy(agent:).")
     }
     
-    // CONFIGURATION
-    
-    /**
-     * Return all environment objects, along with their location, either from a
-     * specified location or, if no location is provided, from the entire environment.
-     *
-     * - Parameter location: Optional location to retrieve objects from.
-     * - Returns: A `Dictionary<EnvironmentObject, Location>` satisfying
-     * input criteria.
-     */
-//    public func getObjects(at location: Location?) -> Dictionary<EnvironmentObject, Location> {
-//        var workArea = [EnvironmentObject: Location]() // Start with empty dictionary.
-//        if location == nil {
-//            workArea = envObjects     // Add all entries.
-//        } else {
-//            for (key, value) in envObjects {
-//                if value == location {
-//                    workArea[key] = value // Add only those with matching location.
-//                }
-//            }
-//        }
-//        // I think this only makes `result` (the reference) and `Location`s immutable...
-//        let result = workArea
-//        return result
-//    }
-    
-    // Not used (yet).
-    //
-    // public func removeObject(_ thing: EnvironmentObject) {
-    //     envObjects[thing] = nil // Same effect as removeValue(forKey:).
-    //     if let agent = thing as? AnAgent {
-    //         agentScores[agent] = nil // Removes both key and value.
-    //     }
-    //     if let judge = thing as? AJudge {
-    //         for agent in agentScores.keys {
-    //             agentScores[agent]![judge] = nil
-    //         }
-    //     }
-    // }
-    
+
     // CLOCK (where simulation begins)
     
     public func step() {
@@ -137,22 +98,30 @@ public class AnEnvironment: Environment {
         }
         // createExogenousChange();
     }
-    
-    public func step(_ count: Int) {
-        for _ in 1...count {
-            step();
-        }
-    }
-    
-    // Not used.
+
+    // Not used (yet).
+    //
+    // CONFIGURATION
+    //
+    // public func removeObject(_ thing: EnvironmentObject) {
+    //     envObjects[thing] = nil // Same effect as removeValue(forKey:).
+    //     if let agent = thing as? AnAgent {
+    //         agentScores[agent] = nil // Removes both key and value.
+    //     }
+    //     if let judge = thing as? AJudge {
+    //         for agent in agentScores.keys {
+    //             agentScores[agent]![judge] = nil
+    //         }
+    //     }
+    // }
+    //
+    // CLOCK
     //
     // public func stepUntilDone() {
     //     while !isDone() {
     //         step();
     //     }
     // }
-    
-    // Not used.
     //
     // public func isDone() -> Bool {
     //     for agent in agentScores.keys {
@@ -162,41 +131,19 @@ public class AnEnvironment: Environment {
     //     }
     //     return true;
     // }
-    
-    // PERFORMANCE
-    
-    public func getScores(forAgent: AnAgent) -> [AJudge: Double]? {
-        return agentScores[forAgent]
-    }
-    
+    //
     // OBSERVERS
-    
-    public func addEnvironmentView(_ view: EnvironmentView) {
-        views.insert(view)
-    }
-    
-    public func removeEnvironmentView(_ view: EnvironmentView) {
-        views.remove(view);
-    }
-    
-    func notifyViews(_ message: String) {
-        for view in views {
-            view.notify(message);
-        }
-    }
-    
-//    func notifyEnvironmentViews(_ agent: AnAgent) {
-//        for view in views {
-//            view.agentAdded(agent, self);
-//        }
-//    }
+    //
+    // public func removeEnvironmentView(_ view: EnvironmentView) {
+    //     views.remove(view);
+    // }
+    //
+    // func notifyViews(_ message: String) {
+    //     for view in views {
+    //         view.notify(message);
+    //     }
+    // }
 
-    public func notifyEnvironmentViews(_ agent: AnAgent, _ percept: IPercept, _ action: IAction) {
-        for view in views {
-            view.agentActed(agent, percept, action, self);
-        }
-    }
-    
 }
 
 // ////////////////////////////////////////////////////////////////////////////
@@ -249,7 +196,7 @@ public class EnvironmentView: EnvironmentObject {
     public func agentActed(_ agent:   AnAgent,
                            _ percept: IPercept,
                            _ action:  IAction,
-                           _ source:  AnEnvironment)
+                           _ source:  Environment)
     {
         
     }

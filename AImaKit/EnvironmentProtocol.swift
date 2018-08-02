@@ -10,12 +10,15 @@ import Foundation
 
 /**
  * A protocol for Euclidean environments used in Chapter 2 of AIMA3e, this
- * represents the world as a grid of Cartesian coordinates, or `Space`, that
+ * represents the world as a grid of Cartesian coordinates, a `Space`, that
  * agents move around in.
+ *
+ * Remember: these protocols only attach a protocol witness table (PWT) to
+ * classes that adopt them, but not their subclasses (if any), so you get at
+ * most one level of "inheritance" and they call that "static polymorphism."
+ * Uh-huh...  Also [see this](https://stackoverflow.com/questions/44703205).
  */
 public protocol Environment { // Euclidean, at least, not for graphs.
-
-    // ##+####-####+####-####+####-####+####-####+####-####+####-####+####-###
 
     //  STATE  ///////////////////////////////////////////////////////////////
 
@@ -50,18 +53,6 @@ public protocol Environment { // Euclidean, at least, not for graphs.
     var views: Set<EnvironmentView> { get set }
 
 
-    //  INITIALIZATION  //////////////////////////////////////////////////////
-
-    /*
-     * Environments must be initialize with a `Space`.
-     *
-     * - Parameter space: The space to use for this environment.
-     *
-     * TODO: Do we still want/need this in a protocol context?
-     */
-    //init(_ space: Space)
-
-
     //  CONTENTS  ////////////////////////////////////////////////////////////
 
     /**
@@ -85,14 +76,39 @@ public protocol Environment { // Euclidean, at least, not for graphs.
     func getObjects(at location: Location?) -> Dictionary<EnvironmentObject, Location>
 
 
+    //  TIME  ////////////////////////////////////////////////////////////////
+
+    /**
+     * Move clock forward one click.
+     */
+    func step()
+
+    /**
+     * Move clock forward by `count` clicks.
+     *
+     * - Parameter count: Number of clicks to move clock forward by.
+     */
+    func step(_ count: Int)
+
+
+    //  PERFORMANCE  /////////////////////////////////////////////////////////
+
+    func getScores(forAgent: AnAgent) -> [AJudge: Double]?
+
+
     //  OBSERVERS  ///////////////////////////////////////////////////////////
 
+    mutating func addEnvironmentView(_ view: EnvironmentView)
+
     func notifyEnvironmentViews(_ agent: AnAgent)
-    //func notifyEnvironmentViews(_ agent: AnAgent, _ percept: IPercept, _ action: IAction)
+
+    func notifyEnvironmentViews(_ agent: AnAgent, _ percept: IPercept, _ action: IAction)
 
 }
 
-extension Environment { // CONTENTS
+//  CONTENTS  ////////////////////////////////////////////////////////////////
+
+extension Environment {
 
     public mutating func addObject(_ thing: EnvironmentObject, at location: Location? = nil)
     {
@@ -146,11 +162,76 @@ extension Environment { // CONTENTS
 
 }
 
-extension Environment { // OBSERVERS
+//  TIME  ////////////////////////////////////////////////////////////////////
+
+extension Environment {
+
+    // TODO: Need to resolve crashers before this compiles.
+//    public func step() {
+//        for agent in agentScores.keys {
+//            if !agent.isAlive {
+//                continue
+//            }
+//            //
+//            // Synthesize an AgentPercept and ask Agent to map it to an AgentAction.
+//            //
+//            let agentPercept = getPerceptSeenBy(agent)
+//            let agentAction = agent.execute(agentPercept)
+//            //
+//            // Map AgentAction onto actual Environment changes and save
+//            // as list of JudgePercepts for any interested Judges.
+//            //
+//            let environmentChanges = executeAction(agent, agentAction)
+//            //
+//            // Request a score from each Judge and update environment with results.
+//            // This is effectively an executeAction() for judges except that we've
+//            // decoupled the scoring algorithm from the environment.  FWIW.
+//            //
+//            for judgePercept in environmentChanges {
+//                for judge in agentScores[agent]!.keys {
+//                    agentScores[agent]![judge]! += judge.execute(judgePercept)
+//                }
+//            }
+//            notifyEnvironmentViews(agent, agentPercept, agentAction);
+//        }
+//        // createExogenousChange();
+//    }
+
+    public func step(_ count: Int) {
+        for _ in 1...count {
+            step();
+        }
+    }
+
+}
+
+//  PERFORMANCE  /////////////////////////////////////////////////////////////
+
+extension Environment {
+
+    public func getScores(forAgent: AnAgent) -> [AJudge: Double]? {
+        return agentScores[forAgent]
+    }
+
+}
+
+//  OBSERVERS  ///////////////////////////////////////////////////////////////
+
+extension Environment {
+
+    public mutating func addEnvironmentView(_ view: EnvironmentView) {
+        views.insert(view)
+    }
 
     public func notifyEnvironmentViews(_ agent: AnAgent) {
         for view in views {
             view.agentAdded(agent, self);
+        }
+    }
+
+    public func notifyEnvironmentViews(_ agent: AnAgent, _ percept: IPercept, _ action: IAction) {
+        for view in views {
+            view.agentActed(agent, percept, action, self);
         }
     }
 
