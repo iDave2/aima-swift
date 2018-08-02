@@ -101,7 +101,7 @@ class AImaKitTests: XCTestCase {
              _ steps:         Int = 7
             ) -> (String, Double)
     {
-      let environment = VW.Environment(Space(0..<2)) // Two locations, left and right.
+      var environment = VW.Environment(Space(0..<2)) // Two locations, left and right.
       let agent = agentType == "ReflexAgent" ? VW.ReflexAgent() : VW.ModelBasedAgent()
       let judge = VW.ReflexJudge()
       environment.addObject(agent, at: agentLocation)

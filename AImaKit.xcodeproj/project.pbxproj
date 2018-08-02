@@ -29,6 +29,8 @@
 		297AF1FC20F8160A00E98F6A /* Environments.swift in Sources */ = {isa = PBXBuildFile; fileRef = 297AF1FA20F7C7E900E98F6A /* Environments.swift */; };
 		299BB9C020E58BD100E427E4 /* VacuumWorld.swift in Sources */ = {isa = PBXBuildFile; fileRef = 299BB9BF20E58BD100E427E4 /* VacuumWorld.swift */; };
 		299BB9C120E58BD100E427E4 /* VacuumWorld.swift in Sources */ = {isa = PBXBuildFile; fileRef = 299BB9BF20E58BD100E427E4 /* VacuumWorld.swift */; };
+		29B43C5F2112734000F9DE5B /* EnvironmentProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29B43C5E2112734000F9DE5B /* EnvironmentProtocol.swift */; };
+		29B43C602112734000F9DE5B /* EnvironmentProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29B43C5E2112734000F9DE5B /* EnvironmentProtocol.swift */; };
 		29F2430120DF0DA900927629 /* AImaKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29F242F720DF0DA900927629 /* AImaKit.framework */; };
 		29F2430620DF0DA900927629 /* AImaKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29F2430520DF0DA900927629 /* AImaKitTests.swift */; };
 		29F2430820DF0DA900927629 /* AImaKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 29F242FA20DF0DA900927629 /* AImaKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -65,6 +67,7 @@
 		299BB9BC20E2DC6500E427E4 /* CONTRIBUTING.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CONTRIBUTING.md; sourceTree = "<group>"; };
 		299BB9BF20E58BD100E427E4 /* VacuumWorld.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VacuumWorld.swift; sourceTree = "<group>"; };
 		299D3FB020FE37B6003D10EA /* Rakefile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Rakefile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		29B43C5E2112734000F9DE5B /* EnvironmentProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnvironmentProtocol.swift; sourceTree = "<group>"; };
 		29F242F720DF0DA900927629 /* AImaKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AImaKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		29F242FA20DF0DA900927629 /* AImaKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AImaKit.h; sourceTree = "<group>"; };
 		29F242FB20DF0DA900927629 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -122,6 +125,7 @@
 				29F242FB20DF0DA900927629 /* Info.plist */,
 				29F2431120DF0DF400927629 /* Agents.swift */,
 				297AF1FA20F7C7E900E98F6A /* Environments.swift */,
+				29B43C5E2112734000F9DE5B /* EnvironmentProtocol.swift */,
 				294ADC6920E70C3C0053937E /* SimpleActionTracker.swift */,
 				299BB9BF20E58BD100E427E4 /* VacuumWorld.swift */,
 			);
@@ -272,6 +276,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				29B43C5F2112734000F9DE5B /* EnvironmentProtocol.swift in Sources */,
 				29F2431220DF0DF400927629 /* Agents.swift in Sources */,
 				297AF1FB20F7C7E900E98F6A /* Environments.swift in Sources */,
 				294ADC6A20E70C3C0053937E /* SimpleActionTracker.swift in Sources */,
@@ -284,6 +289,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				29F2430620DF0DA900927629 /* AImaKitTests.swift in Sources */,
+				29B43C602112734000F9DE5B /* EnvironmentProtocol.swift in Sources */,
 				294ADC6820E6F1370053937E /* Agents.swift in Sources */,
 				297AF1FC20F8160A00E98F6A /* Environments.swift in Sources */,
 				294ADC6B20E70C3C0053937E /* SimpleActionTracker.swift in Sources */,
