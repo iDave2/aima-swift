@@ -2,8 +2,7 @@
 //  EnvironmentProtocol.swift
 //  AImaKit
 //
-//  Created by Dhave King on 8/1/18.
-//  Copyright © 2018 Dave King. All rights reserved.
+//  Created by Dave King on 8/1/18.
 //
 
 import Foundation
@@ -32,7 +31,7 @@ public protocol EuclideanEnvironment {
      *
      * which has two Cartesian coordinates or `Locations`, `[0]` and `[1]`.
      */
-    var space: Space { get set }
+    var space: EuclideanSpace { get set }
 
     /**
      * Except for `Judges`, every object added to the `Environment` goes into

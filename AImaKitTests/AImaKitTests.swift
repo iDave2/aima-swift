@@ -59,7 +59,7 @@ class AImaKitTests: XCTestCase {
 
     func testSpaceToArray() {
         print("\n*****  Testing space.toArray(repeating:)  *****")
-        let space = Space(0..<3, 0..<2, 0..<1)
+        let space = EuclideanSpace(0..<3, 0..<2, 0..<1)
         guard let array = space.toArray(repeating: "unknown") as? [[[String]]] else {
             fatalError("Cannot construct array from space \(space).")
         }
@@ -106,7 +106,7 @@ class AImaKitTests: XCTestCase {
                  _ steps:         Int = 7
             ) -> (String, Double)
         {
-            var environment = VW.Environment(Space(0..<2)) // Two locations, left and right.
+            var environment = VW.Environment(EuclideanSpace(0..<2)) // Left and right.
             let agent = agentType == "ReflexAgent" ? VW.ReflexAgent() : VW.ModelBasedAgent()
             let judge = VW.ReflexJudge()
             environment.addObject(agent, at: agentLocation)

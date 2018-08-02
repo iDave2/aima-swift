@@ -34,10 +34,8 @@ public class VacuumWorld { // Begin VacuumWorld task environment.
     /**
      * `Dirt` is an `EnvironmentObject` in the `VacuumWorld`.
      */
-    public class Dirt: Object { // Dirt is uncountable?  Dirt() == Dirt()?
-        
-    }
-    
+    public class Dirt: Object { } // Dirt is uncountable?  Dirt() == Dirt()?
+
     /**
      * Our agents can do some or all of these things.
      */
@@ -94,7 +92,7 @@ public class VacuumWorld { // Begin VacuumWorld task environment.
      */
     public class Environment: EuclideanEnvironment {
 
-        public var space: Space
+        public var space: EuclideanSpace
         public var envObjects = Dictionary<Object, Location>()
         public var agentScores = Dictionary<AnAgent, Dictionary<AJudge, Double>>()
         public var views = Set<EnvironmentView>()
@@ -104,7 +102,7 @@ public class VacuumWorld { // Begin VacuumWorld task environment.
          *
          * - Parameter space: The space to use for this environment.
          */
-        public init(_ space: Space) {
+        public init(_ space: EuclideanSpace) {
             // super.init(space)
             self.space = space
         }

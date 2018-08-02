@@ -5,17 +5,12 @@
 
 import Foundation
 
-// *-****+****-****+****-****+****-****+****-****+****-****+****-****+****-****
-// ---  ENVIRONMENTS  ---
-// *-****+****-****+****-****+****-****+****-****+****-****+****-****+****-****
-
-
-// ////////////////////////////////////////////////////////////////////////////
-
 /**
  * Superclass for a hierarchy of observers and trackers to view the
  * interaction of Agent(s) with an Environment.  Subclasses may override
  * default NOOP implementations with desired behavior.
+ *
+ * This stuff might better reside in an Observers protocol or facsimile...
  */
 public class EnvironmentView: Object {
     /**
