@@ -92,15 +92,21 @@ public class VacuumWorld { // Begin VacuumWorld task environment.
     /**
      * The `VacuumWorld` environment.
      */
-    public class Environment: AnEnvironment {
-        
+    public class Environment: EuclideanEnvironment {
+
+        public var space: Space
+        public var envObjects = Dictionary<EnvironmentObject, Location>()
+        public var agentScores = Dictionary<AnAgent, Dictionary<AJudge, Double>>()
+        public var views = Set<EnvironmentView>()
+
         /**
          * Initialize a `VacuumEnvironment` with the given `Space`.
          *
          * - Parameter space: The space to use for this environment.
          */
-        public override init(_ space: Space) {
-            super.init(space)
+        public init(_ space: Space) {
+            // super.init(space)
+            self.space = space
         }
         
         /**
@@ -108,7 +114,7 @@ public class VacuumWorld { // Begin VacuumWorld task environment.
          * if any.  These environment changes then become the `Percept`s seen
          * by `Judge`s.
          */
-        public override func executeAction(_ agent: AnAgent, _ anAction: IAction) -> [IPercept] {
+        public func executeAction(_ agent: AnAgent, _ anAction: IAction) -> [IPercept] {
             guard let action = anAction as? AgentAction else {
                 fatalError("Expected VacuumWorld.AgentAction, got \(anAction).  Aborting")
             }
@@ -155,7 +161,7 @@ public class VacuumWorld { // Begin VacuumWorld task environment.
         /**
          * Synthesize an `AgentPercept` for requesting `Agent`.
          */
-        public override func getPerceptSeenBy(_ agent: AnAgent) -> IPercept {
+        public func getPerceptSeenBy(_ agent: AnAgent) -> IPercept {
             guard let agentLocation = envObjects[agent] else {
                 fatalError("Attempt to retrieve percept for nonexistent agent \(agent).")
             }

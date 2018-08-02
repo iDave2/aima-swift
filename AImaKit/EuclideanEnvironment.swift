@@ -18,7 +18,7 @@ import Foundation
  * most one level of "inheritance" and they call that "static polymorphism."
  * Uh-huh...  Also [see this](https://stackoverflow.com/questions/44703205).
  */
-public protocol Environment { // Euclidean, at least, not for graphs.
+public protocol EuclideanEnvironment {
 
     //  STATE  ///////////////////////////////////////////////////////////////
 
@@ -76,19 +76,48 @@ public protocol Environment { // Euclidean, at least, not for graphs.
     func getObjects(at location: Location?) -> Dictionary<EnvironmentObject, Location>
 
 
-    //  TIME  ////////////////////////////////////////////////////////////////
+    //  SIMULATION  //////////////////////////////////////////////////////////
 
     /**
      * Move clock forward one click.
+     *
+     * With each step, agents are presented with the next `Percept` and their
+     * resulting `Action` is scored by whatever `Judges` (performance measures)
+     * are installed in the environment.
      */
-    func step()
+    mutating func step() // Compiler does not require `mutating` here?
 
     /**
      * Move clock forward by `count` clicks.
      *
      * - Parameter count: Number of clicks to move clock forward by.
      */
-    func step(_ count: Int)
+    mutating func step(_ count: Int)
+
+    /**
+     * Alter environment according to action just taken by incoming agent.
+     * For example, if a vacuum agent just did `Suck` then remove all `Dirt`
+     * from its current location (assuming `Suck` is 100% successful).
+     *
+     * - Attention: This method must be overriden by protocol adopters.
+     *
+     * - Parameters:
+     *   - agent: The agent responsible for this action.
+     *   - action: The action chosen by this agent
+     *
+     * - Returns: List of _changes to the environment_, if any, caused by
+     * agent's action.  These are the `Percepts` seen by judges.
+     */
+    func executeAction(_ agent: AnAgent, _ action: IAction) -> [IPercept]
+
+    /**
+     * Create the `Percept` seen by this `Agent` at its current `Location`.
+     *
+     * - Attention: This method must be overriden by protocol adopters.
+     * - Parameter agent: The agent requesting another `Percept`.
+     * - Returns: An agent percept.
+     */
+    func getPerceptSeenBy(_ agent: AnAgent) -> IPercept
 
 
     //  PERFORMANCE  /////////////////////////////////////////////////////////
@@ -108,7 +137,7 @@ public protocol Environment { // Euclidean, at least, not for graphs.
 
 //  CONTENTS  ////////////////////////////////////////////////////////////////
 
-extension Environment {
+extension EuclideanEnvironment {
 
     public mutating func addObject(_ thing: EnvironmentObject, at location: Location? = nil)
     {
@@ -162,42 +191,41 @@ extension Environment {
 
 }
 
-//  TIME  ////////////////////////////////////////////////////////////////////
+//  SIMULATION  //////////////////////////////////////////////////////////////
 
-extension Environment {
+extension EuclideanEnvironment {
 
-    // TODO: Need to resolve crashers before this compiles.
-//    public func step() {
-//        for agent in agentScores.keys {
-//            if !agent.isAlive {
-//                continue
-//            }
-//            //
-//            // Synthesize an AgentPercept and ask Agent to map it to an AgentAction.
-//            //
-//            let agentPercept = getPerceptSeenBy(agent)
-//            let agentAction = agent.execute(agentPercept)
-//            //
-//            // Map AgentAction onto actual Environment changes and save
-//            // as list of JudgePercepts for any interested Judges.
-//            //
-//            let environmentChanges = executeAction(agent, agentAction)
-//            //
-//            // Request a score from each Judge and update environment with results.
-//            // This is effectively an executeAction() for judges except that we've
-//            // decoupled the scoring algorithm from the environment.  FWIW.
-//            //
-//            for judgePercept in environmentChanges {
-//                for judge in agentScores[agent]!.keys {
-//                    agentScores[agent]![judge]! += judge.execute(judgePercept)
-//                }
-//            }
-//            notifyEnvironmentViews(agent, agentPercept, agentAction);
-//        }
-//        // createExogenousChange();
-//    }
+    public mutating func step() {
+        for agent in agentScores.keys {
+            if !agent.isAlive {
+                continue
+            }
+            //
+            // Synthesize an AgentPercept and ask Agent to map it to an AgentAction.
+            //
+            let agentPercept = getPerceptSeenBy(agent)
+            let agentAction = agent.execute(agentPercept)
+            //
+            // Map AgentAction onto actual Environment changes and save
+            // as list of JudgePercepts for any interested Judges.
+            //
+            let environmentChanges = executeAction(agent, agentAction)
+            //
+            // Request a score from each Judge and update environment with results.
+            // This is effectively an executeAction() for judges except that we've
+            // decoupled the scoring algorithm from the environment.  FWIW.
+            //
+            for judgePercept in environmentChanges {
+                for judge in agentScores[agent]!.keys {
+                    agentScores[agent]![judge]! += judge.execute(judgePercept)
+                }
+            }
+            notifyEnvironmentViews(agent, agentPercept, agentAction);
+        }
+        // createExogenousChange();
+    }
 
-    public func step(_ count: Int) {
+    public mutating func step(_ count: Int) {
         for _ in 1...count {
             step();
         }
@@ -207,7 +235,7 @@ extension Environment {
 
 //  PERFORMANCE  /////////////////////////////////////////////////////////////
 
-extension Environment {
+extension EuclideanEnvironment {
 
     public func getScores(forAgent: AnAgent) -> [AJudge: Double]? {
         return agentScores[forAgent]
@@ -217,7 +245,7 @@ extension Environment {
 
 //  OBSERVERS  ///////////////////////////////////////////////////////////////
 
-extension Environment {
+extension EuclideanEnvironment {
 
     public mutating func addEnvironmentView(_ view: EnvironmentView) {
         views.insert(view)

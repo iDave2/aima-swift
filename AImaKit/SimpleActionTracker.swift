@@ -19,7 +19,7 @@ public class SimpleActionTracker: EnvironmentView {
     return actions.joined(separator: ", ")
   }
 
-  public override func agentActed(_: AnAgent, _: IPercept, _ action: IAction, _: Environment) {
+  public override func agentActed(_: AnAgent, _: IPercept, _ action: IAction, _: EuclideanEnvironment) {
     actions.append(action.getValue())
   }
 }

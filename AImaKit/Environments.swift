@@ -14,7 +14,7 @@ import Foundation
  * functionality of any environment but must be subclassed to complete the
  * definition and avoid a runtime crash.
  */
-public class AnEnvironment: Environment {
+public class AnEnvironment {
     
     //  STATE  ///////////////////////////////////////////////////////////////
 
@@ -51,10 +51,10 @@ public class AnEnvironment: Environment {
      * - Returns: List of _changes to the environment_, if any, caused by
      * agent's action.  These are the `Percepts` seen by judges.
      */
-    public func executeAction(_ agent: AnAgent, _ action: IAction) -> [IPercept] {
-        fatalError("AnyEnvironment subclass must define executeAction(agent:action:).")
-    }
-    
+//    public func executeAction(_ agent: AnAgent, _ action: IAction) -> [IPercept] {
+//        fatalError("AnyEnvironment subclass must define executeAction(agent:action:).")
+//    }
+
     /**
      * Create the `Percept` seen by this `Agent` at its current `Location`.
      *
@@ -62,42 +62,42 @@ public class AnEnvironment: Environment {
      * - Parameter agent: The agent requesting another `Percept`.
      * - Returns: An agent percept.
      */
-    public func getPerceptSeenBy(_ agent: AnAgent) -> IPercept {
-        fatalError("AnyEnvironment subclass must define getPerceptSeenBy(agent:).")
-    }
-    
+//    public func getPerceptSeenBy(_ agent: AnAgent) -> IPercept {
+//        fatalError("AnyEnvironment subclass must define getPerceptSeenBy(agent:).")
+//    }
+
 
     // CLOCK (where simulation begins)
     
-    public func step() {
-        for agent in agentScores.keys {
-            if !agent.isAlive {
-                continue
-            }
-            //
-            // Synthesize an AgentPercept and ask Agent to map it to an AgentAction.
-            //
-            let agentPercept = getPerceptSeenBy(agent)
-            let agentAction = agent.execute(agentPercept)
-            //
-            // Map AgentAction onto actual Environment changes and save
-            // as list of JudgePercepts for any interested Judges.
-            //
-            let environmentChanges = executeAction(agent, agentAction)
-            //
-            // Request a score from each Judge and update environment with results.
-            // This is effectively an executeAction() for judges except that we've
-            // decoupled the scoring algorithm from the environment.  FWIW.
-            //
-            for judgePercept in environmentChanges {
-                for judge in agentScores[agent]!.keys {
-                    agentScores[agent]![judge]! += judge.execute(judgePercept)
-                }
-            }
-            notifyEnvironmentViews(agent, agentPercept, agentAction);
-        }
-        // createExogenousChange();
-    }
+//    public func step() {
+//        for agent in agentScores.keys {
+//            if !agent.isAlive {
+//                continue
+//            }
+//            //
+//            // Synthesize an AgentPercept and ask Agent to map it to an AgentAction.
+//            //
+//            let agentPercept = getPerceptSeenBy(agent)
+//            let agentAction = agent.execute(agentPercept)
+//            //
+//            // Map AgentAction onto actual Environment changes and save
+//            // as list of JudgePercepts for any interested Judges.
+//            //
+//            let environmentChanges = executeAction(agent, agentAction)
+//            //
+//            // Request a score from each Judge and update environment with results.
+//            // This is effectively an executeAction() for judges except that we've
+//            // decoupled the scoring algorithm from the environment.  FWIW.
+//            //
+//            for judgePercept in environmentChanges {
+//                for judge in agentScores[agent]!.keys {
+//                    agentScores[agent]![judge]! += judge.execute(judgePercept)
+//                }
+//            }
+//            notifyEnvironmentViews(agent, agentPercept, agentAction);
+//        }
+//        // createExogenousChange();
+//    }
 
     // Not used (yet).
     //
@@ -180,7 +180,7 @@ public class EnvironmentView: EnvironmentObject {
      * - Parameter agent: The Agent just added to the Environment.
      * - Parameter source: The Environment to which the agent was added.
      */
-    public func agentAdded(_ agent: AnAgent, _ source: Environment) {
+    public func agentAdded(_ agent: AnAgent, _ source: EuclideanEnvironment) {
     
     }
     
@@ -196,7 +196,7 @@ public class EnvironmentView: EnvironmentObject {
     public func agentActed(_ agent:   AnAgent,
                            _ percept: IPercept,
                            _ action:  IAction,
-                           _ source:  Environment)
+                           _ source:  EuclideanEnvironment)
     {
         
     }
