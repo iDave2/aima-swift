@@ -20,7 +20,8 @@ import Foundation
  */
 public protocol EuclideanEnvironment {
 
-    //  STATE  ///////////////////////////////////////////////////////////////
+    // ##+####-####+####-####+####-####+####-####+####-####+####-####+####-###
+    // MARK: State
 
     /**
      * The Euclidean space used by this environment.
@@ -37,7 +38,7 @@ public protocol EuclideanEnvironment {
      * Except for `Judges`, every object added to the `Environment` goes into
      * this dictionary along with its `Location`.
      */
-    var envObjects: Dictionary<EnvironmentObject, Location> { get set }
+    var envObjects: Dictionary<Object, Location> { get set }
 
     /**
      * At each time step, each agent in the environment attempts to perform
@@ -53,7 +54,8 @@ public protocol EuclideanEnvironment {
     var views: Set<EnvironmentView> { get set }
 
 
-    //  CONTENTS  ////////////////////////////////////////////////////////////
+    // ##+####-####+####-####+####-####+####-####+####-####+####-####+####-###
+    // MARK: Contents
 
     /**
      * Add an object to the environment optionally specifying its location.
@@ -63,7 +65,7 @@ public protocol EuclideanEnvironment {
      *   - thing:  The object to add to environment.
      *   - location:  Optional location at which to place it.
      */
-    mutating func addObject(_ thing: EnvironmentObject, at location: Location?)
+    mutating func addObject(_ thing: Object, at location: Location?)
 
     /**
      * Return all environment objects, along with their location, either from a
@@ -73,10 +75,11 @@ public protocol EuclideanEnvironment {
      * - Returns: A `Dictionary<EnvironmentObject, Location>` satisfying
      * input criteria.
      */
-    func getObjects(at location: Location?) -> Dictionary<EnvironmentObject, Location>
+    func getObjects(at location: Location?) -> Dictionary<Object, Location>
 
 
-    //  SIMULATION  //////////////////////////////////////////////////////////
+    // ##+####-####+####-####+####-####+####-####+####-####+####-####+####-###
+    // MARK: Simulation
 
     /**
      * Move clock forward one click.
@@ -120,14 +123,16 @@ public protocol EuclideanEnvironment {
     func getPerceptSeenBy(_ agent: AnAgent) -> IPercept
 
 
-    //  PERFORMANCE  /////////////////////////////////////////////////////////
+    // ##+####-####+####-####+####-####+####-####+####-####+####-####+####-###
+    // MARK: Performance
 
     func getScores(forAgent: AnAgent) -> [AJudge: Double]?
 
 
-    //  OBSERVERS  ///////////////////////////////////////////////////////////
+    // ##+####-####+####-####+####-####+####-####+####-####+####-####+####-###
+    // MARK: Observers
 
-    mutating func addEnvironmentView(_ view: EnvironmentView)
+    mutating func addEnvironmentView(_: EnvironmentView)
 
     func notifyEnvironmentViews(_ agent: AnAgent)
 
@@ -135,11 +140,11 @@ public protocol EuclideanEnvironment {
 
 }
 
-//  CONTENTS  ////////////////////////////////////////////////////////////////
+//  MARK: CONTENTS
 
 extension EuclideanEnvironment {
 
-    public mutating func addObject(_ thing: EnvironmentObject, at location: Location? = nil)
+    public mutating func addObject(_ thing: Object, at location: Location? = nil)
     {
         if envObjects.keys.contains(thing) {
             return // There is only one of each Object, the thing is already here.
@@ -173,8 +178,8 @@ extension EuclideanEnvironment {
         }
     }
 
-    public func getObjects(at location: Location?) -> Dictionary<EnvironmentObject, Location> {
-        var workArea = [EnvironmentObject: Location]() // Start with empty dictionary.
+    public func getObjects(at location: Location?) -> Dictionary<Object, Location> {
+        var workArea = [Object: Location]() // Start with empty dictionary.
         if location == nil {
             workArea = envObjects     // Add all entries.
         } else {
@@ -191,7 +196,7 @@ extension EuclideanEnvironment {
 
 }
 
-//  SIMULATION  //////////////////////////////////////////////////////////////
+// MARK: SIMULATION
 
 extension EuclideanEnvironment {
 
@@ -233,7 +238,7 @@ extension EuclideanEnvironment {
 
 }
 
-//  PERFORMANCE  /////////////////////////////////////////////////////////////
+// MARK: PERFORMANCE
 
 extension EuclideanEnvironment {
 
@@ -243,7 +248,7 @@ extension EuclideanEnvironment {
 
 }
 
-//  OBSERVERS  ///////////////////////////////////////////////////////////////
+// MARK: OBSERVERS
 
 extension EuclideanEnvironment {
 

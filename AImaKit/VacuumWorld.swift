@@ -29,12 +29,12 @@ public class VacuumWorld { // Begin VacuumWorld task environment.
     public enum LocationState { case clean, dirty, unknown }
     
     // Simplify / clarify a common type. Got stuff?
-    public typealias Stuff = Set<EnvironmentObject>
+    public typealias Stuff = Set<Object>
     
     /**
      * `Dirt` is an `EnvironmentObject` in the `VacuumWorld`.
      */
-    public class Dirt: EnvironmentObject { // Dirt is uncountable?  Dirt() == Dirt()?
+    public class Dirt: Object { // Dirt is uncountable?  Dirt() == Dirt()?
         
     }
     
@@ -95,7 +95,7 @@ public class VacuumWorld { // Begin VacuumWorld task environment.
     public class Environment: EuclideanEnvironment {
 
         public var space: Space
-        public var envObjects = Dictionary<EnvironmentObject, Location>()
+        public var envObjects = Dictionary<Object, Location>()
         public var agentScores = Dictionary<AnAgent, Dictionary<AJudge, Double>>()
         public var views = Set<EnvironmentView>()
 
@@ -372,7 +372,8 @@ public class VacuumWorld { // Begin VacuumWorld task environment.
      */
     public class ReflexJudge: AJudge {
         /**
-         * Initialize a ReflexJudge instance with a move(-1), suck(+10) program.
+         * Initialize a ReflexJudge instance with a move(-1), suck(+10)
+         * performance measure.
          */
         override public func execute(_ scene: IPercept) -> Double {
             // print("\nIN JUDGE WITH PERCEPT \(scene)\n")

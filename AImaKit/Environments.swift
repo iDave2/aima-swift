@@ -10,14 +10,6 @@ import Foundation
 // *-****+****-****+****-****+****-****+****-****+****-****+****-****+****-****
 
 
-/**
- * An `EnvironmentObject` can be added to an `Environment`.
- */
-public class EnvironmentObject: Object {
-    // Not clear this distinction is needed (yet) but there it is.
-    // It seems Percept must be a protocol if we want to tag enums with it...
-}
-
 // ////////////////////////////////////////////////////////////////////////////
 
 /**
@@ -25,7 +17,7 @@ public class EnvironmentObject: Object {
  * interaction of Agent(s) with an Environment.  Subclasses may override
  * default NOOP implementations with desired behavior.
  */
-public class EnvironmentView: EnvironmentObject {
+public class EnvironmentView: Object {
     /**
      * A simple notification message from an object in the Environment.
      *

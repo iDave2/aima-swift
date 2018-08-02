@@ -78,7 +78,7 @@ import Foundation
  * - An `Environment` does not know what formula its `Judges` use to score
  *   changes; it just gives them a `Percept` and gets back a score.
  */
-public class AnActor<T>: EnvironmentObject {
+public class AnActor<T>: Object {
   /**
    * The *agent function* that maps percepts to actions.
    */
