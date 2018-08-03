@@ -11,16 +11,17 @@ import Foundation
  * default NOOP implementations with desired behavior.
  *
  * This stuff might better reside in an Observers protocol or facsimile...
+ *
+ * Also, this class recently became constrained to EuclideanEnvironment?
  */
-public class EnvironmentView: Object {
+public class View<E: EuclideanEnvironment>: Object {
+
     /**
      * A simple notification message from an object in the Environment.
      *
      * - Parameter message: The message received.
      */
-    public func notify(_ message: String) {
-        
-    }
+    public func notify(_ message: String) { }
     
     /**
      * Indicates an Agent has been added to the environment and what it
@@ -29,9 +30,9 @@ public class EnvironmentView: Object {
      * - Parameter agent: The Agent just added to the Environment.
      * - Parameter source: The Environment to which the agent was added.
      */
-    public func agentAdded(_ agent: AnAgent, _ source: EuclideanEnvironment) {
-    
-    }
+    public func agentAdded(_ agent: E.AgentType, _ source: E) { }
+
+    // **+****-****+****-****+****-****+****-****+****-****+****-****+****-***
     
     /**
      * Indicates the Environment has changed as a result of an Agent's action.
@@ -42,11 +43,8 @@ public class EnvironmentView: Object {
      *   - action:  The Action the Agent performed.
      *   - source:  The Environment in which the agent has acted.
      */
-    public func agentActed(_ agent:   AnAgent,
-                           _ percept: IPercept,
-                           _ action:  IAction,
-                           _ source:  EuclideanEnvironment)
-    {
-        
-    }
+    public func agentActed(_ agent:   E.AgentType,
+                           _ percept: E.AgentType.PerceptType,
+                           _ action:  E.AgentType.ActionType,
+                           _ source:  E) { }
 }
