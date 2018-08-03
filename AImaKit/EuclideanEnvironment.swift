@@ -45,12 +45,14 @@ public protocol EuclideanEnvironment {
      * to the environment.  This dictionary of dictionaries keeps track of
      * these associations and scores.
      */
-    var agentScores: Dictionary<AnAgent, Dictionary<AJudge, Double>> { get set }
+    associatedtype AgentType: Object, AgentProtocol
+    associatedtype JudgeType: Object, JudgeProtocol
+    var scores: Dictionary<AgentType, Dictionary<JudgeType, Double>> { get set }
 
     /**
      * The views or observers watching or _listening to_ this environment.
      */
-    var views: Set<EnvironmentView> { get set }
+    var views: Set<View<EuclideanEnvironment>> { get set }
 
 
     // ##+####-####+####-####+####-####+####-####+####-####+####-####+####-###
@@ -110,7 +112,8 @@ public protocol EuclideanEnvironment {
      * - Returns: List of _changes to the environment_, if any, caused by
      * agent's action.  These are the `Percepts` seen by judges.
      */
-    func executeAction(_ agent: AnAgent, _ action: IAction) -> [IPercept]
+    func executeAction(_ agent: AgentType, _ action: AgentType.ActionType)
+        -> [JudgeType.PerceptType]
 
     /**
      * Create the `Percept` seen by this `Agent` at its current `Location`.
@@ -119,23 +122,24 @@ public protocol EuclideanEnvironment {
      * - Parameter agent: The agent requesting another `Percept`.
      * - Returns: An agent percept.
      */
-    func getPerceptSeenBy(_ agent: AnAgent) -> IPercept
+    func getPerceptSeenBy(_ agent: AgentType) -> AgentType.PerceptType
 
 
     // ##+####-####+####-####+####-####+####-####+####-####+####-####+####-###
     // MARK: Performance
 
-    func getScores(forAgent: AnAgent) -> [AJudge: Double]?
+    func getScores(forAgent: AgentType) -> [JudgeType: Double]?
 
 
     // ##+####-####+####-####+####-####+####-####+####-####+####-####+####-###
     // MARK: Observers
 
-    mutating func addEnvironmentView(_: EnvironmentView)
+    mutating func addEnvironmentView(_: View)
 
-    func notifyEnvironmentViews(_ agent: AnAgent)
+    func notifyEnvironmentViews<A>(_ agent: A) where A: AgentProtocol
 
-    func notifyEnvironmentViews(_ agent: AnAgent, _ percept: IPercept, _ action: IAction)
+    func notifyEnvironmentViews<A, P, X>(_ agent: A, _ percept: P, _ action: X)
+        where A: AgentProtocol, P == A.PerceptType, X == A.ActionType
 
 }
 
@@ -149,7 +153,7 @@ extension EuclideanEnvironment {
             return // There is only one of each Object, the thing is already here.
         }
         let position = location ?? space.randomLocation()
-        if let judge = thing as? AJudge
+        if let judge = thing as? JudgeType
         {
             /*
              * Swift collection iterators like "for (key, value) in myDictionary" are
@@ -159,19 +163,18 @@ extension EuclideanEnvironment {
              * Add new Judge to each Agent's scoring dictionary unless it is already
              * added.  Judges do not go on "gameboard;" they sit outside the octagon.
              */
-            for agent in agentScores.keys {
-                if agentScores[agent]![judge] == nil {
-                    agentScores[agent]![judge] = 0.0
+            for agent in scores.keys {
+                if scores[agent]![judge] == nil {
+                    scores[agent]![judge] = 0.0
                 }
             }
         }
         else
         {
             envObjects[thing] = position     // Place everything else on gameboard.
-            if let agent = thing as? AnAgent
+            if let agent = thing as? AgentType
             {
-                envObjects[agent] = position     // Place agent on gameboard.
-                agentScores[agent] = [:]         // Agent has no judges or scores yet.
+                scores[agent] = [:]     // Agent has no judges or scores yet.
                 notifyEnvironmentViews(agent);
             }
         }
@@ -200,10 +203,10 @@ extension EuclideanEnvironment {
 extension EuclideanEnvironment {
 
     public mutating func step() {
-        for agent in agentScores.keys {
-            if !agent.isAlive {
-                continue
-            }
+        for agent in scores.keys {
+            //if !agent.isAlive { // Unknown detail inside protocol definition...
+            //    continue
+            //}
             //
             // Synthesize an AgentPercept and ask Agent to map it to an AgentAction.
             //
@@ -220,8 +223,8 @@ extension EuclideanEnvironment {
             // decoupled the scoring algorithm from the environment.  FWIW.
             //
             for judgePercept in environmentChanges {
-                for judge in agentScores[agent]!.keys {
-                    agentScores[agent]![judge]! += judge.execute(judgePercept)
+                for judge in scores[agent]!.keys {
+                    scores[agent]![judge]! += judge.execute(judgePercept)
                 }
             }
             notifyEnvironmentViews(agent, agentPercept, agentAction);
@@ -241,8 +244,8 @@ extension EuclideanEnvironment {
 
 extension EuclideanEnvironment {
 
-    public func getScores(forAgent: AnAgent) -> [AJudge: Double]? {
-        return agentScores[forAgent]
+    public func getScores(forAgent: AgentType) -> [JudgeType: Double]? {
+        return scores[forAgent]
     }
 
 }
@@ -255,13 +258,20 @@ extension EuclideanEnvironment {
         views.insert(view)
     }
 
-    public func notifyEnvironmentViews(_ agent: AnAgent) {
+//    func notifyEnvironmentViews<A>(_ agent: A) where A: AgentProtocol
+//
+//    func notifyEnvironmentViews<A, P, X>(_ agent: A, _ percept: P, _ action: X)
+//        where A: AgentProtocol, P == A.PerceptType, X == A.ActionType
+
+    public func notifyEnvironmentViews(_ agent: AgentType) {
         for view in views {
             view.agentAdded(agent, self);
         }
     }
 
-    public func notifyEnvironmentViews(_ agent: AnAgent, _ percept: IPercept, _ action: IAction) {
+    public func notifyEnvironmentViews(_ agent: AgentType,
+                                       _ percept: AgentType.PerceptType,
+                                       _ action: AgentType.ActionType) {
         for view in views {
             view.agentActed(agent, percept, action, self);
         }

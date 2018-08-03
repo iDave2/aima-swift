@@ -136,19 +136,19 @@ public class AnActor<T>: Object {
 /**
  * The AIMA3e __agent__.
  */
-public class AnAgent: AnActor<IAction> {
-  /**
-   * Life-cycle indicator as to the liveness of an Agent.
-   */
-  var isAlive = true
-}
+//public class AnAgent: AnActor<IAction> {
+//  /**
+//   * Life-cycle indicator as to the liveness of an Agent.
+//   */
+//  var isAlive = true
+//}
 
 /**
  * The AIMA3e __performance measure__.
  */
-public class AJudge: AnActor<Double> {
-
-}
+//public class AJudge: AnActor<Double> {
+//
+//}
 
 // ////////////////////////////////////////////////////////////////////////////
 

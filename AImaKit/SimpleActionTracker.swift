@@ -11,15 +11,22 @@ import Foundation
  * Environment view implementation which logs performed action and
  * provides a comma-separated String with all actions performed so far.
  */
-public class SimpleActionTracker: EnvironmentView {
+public class SimpleActionTracker: View<VacuumWorld.Environment> {
 
-  var actions: [String] = []
+    public typealias VW = VacuumWorld
 
-  public func getActions() -> String {
-    return actions.joined(separator: ", ")
-  }
+    var actions: [String] = []
 
-  public override func agentActed(_: AnAgent, _: IPercept, _ action: IAction, _: EuclideanEnvironment) {
-    actions.append(action.getValue())
-  }
+    public func getActions() -> String {
+        return actions.joined(separator: ", ")
+    }
+
+    public override func agentActed(
+        _ agent: VW.AnyAgent,
+        _ percept: VW.AgentPercept,
+        _ action:  VW.AgentAction,
+        _ source: VW.Environment)
+    {
+        actions.append(action.rawValue)
+    }
 }

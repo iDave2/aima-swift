@@ -22,10 +22,18 @@ import Foundation
  * clean up all the dirt.
  */
 public class VacuumWorld { // Begin VacuumWorld task environment.
-    
-    // Setup notation for clear statements of the left-right world
-    // for agents and applications that use it.
-    public static let left = [0], right = [1] // One dimensional space.
+
+    /**
+     * Pretty expression for `x = 0` in left-right vacuum world.
+     */
+    public static let left = [0]
+    /**
+     * Pretty expression for `x = 1` in left-right vacuum world.
+     */
+    public static let right = [1]
+    /**
+     * Pretty expressions for clean-dirty in vacuum world.
+     */
     public enum LocationState { case clean, dirty, unknown }
     
     // Simplify / clarify a common type. Got stuff?
@@ -37,52 +45,68 @@ public class VacuumWorld { // Begin VacuumWorld task environment.
     public class Dirt: Object { } // Dirt is uncountable?  Dirt() == Dirt()?
 
     /**
-     * Our agents can do some or all of these things.
+     * Actions an agent can take in this world.
      */
-    public enum AgentAction: String, IAction {
+    public enum AgentAction: String {
         case noOp, suck, moveLeft, moveRight, moveUp, moveDown, overheat, blueScreen, etc
-        public func getValue() -> String { return self.rawValue }
-    }
-    
-    //  var test = AgentAction.moveRight
-    //  func bar() {
-    //    var foo: IAction = test
-    //    if foo == .moveRight {
-    //      foo = .moveLeft
-    //    }
-    //  }
-    
-    /**
-     * What an `Environment` can do.
-     */
-    public enum EnvironmentAction: String, IAction {
-        case noOp, seeBump, moveAgent, removeDirt, unplugAgent
-        public func getValue() -> String { return self.rawValue }
+        // public func getValue() -> String { return self.rawValue }
     }
     
     /**
-     * What an `Agent` sees.
+     * Percepts an agent sees in this world.
      */
-    public struct AgentPercept: IPercept, Hashable {
+    public struct AgentPercept {
         private(set) public var location: Location
         private(set) public var objects: Stuff
-        
+
         // Override default internal access level for memberwise initializer.
         public init(location: Location, objects: Stuff) {
             self.location = location
             self.objects = objects
         }
     }
+
+    /**
+     * Base class for any agent in this world.
+     */
+    public class AnyAgent: Object, AgentProtocol {
+        // This defines associated types for all agents in this world.
+        public func execute(_ percept: AgentPercept) -> AgentAction {
+            return .noOp
+        }
+    }
+
+    /**
+     * Actions that a `VacuumWorld.Environment` can take in response to
+     * the actions of one of its agents.
+     *
+     * These environment actions help form the percepts seen by judges
+     * in this environment.
+     */
+    public enum EnvironmentAction: String {
+        case noOp, seeBump, moveAgent, removeDirt, unplugAgent
+        public func getValue() -> String { return self.rawValue }
+    }
     
     /**
-     * What a `Judge` sees.
+     * What a `Judge` sees in this world.
      */
-    public struct JudgePercept: IPercept, Hashable {
+    public struct JudgePercept {
         let action: EnvironmentAction
         let location: Location // Location _after_ environment processes agent action.
     }
     
-    
+    /**
+     * Base class for any judge in this world.
+     */
+    public class AnyJudge: Object, JudgeProtocol {
+        // This defines associated types for all judges in this world.
+        public func execute(_ percept: JudgePercept) -> Double {
+            return 0.0
+        }
+    }
+
+
     // **+****-****+****-****+****-****+****-****+****-****+****-****+****-****
     // --- ENVIRONMENTS ---
     // **+****-****+****-****+****-****+****-****+****-****+****-****+****-****
@@ -92,10 +116,17 @@ public class VacuumWorld { // Begin VacuumWorld task environment.
      */
     public class Environment: EuclideanEnvironment {
 
+        public var scores = Dictionary<AnyAgent, Dictionary<AnyJudge, Double>>()
+
+        // Compiler wanted these but may be side-effect of other nonsense...
+        // These are DEFINED in definition of `scores` below!?
+        //public typealias AnyAgent = <#type#>
+        //public typealias AnyJudge = <#type#>
+
         public var space: EuclideanSpace
         public var envObjects = Dictionary<Object, Location>()
-        public var agentScores = Dictionary<AnAgent, Dictionary<AJudge, Double>>()
-        public var views = Set<EnvironmentView>()
+        //public var scores = Dictionary<AnyAgent, Dictionary<AnyJudge, Double>>()
+        public var views = Set<View<Environment>>()
 
         /**
          * Initialize a `VacuumEnvironment` with the given `Space`.
@@ -112,12 +143,14 @@ public class VacuumWorld { // Begin VacuumWorld task environment.
          * if any.  These environment changes then become the `Percept`s seen
          * by `Judge`s.
          */
-        public func executeAction(_ agent: AnAgent, _ anAction: IAction) -> [IPercept] {
-            guard let action = anAction as? AgentAction else {
-                fatalError("Expected VacuumWorld.AgentAction, got \(anAction).  Aborting")
-            }
+        public func executeAction(_ agent: AnyAgent, _ action: AgentAction) -> [JudgePercept]
+        {
+            //guard let action = anAction as? AgentAction else {
+            //    fatalError("Expected VacuumWorld.AgentAction, got \(anAction).  Aborting")
+            //}
+            precondition(envObjects[agent] != nil)
             guard let agentLocation = envObjects[agent] else {
-                fatalError("Attempt to execute action for nonexistent agent \(agent).")
+                fatalError("Attempt to execute action for nonexistent agent \(agent)?")
             }
             var changes = [JudgePercept]()
             switch action {
@@ -159,7 +192,7 @@ public class VacuumWorld { // Begin VacuumWorld task environment.
         /**
          * Synthesize an `AgentPercept` for requesting `Agent`.
          */
-        public func getPerceptSeenBy(_ agent: AnAgent) -> IPercept {
+        public func getPerceptSeenBy(_ agent: AnyAgent) -> AgentPercept {
             guard let agentLocation = envObjects[agent] else {
                 fatalError("Attempt to retrieve percept for nonexistent agent \(agent).")
             }
@@ -194,7 +227,7 @@ public class VacuumWorld { // Begin VacuumWorld task environment.
      * This reflex agent _function_ may be implemented with a table-based,
      * rule-based, or simple handwritten _program_.
      */
-    public class ReflexAgent: AnAgent {
+    public class ReflexAgent: AnyAgent {
         
         var ruleBased = false  // Algorithm selector.
         
@@ -208,11 +241,11 @@ public class VacuumWorld { // Begin VacuumWorld task environment.
         /**
          * Initialize a ReflexAgent instance with the REFLEX-VACUUM-AGENT program.
          */
-        public override func execute(_ scene: IPercept) -> IAction {
+        public override func execute(_ percept: AgentPercept) -> AgentAction {
             
-            guard let percept = scene as? AgentPercept else {
-                fatalError("Expected VacuumWorld.AgentPercept, got \(scene), aborting.")
-            }
+            //guard let percept = scene as? AgentPercept else {
+            //    fatalError("Expected VacuumWorld.AgentPercept, got \(scene), aborting.")
+            //}
             
             // Make sure we are using the simple two-state world.
             precondition(percept.location == left || percept.location == right)
@@ -274,7 +307,7 @@ public class VacuumWorld { // Begin VacuumWorld task environment.
      * was fixed here with Swift subtleties (also distracts from the subject),
      * and which will be not-a-problem in next design.
      */
-    public class ModelBasedAgent: AnAgent {
+    public class ModelBasedAgent: AnyAgent {
         
         /**
          * The instance model.
@@ -297,12 +330,12 @@ public class VacuumWorld { // Begin VacuumWorld task environment.
          * Swift requires prefix `self.` for instance properties referenced in closures
          * to "remind" us of potential cycles.
          */
-        public override func execute(_ scene: IPercept) -> IAction {
+        public override func execute(_ percept: AgentPercept) -> AgentAction {
             
             // Begin agent program. Check input for sanity.
-            guard let percept = scene as? AgentPercept else {
-                fatalError("Expected VacuumWorld.AgentPercept, got \(scene), aborting.")
-            }
+            //guard let percept = scene as? AgentPercept else {
+            //    fatalError("Expected VacuumWorld.AgentPercept, got \(scene), aborting.")
+            //}
             precondition(percept.location == left || percept.location == right)
             let isDirty = percept.objects.contains(where: { type(of: $0) == Dirt.self } )
             let state: LocationState = isDirty ? .dirty : .clean
@@ -368,16 +401,15 @@ public class VacuumWorld { // Begin VacuumWorld task environment.
      * Like `ReflexAgent`, `ReflexJudge` has no state (no memory) and returns
      * a score based solely on the last change to the environment.
      */
-    public class ReflexJudge: AJudge {
+    public class ReflexJudge: AnyJudge {
         /**
          * Initialize a ReflexJudge instance with a move(-1), suck(+10)
          * performance measure.
          */
-        override public func execute(_ scene: IPercept) -> Double {
-            // print("\nIN JUDGE WITH PERCEPT \(scene)\n")
-            guard let percept = scene as? JudgePercept else {
-                fatalError("Expected VacuumWorld.JudgePercept, got \(scene), aborting.")
-            }
+        override public func execute(_ percept: JudgePercept) -> Double {
+            //guard let percept = scene as? JudgePercept else {
+            //    fatalError("Expected VacuumWorld.JudgePercept, got \(scene), aborting.")
+            //}
             var score = 0.0
             switch percept.action {
             case .noOp:
