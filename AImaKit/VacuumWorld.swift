@@ -106,6 +106,13 @@ public class VacuumWorld { // Begin VacuumWorld task environment.
         }
     }
 
+    /**
+     * ??
+     */
+    protocol Foo {
+        func methodA()
+    }
+
 
     // **+****-****+****-****+****-****+****-****+****-****+****-****+****-****
     // --- ENVIRONMENTS ---
@@ -116,8 +123,6 @@ public class VacuumWorld { // Begin VacuumWorld task environment.
      */
     public class Environment: EuclideanEnvironment {
 
-        public var scores = Dictionary<AnyAgent, Dictionary<AnyJudge, Double>>()
-
         // Compiler wanted these but may be side-effect of other nonsense...
         // These are DEFINED in definition of `scores` below!?
         //public typealias AnyAgent = <#type#>
@@ -125,8 +130,9 @@ public class VacuumWorld { // Begin VacuumWorld task environment.
 
         public var space: EuclideanSpace
         public var envObjects = Dictionary<Object, Location>()
-        //public var scores = Dictionary<AnyAgent, Dictionary<AnyJudge, Double>>()
-        public var views = Set<View<Environment>>()
+        public var scores = Dictionary<AnyAgent, Dictionary<AnyJudge, Double>>()
+        //public var views = Set<View<Environment>>()
+        public var observerDelegate: ObserverDelegate?
 
         /**
          * Initialize a `VacuumEnvironment` with the given `Space`.

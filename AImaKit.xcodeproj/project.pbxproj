@@ -22,6 +22,8 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		294348F42114D051003E6166 /* ObserverDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 294348F32114D051003E6166 /* ObserverDelegate.swift */; };
+		294348F52114D051003E6166 /* ObserverDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 294348F32114D051003E6166 /* ObserverDelegate.swift */; };
 		294ADC6820E6F1370053937E /* Agents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29F2431120DF0DF400927629 /* Agents.swift */; };
 		294ADC6A20E70C3C0053937E /* SimpleActionTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 294ADC6920E70C3C0053937E /* SimpleActionTracker.swift */; };
 		294ADC6B20E70C3C0053937E /* SimpleActionTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 294ADC6920E70C3C0053937E /* SimpleActionTracker.swift */; };
@@ -64,6 +66,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		294348F32114D051003E6166 /* ObserverDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObserverDelegate.swift; sourceTree = "<group>"; };
 		294ADC6920E70C3C0053937E /* SimpleActionTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleActionTracker.swift; sourceTree = "<group>"; };
 		295D62212113C19C004F3DBC /* AgentProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgentProtocol.swift; sourceTree = "<group>"; };
 		297AF1FA20F7C7E900E98F6A /* View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = View.swift; sourceTree = "<group>"; };
@@ -131,11 +134,12 @@
 				29F242FB20DF0DA900927629 /* Info.plist */,
 				295D62212113C19C004F3DBC /* AgentProtocol.swift */,
 				29F2431120DF0DF400927629 /* Agents.swift */,
-				297AF1FA20F7C7E900E98F6A /* View.swift */,
 				29B43C5E2112734000F9DE5B /* EuclideanEnvironment.swift */,
 				29B43C61211376F300F9DE5B /* EuclideanSpace.swift */,
+				294348F32114D051003E6166 /* ObserverDelegate.swift */,
 				294ADC6920E70C3C0053937E /* SimpleActionTracker.swift */,
 				299BB9BF20E58BD100E427E4 /* VacuumWorld.swift */,
+				297AF1FA20F7C7E900E98F6A /* View.swift */,
 			);
 			path = AImaKit;
 			sourceTree = "<group>";
@@ -288,6 +292,7 @@
 				29F2431220DF0DF400927629 /* Agents.swift in Sources */,
 				297AF1FB20F7C7E900E98F6A /* View.swift in Sources */,
 				294ADC6A20E70C3C0053937E /* SimpleActionTracker.swift in Sources */,
+				294348F42114D051003E6166 /* ObserverDelegate.swift in Sources */,
 				299BB9C020E58BD100E427E4 /* VacuumWorld.swift in Sources */,
 				295D62222113C19C004F3DBC /* AgentProtocol.swift in Sources */,
 				29B43C62211376F300F9DE5B /* EuclideanSpace.swift in Sources */,
@@ -305,6 +310,7 @@
 				294ADC6B20E70C3C0053937E /* SimpleActionTracker.swift in Sources */,
 				29B43C63211376F300F9DE5B /* EuclideanSpace.swift in Sources */,
 				299BB9C120E58BD100E427E4 /* VacuumWorld.swift in Sources */,
+				294348F52114D051003E6166 /* ObserverDelegate.swift in Sources */,
 				295D62232113C19C004F3DBC /* AgentProtocol.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -46,6 +46,7 @@ class AImaKitTests: XCTestCase {
      * to track whether beans are counted properly.
      */
     func testMemoryLeak() {
+        print("\n*****  Testing memory leak thing  *****")
         var agent: VW.ModelBasedAgent?
         agent = VW.ModelBasedAgent() // Prints "initializing".
         if agent != nil { // Quiet compiler...
@@ -117,8 +118,11 @@ class AImaKitTests: XCTestCase {
             if rightState == .dirty {
                 environment.addObject(VW.Dirt(), at: VW.right)
             }
-            let view = SimpleActionTracker()
-            environment.addEnvironmentView(view)
+            //let view = SimpleActionTracker()
+            //environment.addEnvironmentView(view)
+            let delegate = SimpleActionTracker()
+            environment.observerDelegate = delegate
+            
             environment.step(steps) // Run the simulation.
             var score = -10_000.0
             if let scores = environment.getScores(forAgent: agent) { // [IJudge: Double]?
@@ -126,7 +130,7 @@ class AImaKitTests: XCTestCase {
                     score = scores[judge]!
                 }
             }
-            return (view.getActions(), score)
+            return (delegate.getActions(), score)
         }
 
         print("\n*****  Testing \(agentType)  *****")

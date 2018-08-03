@@ -47,12 +47,14 @@ public protocol EuclideanEnvironment {
      */
     associatedtype AgentType: Object, AgentProtocol
     associatedtype JudgeType: Object, JudgeProtocol
+    associatedtype DelegateType // For observers.
     var scores: Dictionary<AgentType, Dictionary<JudgeType, Double>> { get set }
 
     /**
-     * The views or observers watching or _listening to_ this environment.
+     * Delegate to handle any observers _listening to_ this environment.
      */
-    var views: Set<View<EuclideanEnvironment>> { get set }
+    // TODO: Move into Observers section?
+    var delegate: DelegateType? { get set }
 
 
     // ##+####-####+####-####+####-####+####-####+####-####+####-####+####-###
@@ -134,12 +136,12 @@ public protocol EuclideanEnvironment {
     // ##+####-####+####-####+####-####+####-####+####-####+####-####+####-###
     // MARK: Observers
 
-    mutating func addEnvironmentView(_: View)
+    //mutating func addEnvironmentView(_: View)
 
-    func notifyEnvironmentViews<A>(_ agent: A) where A: AgentProtocol
+    //func notifyEnvironmentViews<A>(_ agent: A) where A: AgentProtocol
 
-    func notifyEnvironmentViews<A, P, X>(_ agent: A, _ percept: P, _ action: X)
-        where A: AgentProtocol, P == A.PerceptType, X == A.ActionType
+    //func notifyEnvironmentViews<A, P, X>(_ agent: A, _ percept: P, _ action: X)
+    //    where A: AgentProtocol, P == A.PerceptType, X == A.ActionType
 
 }
 
@@ -175,7 +177,7 @@ extension EuclideanEnvironment {
             if let agent = thing as? AgentType
             {
                 scores[agent] = [:]     // Agent has no judges or scores yet.
-                notifyEnvironmentViews(agent);
+                //notifyEnvironmentViews(agent);
             }
         }
     }
@@ -227,7 +229,7 @@ extension EuclideanEnvironment {
                     scores[agent]![judge]! += judge.execute(judgePercept)
                 }
             }
-            notifyEnvironmentViews(agent, agentPercept, agentAction);
+            delegate?.agentActed(agent, agentPercept, agentAction, self)
         }
         // createExogenousChange();
     }
@@ -252,29 +254,29 @@ extension EuclideanEnvironment {
 
 // MARK: OBSERVERS
 
-extension EuclideanEnvironment {
-
-    public mutating func addEnvironmentView(_ view: EnvironmentView) {
-        views.insert(view)
-    }
-
-//    func notifyEnvironmentViews<A>(_ agent: A) where A: AgentProtocol
+//extension EuclideanEnvironment {
 //
-//    func notifyEnvironmentViews<A, P, X>(_ agent: A, _ percept: P, _ action: X)
-//        where A: AgentProtocol, P == A.PerceptType, X == A.ActionType
-
-    public func notifyEnvironmentViews(_ agent: AgentType) {
-        for view in views {
-            view.agentAdded(agent, self);
-        }
-    }
-
-    public func notifyEnvironmentViews(_ agent: AgentType,
-                                       _ percept: AgentType.PerceptType,
-                                       _ action: AgentType.ActionType) {
-        for view in views {
-            view.agentActed(agent, percept, action, self);
-        }
-    }
-
-}
+//    public mutating func addEnvironmentView(_ view: EnvironmentView) {
+//        views.insert(view)
+//    }
+//
+////    func notifyEnvironmentViews<A>(_ agent: A) where A: AgentProtocol
+////
+////    func notifyEnvironmentViews<A, P, X>(_ agent: A, _ percept: P, _ action: X)
+////        where A: AgentProtocol, P == A.PerceptType, X == A.ActionType
+//
+//    public func notifyEnvironmentViews(_ agent: AgentType) {
+//        for view in views {
+//            view.agentAdded(agent, self);
+//        }
+//    }
+//
+//    public func notifyEnvironmentViews(_ agent: AgentType,
+//                                       _ percept: AgentType.PerceptType,
+//                                       _ action: AgentType.ActionType) {
+//        for view in views {
+//            view.agentActed(agent, percept, action, self);
+//        }
+//    }
+//
+//}

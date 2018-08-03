@@ -13,8 +13,13 @@ import Foundation
  * This stuff might better reside in an Observers protocol or facsimile...
  *
  * Also, this class recently became constrained to EuclideanEnvironment?
+ *
+ * WE NEED AN ObserverType AND/OR ObserverDelegate that is not cyclically
+ * coupled to Environment protocols!
  */
-public class View<E: EuclideanEnvironment>: Object {
+public class View: Object {
+
+    public typealias E = VacuumWorld.Environment
 
     /**
      * A simple notification message from an object in the Environment.
