@@ -24,21 +24,30 @@ public protocol ObserverDelegate {
      *   - action:  The Action the Agent performed.
      *   - source:  The Environment in which the agent has acted.
      */
-    func agentActed<E: EuclideanEnvironment>(_ agent: E.AgentType,
+    func agentActed<E: EuclideanEnvironment>(_ agent:   E.AgentType,
                                              _ percept: E.AgentType.PerceptType,
                                              _ action:  E.AgentType.ActionType,
-                                             _ source: E)
+                                             _ source:  E)
 
+}
+
+public struct FooDelegate<E: EuclideanEnvironment> {
+
+    func agentActed(_ agent:   E.AgentType,
+                    _ percept: E.AgentType.PerceptType,
+                    _ action:  E.AgentType.ActionType,
+                    _ source:  E)
+    { }
 }
 
 // Provide NOOP defaults.
 
-extension ObserverDelegate {
-
-    public func agentActed<E: EuclideanEnvironment>(
-        _ agent: E.AgentType,
-        _ percept: E.AgentType.PerceptType,
-        _ action:  E.AgentType.ActionType,
-        _ source: E)
-    { }
-}
+//extension ObserverDelegate {
+//
+//    public func agentActed<E: EuclideanEnvironment>(
+//        _ agent: E.AgentType,
+//        _ percept: E.AgentType.PerceptType,
+//        _ action:  E.AgentType.ActionType,
+//        _ source: E)
+//    { }
+//}

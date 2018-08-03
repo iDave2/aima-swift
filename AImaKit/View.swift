@@ -35,7 +35,7 @@ public class View: Object {
      * - Parameter agent: The Agent just added to the Environment.
      * - Parameter source: The Environment to which the agent was added.
      */
-    public func agentAdded(_ agent: E.AgentType, _ source: E) { }
+    //public func agentAdded(_ agent: E.AgentType, _ source: E) { }
 
     // **+****-****+****-****+****-****+****-****+****-****+****-****+****-***
     
@@ -48,8 +48,8 @@ public class View: Object {
      *   - action:  The Action the Agent performed.
      *   - source:  The Environment in which the agent has acted.
      */
-    public func agentActed(_ agent:   E.AgentType,
-                           _ percept: E.AgentType.PerceptType,
-                           _ action:  E.AgentType.ActionType,
-                           _ source:  E) { }
+//    public func agentActed(_ agent:   E.AgentType,
+//                           _ percept: E.AgentType.PerceptType,
+//                           _ action:  E.AgentType.ActionType,
+//                           _ source:  E) { }
 }

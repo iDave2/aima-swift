@@ -12,6 +12,20 @@ import Foundation
 // *-****+****-****+****-****+****-****+****-****+****-****+****-****+****-****
 
 /**
+ * Protocol for delegation of vacuum world events.
+ *
+ * TODO: Say more, please.
+ */
+public protocol VacuumWorldProtocol: ObserverDelegate { // For observer delegates, if any.
+    typealias VW = VacuumWorld
+    func agentActed(_ agent:   VW.AnyAgent,
+                    _ percept: VW.AgentPercept,
+                    _ action:  VW.AgentAction,
+                    _ source:  VW.Environment, x: Int)
+}
+
+
+/**
  * Artificial Intelligence A Modern Approach (3rd Edition): pg 58.
  *
  * Let the world contain just two locations. Each location may or may not
@@ -106,33 +120,30 @@ public class VacuumWorld { // Begin VacuumWorld task environment.
         }
     }
 
-    /**
-     * ??
-     */
-    protocol Foo {
-        func methodA()
-    }
-
 
     // **+****-****+****-****+****-****+****-****+****-****+****-****+****-****
     // --- ENVIRONMENTS ---
     // **+****-****+****-****+****-****+****-****+****-****+****-****+****-****
-    
+
+//    class FooDelegate {
+//        func agentActed<E>(_ agent:   E.AgentType,
+//                           _ percept: E.AgentType.PerceptType,
+//                           _ action:  E.AgentType.ActionType,
+//                           _ source:  E) where E == VacuumWorld.Environment
+//        { }
+//    }
+
     /**
      * The `VacuumWorld` environment.
      */
-    public class Environment: EuclideanEnvironment {
-
-        // Compiler wanted these but may be side-effect of other nonsense...
-        // These are DEFINED in definition of `scores` below!?
-        //public typealias AnyAgent = <#type#>
-        //public typealias AnyJudge = <#type#>
+    public final class Environment: EuclideanEnvironment {
 
         public var space: EuclideanSpace
         public var envObjects = Dictionary<Object, Location>()
         public var scores = Dictionary<AnyAgent, Dictionary<AnyJudge, Double>>()
         //public var views = Set<View<Environment>>()
-        public var observerDelegate: ObserverDelegate?
+        // public var delegate: ObserverDelegate? // VacuumWorldProtocol?
+        public var delegate: FooDelegate<Environment>? // Requires final class!
 
         /**
          * Initialize a `VacuumEnvironment` with the given `Space`.

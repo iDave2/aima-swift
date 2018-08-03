@@ -7,6 +7,22 @@
 
 import Foundation
 
+public protocol EuclideanEnvironmentProtocol {
+    /**
+     * Indicates the Environment has changed as a result of an Agent's action.
+     *
+     * - Parameters:
+     *   - agent:   The Agent that performed the Action.
+     *   - percept: The Percept the Agent received from the environment.
+     *   - action:  The Action the Agent performed.
+     *   - source:  The Environment in which the agent has acted.
+     */
+    func agentActed<E: EuclideanEnvironment>(_ agent:   E.AgentType,
+                                             _ percept: E.AgentType.PerceptType,
+                                             _ action:  E.AgentType.ActionType,
+                                             _ source:  E)
+}
+
 /**
  * A protocol for Euclidean environments used in Chapter 2 of AIMA3e, this
  * represents the world as a grid of Cartesian coordinates, a `Space`, that
@@ -47,14 +63,15 @@ public protocol EuclideanEnvironment {
      */
     associatedtype AgentType: Object, AgentProtocol
     associatedtype JudgeType: Object, JudgeProtocol
-    associatedtype DelegateType // For observers.
+    //associatedtype DelegateType // For observers.
     var scores: Dictionary<AgentType, Dictionary<JudgeType, Double>> { get set }
 
     /**
      * Delegate to handle any observers _listening to_ this environment.
      */
     // TODO: Move into Observers section?
-    var delegate: DelegateType? { get set }
+    //associatedtype DelegateType: ObserverDelegate
+    var delegate: FooDelegate<Self>? { get set }
 
 
     // ##+####-####+####-####+####-####+####-####+####-####+####-####+####-###
@@ -142,6 +159,10 @@ public protocol EuclideanEnvironment {
 
     //func notifyEnvironmentViews<A, P, X>(_ agent: A, _ percept: P, _ action: X)
     //    where A: AgentProtocol, P == A.PerceptType, X == A.ActionType
+//    func notifyAgentActed(_ agent:   AgentType,
+//                          _ percept: AgentType.PerceptType,
+//                          _ action:  AgentType.ActionType,
+//                          _ source:  Self)
 
 }
 
@@ -229,6 +250,8 @@ extension EuclideanEnvironment {
                     scores[agent]![judge]! += judge.execute(judgePercept)
                 }
             }
+            // Delegation is too difficult in this generic environment
+            // so we send a message instead?
             delegate?.agentActed(agent, agentPercept, agentAction, self)
         }
         // createExogenousChange();
@@ -253,6 +276,10 @@ extension EuclideanEnvironment {
 }
 
 // MARK: OBSERVERS
+
+//extension EuclideanEnvironment where type(of: delegate) == ObserverDelegate {
+//
+//}
 
 //extension EuclideanEnvironment {
 //
