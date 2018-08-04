@@ -27,8 +27,8 @@
 		294ADC6820E6F1370053937E /* Agents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29F2431120DF0DF400927629 /* Agents.swift */; };
 		294ADC6A20E70C3C0053937E /* SimpleActionTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 294ADC6920E70C3C0053937E /* SimpleActionTracker.swift */; };
 		294ADC6B20E70C3C0053937E /* SimpleActionTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 294ADC6920E70C3C0053937E /* SimpleActionTracker.swift */; };
-		295D62222113C19C004F3DBC /* AgentProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 295D62212113C19C004F3DBC /* AgentProtocol.swift */; };
-		295D62232113C19C004F3DBC /* AgentProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 295D62212113C19C004F3DBC /* AgentProtocol.swift */; };
+		295D62222113C19C004F3DBC /* Agent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 295D62212113C19C004F3DBC /* Agent.swift */; };
+		295D62232113C19C004F3DBC /* Agent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 295D62212113C19C004F3DBC /* Agent.swift */; };
 		299BB9C020E58BD100E427E4 /* VacuumWorld.swift in Sources */ = {isa = PBXBuildFile; fileRef = 299BB9BF20E58BD100E427E4 /* VacuumWorld.swift */; };
 		299BB9C120E58BD100E427E4 /* VacuumWorld.swift in Sources */ = {isa = PBXBuildFile; fileRef = 299BB9BF20E58BD100E427E4 /* VacuumWorld.swift */; };
 		29B43C5F2112734000F9DE5B /* EuclideanEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29B43C5E2112734000F9DE5B /* EuclideanEnvironment.swift */; };
@@ -66,7 +66,7 @@
 /* Begin PBXFileReference section */
 		294348F32114D051003E6166 /* ObserverDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObserverDelegate.swift; sourceTree = "<group>"; };
 		294ADC6920E70C3C0053937E /* SimpleActionTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleActionTracker.swift; sourceTree = "<group>"; };
-		295D62212113C19C004F3DBC /* AgentProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgentProtocol.swift; sourceTree = "<group>"; };
+		295D62212113C19C004F3DBC /* Agent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Agent.swift; sourceTree = "<group>"; };
 		299BB9BA20E2DC6400E427E4 /* LICENSE.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = LICENSE.md; sourceTree = "<group>"; };
 		299BB9BB20E2DC6400E427E4 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		299BB9BC20E2DC6500E427E4 /* CONTRIBUTING.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CONTRIBUTING.md; sourceTree = "<group>"; };
@@ -129,7 +129,7 @@
 			children = (
 				29F242FA20DF0DA900927629 /* AImaKit.h */,
 				29F242FB20DF0DA900927629 /* Info.plist */,
-				295D62212113C19C004F3DBC /* AgentProtocol.swift */,
+				295D62212113C19C004F3DBC /* Agent.swift */,
 				29F2431120DF0DF400927629 /* Agents.swift */,
 				29B43C5E2112734000F9DE5B /* EuclideanEnvironment.swift */,
 				29B43C61211376F300F9DE5B /* EuclideanSpace.swift */,
@@ -289,7 +289,7 @@
 				294ADC6A20E70C3C0053937E /* SimpleActionTracker.swift in Sources */,
 				294348F42114D051003E6166 /* ObserverDelegate.swift in Sources */,
 				299BB9C020E58BD100E427E4 /* VacuumWorld.swift in Sources */,
-				295D62222113C19C004F3DBC /* AgentProtocol.swift in Sources */,
+				295D62222113C19C004F3DBC /* Agent.swift in Sources */,
 				29B43C62211376F300F9DE5B /* EuclideanSpace.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -305,7 +305,7 @@
 				29B43C63211376F300F9DE5B /* EuclideanSpace.swift in Sources */,
 				299BB9C120E58BD100E427E4 /* VacuumWorld.swift in Sources */,
 				294348F52114D051003E6166 /* ObserverDelegate.swift in Sources */,
-				295D62232113C19C004F3DBC /* AgentProtocol.swift in Sources */,
+				295D62232113C19C004F3DBC /* Agent.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
