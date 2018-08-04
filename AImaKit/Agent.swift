@@ -52,7 +52,7 @@ public protocol Agent {
  * since nothing changed in the environment.
  *
  */
-public protocol JudgeProtocol {
+public protocol Judge {
     associatedtype PerceptType
     func execute(_ percept: PerceptType) -> Double
 }

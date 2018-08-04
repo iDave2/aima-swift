@@ -45,7 +45,7 @@ public protocol EuclideanEnvironment {
     /**
      * Generic judge type for his environment.
      */
-    associatedtype JudgeType: Object, JudgeProtocol
+    associatedtype JudgeType: Object, Judge
     /**
      * Cumulative scores from each judge (performance measure) for each agent.
      *

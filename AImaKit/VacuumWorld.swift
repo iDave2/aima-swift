@@ -113,7 +113,7 @@ public class VacuumWorld { // Begin VacuumWorld task environment.
     /**
      * Base class for any judge in this world.
      */
-    public class AnyJudge: Object, JudgeProtocol {
+    public class AnyJudge: Object, Judge {
         // This defines associated types for all judges in this world.
         public func execute(_ percept: JudgePercept) -> Double {
             return 0.0
