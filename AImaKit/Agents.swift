@@ -78,14 +78,14 @@ import Foundation
  * - An `Environment` does not know what formula its `Judges` use to score
  *   changes; it just gives them a `Percept` and gets back a score.
  */
-public class AnActor<T>: Object {
-  /**
-   * The *agent function* that maps percepts to actions.
-   */
-  public func execute(_ percept: IPercept) -> T {
-    fatalError("Agent program is not initialized!")
-  }
-  
+//public class AnActor<T>: Object {
+//  /**
+//   * The *agent function* that maps percepts to actions.
+//   */
+//  public func execute(_ percept: IPercept) -> T {
+//    fatalError("Agent program is not initialized!")
+//  }
+
 //  /**
 //   * Internal default initializer lets agent programs referencing subclass
 //   * state to compile without strong reference cycle errors.
@@ -109,7 +109,7 @@ public class AnActor<T>: Object {
 //
 //  // Used for debugging memory leaks.
 //  deinit { print("IActor<T> deinitialized.") }
-}
+//}
 
 // ////////////////////////////////////////////////////////////////////////////
 
@@ -160,9 +160,9 @@ public class AnActor<T>: Object {
  * observed to date, but not on anything it hasn't perceived_." -- AIMA3e,
  * page 34.
  */
-public protocol IPercept {
-
-}
+//public protocol IPercept {
+//
+//}
 
 // ////////////////////////////////////////////////////////////////////////////
 
@@ -170,23 +170,23 @@ public protocol IPercept {
  * Describes an `Action` that can or has been taken by an `Agent` via
  * one of its actuators.
  */
-public protocol IAction {
-  /**
-   * Adopters of this protocol must implement `getValue()` so that
-   * functions defined abstractly using `IAction` as a parameter can
-   * display information about the actual `Action` they are referencing.
-   *
-   * Here is an example for the case in which `IAction` is implemented
-   * as a Swift enum:
-   * ```swift
-   * enum Action: String, IAction {
-   *   case noOp, moveRight, moveUp, drinkJava, etc
-   *   func getValue() -> String { return self.rawValue }
-   * }
-   * ```
-   */
-  func getValue() -> String
-}
+//public protocol IAction {
+//  /**
+//   * Adopters of this protocol must implement `getValue()` so that
+//   * functions defined abstractly using `IAction` as a parameter can
+//   * display information about the actual `Action` they are referencing.
+//   *
+//   * Here is an example for the case in which `IAction` is implemented
+//   * as a Swift enum:
+//   * ```swift
+//   * enum Action: String, IAction {
+//   *   case noOp, moveRight, moveUp, drinkJava, etc
+//   *   func getValue() -> String { return self.rawValue }
+//   * }
+//   * ```
+//   */
+//  func getValue() -> String
+//}
 
 
 // *-****+****-****+****-****+****-****+****-****+****-****+****-****+****-****

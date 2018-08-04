@@ -10,27 +10,9 @@ import Foundation
 /**
  * Environments send events to a single observer delegate.
  *
- * Multiple listeners are handled here, not by their environments.
+ * Modify this delegate to support multiple listeners if needed.
  *
  */
-//public protocol ObserverDelegate {
-//
-//    /**
-//     * Indicates the Environment has changed as a result of an Agent's action.
-//     *
-//     * - Parameters:
-//     *   - agent:   The Agent that performed the Action.
-//     *   - percept: The Percept the Agent received from the environment.
-//     *   - action:  The Action the Agent performed.
-//     *   - source:  The Environment in which the agent has acted.
-//     */
-//    func agentActed<E: EuclideanEnvironment>(_ agent:   E.AgentType,
-//                                             _ percept: E.AgentType.PerceptType,
-//                                             _ action:  E.AgentType.ActionType,
-//                                             _ source:  E)
-//
-//}
-
 public class ObserverDelegate<E: EuclideanEnvironment> {
 
     func agentActed(_ agent:   E.AgentType,
@@ -39,15 +21,3 @@ public class ObserverDelegate<E: EuclideanEnvironment> {
                     _ source:  E)
     { }
 }
-
-// Provide NOOP defaults.
-
-//extension ObserverDelegate {
-//
-//    public func agentActed<E: EuclideanEnvironment>(
-//        _ agent: E.AgentType,
-//        _ percept: E.AgentType.PerceptType,
-//        _ action:  E.AgentType.ActionType,
-//        _ source: E)
-//    { }
-//}

@@ -83,7 +83,7 @@ public class VacuumWorld { // Begin VacuumWorld task environment.
     /**
      * Base class for any agent in this world.
      */
-    public class AnyAgent: Object, AgentProtocol {
+    public class AnyAgent: Object, Agent {
         // This defines associated types for all agents in this world.
         public func execute(_ percept: AgentPercept) -> AgentAction {
             return .noOp
@@ -133,8 +133,6 @@ public class VacuumWorld { // Begin VacuumWorld task environment.
         public var space: EuclideanSpace
         public var envObjects = Dictionary<Object, Location>()
         public var scores = Dictionary<AnyAgent, Dictionary<AnyJudge, Double>>()
-        //public var views = Set<View<Environment>>()
-        // public var delegate: ObserverDelegate? // VacuumWorldProtocol?
         public var delegate: ObserverDelegate<Environment>? // Requires final class!
 
         /**

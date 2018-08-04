@@ -29,8 +29,6 @@
 		294ADC6B20E70C3C0053937E /* SimpleActionTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 294ADC6920E70C3C0053937E /* SimpleActionTracker.swift */; };
 		295D62222113C19C004F3DBC /* AgentProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 295D62212113C19C004F3DBC /* AgentProtocol.swift */; };
 		295D62232113C19C004F3DBC /* AgentProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 295D62212113C19C004F3DBC /* AgentProtocol.swift */; };
-		297AF1FB20F7C7E900E98F6A /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 297AF1FA20F7C7E900E98F6A /* View.swift */; };
-		297AF1FC20F8160A00E98F6A /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 297AF1FA20F7C7E900E98F6A /* View.swift */; };
 		299BB9C020E58BD100E427E4 /* VacuumWorld.swift in Sources */ = {isa = PBXBuildFile; fileRef = 299BB9BF20E58BD100E427E4 /* VacuumWorld.swift */; };
 		299BB9C120E58BD100E427E4 /* VacuumWorld.swift in Sources */ = {isa = PBXBuildFile; fileRef = 299BB9BF20E58BD100E427E4 /* VacuumWorld.swift */; };
 		29B43C5F2112734000F9DE5B /* EuclideanEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29B43C5E2112734000F9DE5B /* EuclideanEnvironment.swift */; };
@@ -69,7 +67,6 @@
 		294348F32114D051003E6166 /* ObserverDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObserverDelegate.swift; sourceTree = "<group>"; };
 		294ADC6920E70C3C0053937E /* SimpleActionTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleActionTracker.swift; sourceTree = "<group>"; };
 		295D62212113C19C004F3DBC /* AgentProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgentProtocol.swift; sourceTree = "<group>"; };
-		297AF1FA20F7C7E900E98F6A /* View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = View.swift; sourceTree = "<group>"; };
 		299BB9BA20E2DC6400E427E4 /* LICENSE.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = LICENSE.md; sourceTree = "<group>"; };
 		299BB9BB20E2DC6400E427E4 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		299BB9BC20E2DC6500E427E4 /* CONTRIBUTING.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CONTRIBUTING.md; sourceTree = "<group>"; };
@@ -139,7 +136,6 @@
 				294348F32114D051003E6166 /* ObserverDelegate.swift */,
 				294ADC6920E70C3C0053937E /* SimpleActionTracker.swift */,
 				299BB9BF20E58BD100E427E4 /* VacuumWorld.swift */,
-				297AF1FA20F7C7E900E98F6A /* View.swift */,
 			);
 			path = AImaKit;
 			sourceTree = "<group>";
@@ -290,7 +286,6 @@
 			files = (
 				29B43C5F2112734000F9DE5B /* EuclideanEnvironment.swift in Sources */,
 				29F2431220DF0DF400927629 /* Agents.swift in Sources */,
-				297AF1FB20F7C7E900E98F6A /* View.swift in Sources */,
 				294ADC6A20E70C3C0053937E /* SimpleActionTracker.swift in Sources */,
 				294348F42114D051003E6166 /* ObserverDelegate.swift in Sources */,
 				299BB9C020E58BD100E427E4 /* VacuumWorld.swift in Sources */,
@@ -306,7 +301,6 @@
 				29F2430620DF0DA900927629 /* AImaKitTests.swift in Sources */,
 				29B43C602112734000F9DE5B /* EuclideanEnvironment.swift in Sources */,
 				294ADC6820E6F1370053937E /* Agents.swift in Sources */,
-				297AF1FC20F8160A00E98F6A /* View.swift in Sources */,
 				294ADC6B20E70C3C0053937E /* SimpleActionTracker.swift in Sources */,
 				29B43C63211376F300F9DE5B /* EuclideanSpace.swift in Sources */,
 				299BB9C120E58BD100E427E4 /* VacuumWorld.swift in Sources */,

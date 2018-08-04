@@ -1,5 +1,5 @@
 //
-//  EnvironmentProtocol.swift
+//  EuclideanEnvironment.swift
 //  AImaKit
 //
 //  Created by Dave King on 8/1/18.
@@ -7,31 +7,14 @@
 
 import Foundation
 
-public protocol EuclideanEnvironmentProtocol {
-    /**
-     * Indicates the Environment has changed as a result of an Agent's action.
-     *
-     * - Parameters:
-     *   - agent:   The Agent that performed the Action.
-     *   - percept: The Percept the Agent received from the environment.
-     *   - action:  The Action the Agent performed.
-     *   - source:  The Environment in which the agent has acted.
-     */
-    func agentActed<E: EuclideanEnvironment>(_ agent:   E.AgentType,
-                                             _ percept: E.AgentType.PerceptType,
-                                             _ action:  E.AgentType.ActionType,
-                                             _ source:  E)
-}
-
 /**
  * A protocol for Euclidean environments used in Chapter 2 of AIMA3e, this
  * represents the world as a grid of Cartesian coordinates, a `Space`, that
  * agents move around in.
  *
- * Remember: these protocols only attach a protocol witness table (PWT) to
- * classes that adopt them, but not their subclasses (if any), so you get at
- * most one level of "inheritance" and they call that "static polymorphism."
- * Uh-huh...  Also [see this](https://stackoverflow.com/questions/44703205).
+ * Remember: These protocols are not polymorphic like classes;
+ * [review this](https://stackoverflow.com/questions/44703205)
+ * and test, test, test.
  */
 public protocol EuclideanEnvironment {
 
@@ -56,21 +39,26 @@ public protocol EuclideanEnvironment {
     var envObjects: Dictionary<Object, Location> { get set }
 
     /**
+     * Generic agent type for this environment.
+     */
+    associatedtype AgentType: Object, Agent
+    /**
+     * Generic judge type for his environment.
+     */
+    associatedtype JudgeType: Object, JudgeProtocol
+    /**
+     * Cumulative scores from each judge (performance measure) for each agent.
+     *
      * At each time step, each agent in the environment attempts to perform
      * an action and each judge scores the effort by observing actual changes
      * to the environment.  This dictionary of dictionaries keeps track of
      * these associations and scores.
      */
-    associatedtype AgentType: Object, AgentProtocol
-    associatedtype JudgeType: Object, JudgeProtocol
-    //associatedtype DelegateType // For observers.
     var scores: Dictionary<AgentType, Dictionary<JudgeType, Double>> { get set }
 
     /**
      * Delegate to handle any observers _listening to_ this environment.
      */
-    // TODO: Move into Observers section?
-    //associatedtype DelegateType: ObserverDelegate
     var delegate: ObserverDelegate<Self>? { get set }
 
 
@@ -148,21 +136,6 @@ public protocol EuclideanEnvironment {
     // MARK: Performance
 
     func getScores(forAgent: AgentType) -> [JudgeType: Double]?
-
-
-    // ##+####-####+####-####+####-####+####-####+####-####+####-####+####-###
-    // MARK: Observers
-
-    //mutating func addEnvironmentView(_: View)
-
-    //func notifyEnvironmentViews<A>(_ agent: A) where A: AgentProtocol
-
-    //func notifyEnvironmentViews<A, P, X>(_ agent: A, _ percept: P, _ action: X)
-    //    where A: AgentProtocol, P == A.PerceptType, X == A.ActionType
-//    func notifyAgentActed(_ agent:   AgentType,
-//                          _ percept: AgentType.PerceptType,
-//                          _ action:  AgentType.ActionType,
-//                          _ source:  Self)
 
 }
 
@@ -274,36 +247,3 @@ extension EuclideanEnvironment {
     }
 
 }
-
-// MARK: OBSERVERS
-
-//extension EuclideanEnvironment where type(of: delegate) == ObserverDelegate {
-//
-//}
-
-//extension EuclideanEnvironment {
-//
-//    public mutating func addEnvironmentView(_ view: EnvironmentView) {
-//        views.insert(view)
-//    }
-//
-////    func notifyEnvironmentViews<A>(_ agent: A) where A: AgentProtocol
-////
-////    func notifyEnvironmentViews<A, P, X>(_ agent: A, _ percept: P, _ action: X)
-////        where A: AgentProtocol, P == A.PerceptType, X == A.ActionType
-//
-//    public func notifyEnvironmentViews(_ agent: AgentType) {
-//        for view in views {
-//            view.agentAdded(agent, self);
-//        }
-//    }
-//
-//    public func notifyEnvironmentViews(_ agent: AgentType,
-//                                       _ percept: AgentType.PerceptType,
-//                                       _ action: AgentType.ActionType) {
-//        for view in views {
-//            view.agentActed(agent, percept, action, self);
-//        }
-//    }
-//
-//}
