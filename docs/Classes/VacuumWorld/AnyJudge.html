@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>ModelBasedAgent Class Reference</title>
+    <title>AnyJudge Class Reference</title>
     <link rel="stylesheet" type="text/css" href="../../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../../css/highlight.css" />
     <meta charset='utf-8'>
@@ -10,8 +10,8 @@
     
   </head>
   <body>
-    <a name="//apple_ref/swift/Class/ModelBasedAgent" class="dashAnchor"></a>
-    <a title="ModelBasedAgent Class Reference"></a>
+    <a name="//apple_ref/swift/Class/AnyJudge" class="dashAnchor"></a>
+    <a title="AnyJudge Class Reference"></a>
     <header>
       <div class="content-wrapper">
         <p><a href="../../index.html">AImaKit Docs</a> (70% documented)</p>
@@ -21,7 +21,7 @@
       <p id="breadcrumbs">
         <a href="../../index.html">AImaKit Reference</a>
         <img id="carat" src="../../img/carat.png" />
-        ModelBasedAgent Class Reference
+        AnyJudge Class Reference
       </p>
     </div>
     <div class="content-wrapper">
@@ -102,43 +102,14 @@
       <article class="main-content">
         <section>
           <section class="section">
-            <h1>ModelBasedAgent</h1>
+            <h1>AnyJudge</h1>
               <div class="declaration">
                 <div class="language">
-                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">ModelBasedAgent</span> <span class="p">:</span> <span class="kt"><a href="../../Classes/VacuumWorld/AnyAgent.html">AnyAgent</a></span></code></pre>
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">AnyJudge</span> <span class="p">:</span> <span class="kt"><a href="../../Classes/Object.html">Object</a></span><span class="p">,</span> <span class="kt"><a href="../../Protocols/Judge.html">Judge</a></span></code></pre>
 
                 </div>
               </div>
-            <p>A model-based (reflex) agent or at least an agent with some memory.</p>
-<pre class="highlight swift"><code> <span class="n">function</span> <span class="kt">MODEL</span><span class="o">-</span><span class="kt">BASED</span><span class="o">-</span><span class="kt">REFLEX</span><span class="o">-</span><span class="kt">AGENT</span><span class="p">(</span><span class="n">percept</span><span class="p">)</span> <span class="n">returns</span> <span class="n">an</span> <span class="n">action</span>
-   <span class="nv">persistent</span><span class="p">:</span> <span class="n">state</span><span class="p">,</span> <span class="n">the</span> <span class="n">agent</span><span class="err">'</span><span class="n">s</span> <span class="n">current</span> <span class="n">conception</span> <span class="n">of</span> <span class="n">the</span> <span class="n">world</span> <span class="n">state</span>
-               <span class="n">model</span><span class="p">,</span> <span class="n">a</span> <span class="n">description</span> <span class="n">of</span> <span class="n">how</span> <span class="n">the</span> <span class="n">next</span> <span class="n">state</span> <span class="n">depends</span> <span class="n">on</span> <span class="n">current</span> <span class="n">state</span> <span class="n">and</span> <span class="n">action</span>
-               <span class="n">rules</span><span class="p">,</span> <span class="n">a</span> <span class="k">set</span> <span class="n">of</span> <span class="n">condition</span><span class="o">-</span><span class="n">action</span> <span class="n">rules</span>
-               <span class="n">action</span><span class="p">,</span> <span class="n">the</span> <span class="n">most</span> <span class="n">recent</span> <span class="n">action</span><span class="p">,</span> <span class="n">initially</span> <span class="k">none</span>
-
-   <span class="n">state</span>  <span class="o">&lt;-</span> <span class="kt">UPDATE</span><span class="o">-</span><span class="kt">STATE</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="n">action</span><span class="p">,</span> <span class="n">percept</span><span class="p">,</span> <span class="n">model</span><span class="p">)</span>
-   <span class="n">rule</span>   <span class="o">&lt;-</span> <span class="kt">RULE</span><span class="o">-</span><span class="kt">MATCH</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="n">rules</span><span class="p">)</span>
-   <span class="n">action</span> <span class="o">&lt;-</span> <span class="n">rule</span><span class="o">.</span><span class="kt">ACTION</span>
-   <span class="k">return</span> <span class="n">action</span>
-</code></pre>
-
-<p>Figure 2.12, AIMA3e, page 51.</p>
-
-<p>Adding state to an agent or its program raises a couple of problems
- with the current design:</p>
-
-<ul>
-<li><p>Requiring agents to initialize their superclass with their program is
-bad design; a simple requirement that agents include an <code>execute()</code> method
-is sufficient.  This choice was influenced by a comment on aima-python&rsquo;s
-Agent suggesting these agent programs might <q>cheat</q>.  C&#39;mon, really?
-That&rsquo;s like not letting your hand touch any part of your body.  From now
-on, the unit of security is the Agent and our Agents (and Judges and
-Environments) cannot see each other and do not know how the other works.</p></li>
-<li><p>The other issue was how the first issue introduces memory leaks, which
-was fixed here with Swift subtleties (also distracts from the subject),
-and which will be not-a-problem in next design.</p></li>
-</ul>
+            <p>Base class for any judge in this world.</p>
 
           </section>
           <section class="section task-group-section">
@@ -147,9 +118,9 @@ and which will be not-a-problem in next design.</p></li>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:7AImaKit11VacuumWorldC15ModelBasedAgentC7executeyAC0G6ActionOAC0G7PerceptVF"></a>
+                    <a name="/s:7AImaKit5JudgeP7executeySd11PerceptTypeQzF"></a>
                     <a name="//apple_ref/swift/Method/execute(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:7AImaKit11VacuumWorldC15ModelBasedAgentC7executeyAC0G6ActionOAC0G7PerceptVF">execute(_:)</a>
+                    <a class="token" href="#/s:7AImaKit5JudgeP7executeySd11PerceptTypeQzF">execute(_:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -157,22 +128,13 @@ and which will be not-a-problem in next design.</p></li>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>This model-based agent program.</p>
-
-<p>In order to reference <code>self</code> in this closure, we use <code>lazy</code> to tell Swift
- we won&rsquo;t access it until <em>after</em> initialization.  To avoid resulting strong
- reference cycle, we add capture list <code>[unowned self]</code> as described in book&rsquo;s
- ARC chapter.</p>
-
-<p>Swift requires prefix <code>self.</code> for instance properties referenced in closures
- to <q>remind</q> us of potential cycles.</p>
-
+                        
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">override</span> <span class="kd">func</span> <span class="nf">execute</span><span class="p">(</span><span class="n">_</span> <span class="nv">percept</span><span class="p">:</span> <span class="kt"><a href="../../Classes/VacuumWorld/AgentPercept.html">AgentPercept</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../../Classes/VacuumWorld/AgentAction.html">AgentAction</a></span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">execute</span><span class="p">(</span><span class="n">_</span> <span class="nv">percept</span><span class="p">:</span> <span class="kt"><a href="../../Classes/VacuumWorld.html#/s:7AImaKit11VacuumWorldC12JudgePerceptV">JudgePercept</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Double</span></code></pre>
 
                         </div>
                       </div>

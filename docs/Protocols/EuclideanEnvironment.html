@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>EuclideanEnvironment Protocol Reference</title>
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+    
+  </head>
+  <body>
+    <a name="//apple_ref/swift/Protocol/EuclideanEnvironment" class="dashAnchor"></a>
+    <a title="EuclideanEnvironment Protocol Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="../index.html">AImaKit Docs</a> (70% documented)</p>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="../index.html">AImaKit Reference</a>
+        <img id="carat" src="../img/carat.png" />
+        EuclideanEnvironment Protocol Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="../Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Classes/EuclideanSpace.html">EuclideanSpace</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Object.html">Object</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes.html#/s:7AImaKit16ObserverDelegateC">ObserverDelegate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/SimpleActionTracker.html">SimpleActionTracker</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/VacuumWorld.html">VacuumWorld</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/VacuumWorld/LocationState.html">– LocationState</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/VacuumWorld.html#/s:7AImaKit11VacuumWorldC4DirtC">– Dirt</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/VacuumWorld/AgentAction.html">– AgentAction</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/VacuumWorld/AgentPercept.html">– AgentPercept</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/VacuumWorld/AnyAgent.html">– AnyAgent</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/VacuumWorld/EnvironmentAction.html">– EnvironmentAction</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/VacuumWorld.html#/s:7AImaKit11VacuumWorldC12JudgePerceptV">– JudgePercept</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/VacuumWorld/AnyJudge.html">– AnyJudge</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/VacuumWorld/Environment.html">– Environment</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/VacuumWorld/ReflexAgent.html">– ReflexAgent</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/VacuumWorld/ModelBasedAgent.html">– ModelBasedAgent</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/VacuumWorld/ReflexJudge.html">– ReflexJudge</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Protocols/Agent.html">Agent</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/EuclideanEnvironment.html">EuclideanEnvironment</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/Judge.html">Judge</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            <h1>EuclideanEnvironment</h1>
+              <div class="declaration">
+                <div class="language">
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">EuclideanEnvironment</span></code></pre>
+
+                </div>
+              </div>
+            <p>A protocol for Euclidean environments used in Chapter 2 of AIMA3e, this
+ represents the world as a grid of Cartesian coordinates, a <code>Space</code>, that
+ agents move around in.</p>
+
+<p>Remember: These protocols are not polymorphic like classes;
+ <a href="https://stackoverflow.com/questions/44703205">review this</a>
+ and test, test, test.</p>
+
+          </section>
+          <section class="section task-group-section">
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:7AImaKit20EuclideanEnvironmentP8Locationa"></a>
+                    <a name="//apple_ref/swift/Alias/Location" class="dashAnchor"></a>
+                    <a class="token" href="#/s:7AImaKit20EuclideanEnvironmentP8Locationa">Location</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">typealias</span> <span class="kt">Location</span> <span class="o">=</span> <span class="kt"><a href="../Classes/EuclideanSpace.html">EuclideanSpace</a></span><span class="o">.</span><span class="kt">Location</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/State"></a>
+                <a name="//apple_ref/swift/Section/State" class="dashAnchor"></a>
+                <a href="#/State">
+                  <h3 class="section-name">State</h3>
+                </a>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:7AImaKit20EuclideanEnvironmentP5spaceAA0C5SpaceCvp"></a>
+                    <a name="//apple_ref/swift/Property/space" class="dashAnchor"></a>
+                    <a class="token" href="#/s:7AImaKit20EuclideanEnvironmentP5spaceAA0C5SpaceCvp">space</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The Euclidean space used by this environment.</p>
+
+<p>For the two-square vacuum world, one may use</p>
+<pre class="highlight swift"><code> <span class="n">space</span> <span class="o">=</span> <span class="kt">Space</span><span class="p">(</span><span class="mi">0</span><span class="o">..&lt;</span><span class="mi">2</span><span class="p">)</span>
+</code></pre>
+
+<p>which has two Cartesian coordinates or <code>Locations</code>, <code>[0]</code> and <code>[1]</code>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">space</span><span class="p">:</span> <span class="kt"><a href="../Classes/EuclideanSpace.html">EuclideanSpace</a></span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:7AImaKit20EuclideanEnvironmentP10envObjectsSDyAA6ObjectCSaySiGGvp"></a>
+                    <a name="//apple_ref/swift/Property/envObjects" class="dashAnchor"></a>
+                    <a class="token" href="#/s:7AImaKit20EuclideanEnvironmentP10envObjectsSDyAA6ObjectCSaySiGGvp">envObjects</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Except for <code>Judges</code>, every object added to the <code>Environment</code> goes into
+this dictionary along with its <code><a href="../Protocols/EuclideanEnvironment.html#/s:7AImaKit20EuclideanEnvironmentP8Locationa">Location</a></code>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">envObjects</span><span class="p">:</span> <span class="kt">Dictionary</span><span class="o">&lt;</span><span class="kt"><a href="../Classes/Object.html">Object</a></span><span class="p">,</span> <span class="kt"><a href="../Protocols/EuclideanEnvironment.html#/s:7AImaKit20EuclideanEnvironmentP8Locationa">Location</a></span><span class="o">&gt;</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:7AImaKit20EuclideanEnvironmentP9AgentTypeQa"></a>
+                    <a name="//apple_ref/swift/Alias/AgentType" class="dashAnchor"></a>
+                    <a class="token" href="#/s:7AImaKit20EuclideanEnvironmentP9AgentTypeQa">AgentType</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Generic agent type for this environment.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">associatedtype</span> <span class="kt">AgentType</span> <span class="p">:</span> <span class="kt"><a href="../Classes/Object.html">Object</a></span><span class="p">,</span> <span class="kt"><a href="../Protocols/Agent.html">Agent</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:7AImaKit20EuclideanEnvironmentP9JudgeTypeQa"></a>
+                    <a name="//apple_ref/swift/Alias/JudgeType" class="dashAnchor"></a>
+                    <a class="token" href="#/s:7AImaKit20EuclideanEnvironmentP9JudgeTypeQa">JudgeType</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Generic judge type for his environment.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">associatedtype</span> <span class="kt">JudgeType</span> <span class="p">:</span> <span class="kt"><a href="../Classes/Object.html">Object</a></span><span class="p">,</span> <span class="kt"><a href="../Protocols/Judge.html">Judge</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:7AImaKit20EuclideanEnvironmentP6scoresSDy9AgentTypeQzSDy05JudgeG0QzSdGGvp"></a>
+                    <a name="//apple_ref/swift/Property/scores" class="dashAnchor"></a>
+                    <a class="token" href="#/s:7AImaKit20EuclideanEnvironmentP6scoresSDy9AgentTypeQzSDy05JudgeG0QzSdGGvp">scores</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Cumulative scores from each judge (performance measure) for each agent.</p>
+
+<p>At each time step, each agent in the environment attempts to perform
+ an action and each judge scores the effort by observing actual changes
+ to the environment.  This dictionary of dictionaries keeps track of
+ these associations and scores.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">scores</span><span class="p">:</span> <span class="kt">Dictionary</span><span class="o">&lt;</span><span class="kt"><a href="../Protocols/EuclideanEnvironment.html#/s:7AImaKit20EuclideanEnvironmentP9AgentTypeQa">AgentType</a></span><span class="p">,</span> <span class="kt">Dictionary</span><span class="o">&lt;</span><span class="kt"><a href="../Protocols/EuclideanEnvironment.html#/s:7AImaKit20EuclideanEnvironmentP9JudgeTypeQa">JudgeType</a></span><span class="p">,</span> <span class="kt">Double</span><span class="o">&gt;&gt;</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:7AImaKit20EuclideanEnvironmentP8delegateAA16ObserverDelegateCyxGSgvp"></a>
+                    <a name="//apple_ref/swift/Property/delegate" class="dashAnchor"></a>
+                    <a class="token" href="#/s:7AImaKit20EuclideanEnvironmentP8delegateAA16ObserverDelegateCyxGSgvp">delegate</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Delegate to handle any observers <em>listening to</em> this environment.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">delegate</span><span class="p">:</span> <span class="kt"><a href="../Classes.html#/s:7AImaKit16ObserverDelegateC">ObserverDelegate</a></span><span class="o">&lt;</span><span class="k">Self</span><span class="o">&gt;</span><span class="p">?</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Contents"></a>
+                <a name="//apple_ref/swift/Section/Contents" class="dashAnchor"></a>
+                <a href="#/Contents">
+                  <h3 class="section-name">Contents</h3>
+                </a>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:7AImaKit20EuclideanEnvironmentP9addObject_2atyAA0F0C_SaySiGSgtF"></a>
+                    <a name="//apple_ref/swift/Method/addObject(_:at:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:7AImaKit20EuclideanEnvironmentP9addObject_2atyAA0F0C_SaySiGSgtF">addObject(_:at:)</a>
+                    </code>
+                      <span class="declaration-note">
+                        Default implementation
+                      </span>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Add an object to the environment optionally specifying its location.
+ If no location is provided, a random one will be chosen.</p>
+
+                      </div>
+                      <h4>Default Implementation</h4>
+                      <div class="default_impl abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">mutating</span> <span class="kd">func</span> <span class="nf">addObject</span><span class="p">(</span><span class="n">_</span> <span class="nv">thing</span><span class="p">:</span> <span class="kt"><a href="../Classes/Object.html">Object</a></span><span class="p">,</span> <span class="n">at</span> <span class="nv">location</span><span class="p">:</span> <span class="kt"><a href="../Protocols/EuclideanEnvironment.html#/s:7AImaKit20EuclideanEnvironmentP8Locationa">Location</a></span><span class="p">?)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>thing</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The object to add to environment.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>location</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Optional location at which to place it.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:7AImaKit20EuclideanEnvironmentP10getObjects2atSDyAA6ObjectCSaySiGGAHSg_tF"></a>
+                    <a name="//apple_ref/swift/Method/getObjects(at:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:7AImaKit20EuclideanEnvironmentP10getObjects2atSDyAA6ObjectCSaySiGGAHSg_tF">getObjects(at:)</a>
+                    </code>
+                      <span class="declaration-note">
+                        Default implementation
+                      </span>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Return all environment objects, along with their location, either from a
+ specified location or, if no location is provided, from the entire environment.</p>
+
+                      </div>
+                      <h4>Default Implementation</h4>
+                      <div class="default_impl abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">getObjects</span><span class="p">(</span><span class="n">at</span> <span class="nv">location</span><span class="p">:</span> <span class="kt"><a href="../Protocols/EuclideanEnvironment.html#/s:7AImaKit20EuclideanEnvironmentP8Locationa">Location</a></span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">Dictionary</span><span class="o">&lt;</span><span class="kt"><a href="../Classes/Object.html">Object</a></span><span class="p">,</span> <span class="kt"><a href="../Protocols/EuclideanEnvironment.html#/s:7AImaKit20EuclideanEnvironmentP8Locationa">Location</a></span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>location</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Optional location to retrieve objects from.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>A <code>Dictionary&lt;EnvironmentObject, Location&gt;</code> satisfying
+input criteria.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Simulation"></a>
+                <a name="//apple_ref/swift/Section/Simulation" class="dashAnchor"></a>
+                <a href="#/Simulation">
+                  <h3 class="section-name">Simulation</h3>
+                </a>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:7AImaKit20EuclideanEnvironmentP4stepyyF"></a>
+                    <a name="//apple_ref/swift/Method/step()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:7AImaKit20EuclideanEnvironmentP4stepyyF">step()</a>
+                    </code>
+                      <span class="declaration-note">
+                        Default implementation
+                      </span>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Move clock forward one click.</p>
+
+<p>With each step, agents are presented with the next <code>Percept</code> and their
+ resulting <code>Action</code> is scored by whatever <code>Judges</code> (performance measures)
+ are installed in the environment.</p>
+
+                      </div>
+                      <h4>Default Implementation</h4>
+                      <div class="default_impl abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">mutating</span> <span class="kd">func</span> <span class="nf">step</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:7AImaKit20EuclideanEnvironmentP4stepyySiF"></a>
+                    <a name="//apple_ref/swift/Method/step(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:7AImaKit20EuclideanEnvironmentP4stepyySiF">step(_:)</a>
+                    </code>
+                      <span class="declaration-note">
+                        Default implementation
+                      </span>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Move clock forward by <code>count</code> clicks.</p>
+
+                      </div>
+                      <h4>Default Implementation</h4>
+                      <div class="default_impl abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">mutating</span> <span class="kd">func</span> <span class="nf">step</span><span class="p">(</span><span class="n">_</span> <span class="nv">count</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>count</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Number of clicks to move clock forward by.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:7AImaKit20EuclideanEnvironmentP13executeActionySay9JudgeType_07PerceptH0QZG05AgentH0Qz_AI_0fH0QZtF"></a>
+                    <a name="//apple_ref/swift/Method/executeAction(_:_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:7AImaKit20EuclideanEnvironmentP13executeActionySay9JudgeType_07PerceptH0QZG05AgentH0Qz_AI_0fH0QZtF">executeAction(_:_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Alter environment according to action just taken by incoming agent.
+ For example, if a vacuum agent just did <code>Suck</code> then remove all <code>Dirt</code>
+ from its current location (assuming <code>Suck</code> is 100% successful).</p>
+<div class="aside aside-attention">
+    <p class="aside-title">Attention</p>
+    <p>This method must be overriden by protocol adopters.</p>
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">executeAction</span><span class="p">(</span><span class="n">_</span> <span class="nv">agent</span><span class="p">:</span> <span class="kt"><a href="../Protocols/EuclideanEnvironment.html#/s:7AImaKit20EuclideanEnvironmentP9AgentTypeQa">AgentType</a></span><span class="p">,</span> <span class="n">_</span> <span class="nv">action</span><span class="p">:</span> <span class="kt"><a href="../Protocols/EuclideanEnvironment.html#/s:7AImaKit20EuclideanEnvironmentP9AgentTypeQa">AgentType</a></span><span class="o">.</span><span class="kt">ActionType</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt"><a href="../Protocols/EuclideanEnvironment.html#/s:7AImaKit20EuclideanEnvironmentP9JudgeTypeQa">JudgeType</a></span><span class="o">.</span><span class="kt">PerceptType</span><span class="p">]</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>agent</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The agent responsible for this action.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>action</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The action chosen by this agent</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>List of <em>changes to the environment</em>, if any, caused by
+agent&rsquo;s action.  These are the <code>Percepts</code> seen by judges.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:7AImaKit20EuclideanEnvironmentP16getPerceptSeenByy9AgentType_0fJ0QZAEQzF"></a>
+                    <a name="//apple_ref/swift/Method/getPerceptSeenBy(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:7AImaKit20EuclideanEnvironmentP16getPerceptSeenByy9AgentType_0fJ0QZAEQzF">getPerceptSeenBy(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Create the <code>Percept</code> seen by this <code><a href="../Protocols/Agent.html">Agent</a></code> at its current <code><a href="../Protocols/EuclideanEnvironment.html#/s:7AImaKit20EuclideanEnvironmentP8Locationa">Location</a></code>.</p>
+<div class="aside aside-attention">
+    <p class="aside-title">Attention</p>
+    This method must be overriden by protocol adopters.
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">getPerceptSeenBy</span><span class="p">(</span><span class="n">_</span> <span class="nv">agent</span><span class="p">:</span> <span class="kt"><a href="../Protocols/EuclideanEnvironment.html#/s:7AImaKit20EuclideanEnvironmentP9AgentTypeQa">AgentType</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Protocols/EuclideanEnvironment.html#/s:7AImaKit20EuclideanEnvironmentP9AgentTypeQa">AgentType</a></span><span class="o">.</span><span class="kt">PerceptType</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>agent</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The agent requesting another <code>Percept</code>.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>An agent percept.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Performance"></a>
+                <a name="//apple_ref/swift/Section/Performance" class="dashAnchor"></a>
+                <a href="#/Performance">
+                  <h3 class="section-name">Performance</h3>
+                </a>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:7AImaKit20EuclideanEnvironmentP9getScores8forAgentSDy9JudgeTypeQzSdGSg0hJ0Qz_tF"></a>
+                    <a name="//apple_ref/swift/Method/getScores(forAgent:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:7AImaKit20EuclideanEnvironmentP9getScores8forAgentSDy9JudgeTypeQzSdGSg0hJ0Qz_tF">getScores(forAgent:)</a>
+                    </code>
+                      <span class="declaration-note">
+                        Default implementation
+                      </span>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <h4>Default Implementation</h4>
+                      <div class="default_impl abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">getScores</span><span class="p">(</span><span class="nv">forAgent</span><span class="p">:</span> <span class="kt"><a href="../Protocols/EuclideanEnvironment.html#/s:7AImaKit20EuclideanEnvironmentP9AgentTypeQa">AgentType</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt"><a href="../Protocols/EuclideanEnvironment.html#/s:7AImaKit20EuclideanEnvironmentP9JudgeTypeQa">JudgeType</a></span> <span class="p">:</span> <span class="kt">Double</span><span class="p">]?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </section>
+        </section>
+        <section id="footer">
+          <p>&copy; 2018 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2018-08)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.3</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</div>
+</html>

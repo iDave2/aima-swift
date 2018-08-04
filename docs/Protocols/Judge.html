@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Object Class Reference</title>
+    <title>Judge Protocol Reference</title>
     <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
     <meta charset='utf-8'>
@@ -10,8 +10,8 @@
     
   </head>
   <body>
-    <a name="//apple_ref/swift/Class/Object" class="dashAnchor"></a>
-    <a title="Object Class Reference"></a>
+    <a name="//apple_ref/swift/Protocol/Judge" class="dashAnchor"></a>
+    <a title="Judge Protocol Reference"></a>
     <header>
       <div class="content-wrapper">
         <p><a href="../index.html">AImaKit Docs</a> (70% documented)</p>
@@ -21,7 +21,7 @@
       <p id="breadcrumbs">
         <a href="../index.html">AImaKit Reference</a>
         <img id="carat" src="../img/carat.png" />
-        Object Class Reference
+        Judge Protocol Reference
       </p>
     </div>
     <div class="content-wrapper">
@@ -102,17 +102,36 @@
       <article class="main-content">
         <section>
           <section class="section">
-            <h1>Object</h1>
+            <h1>Judge</h1>
               <div class="declaration">
                 <div class="language">
-                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">Object</span> <span class="p">:</span> <span class="kt">Hashable</span></code></pre>
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">Judge</span></code></pre>
 
                 </div>
               </div>
-            <p>Named in honor of Java&rsquo;s <code>Object</code>, this superclass provides a default
-equivalence relation and hash code for any Swift types you want to use
-in a <code>Collection</code> (like <code>Array</code> or <code>Set</code>).  Subclasses may override
-default implementations as needed.</p>
+            <p>A <code>Judge</code> represents a performance measure.</p>
+
+<p>So a performance measure, or the program that implements it, takes a
+ sequence of environment states (like a percept sequence), and returns
+ a <em>score</em> (like an action).  Modeling this as an agent may help to
+ decouple things:</p>
+
+<ul>
+<li>A <code>Judge</code> has no idea how its <code>Agents</code> work;  it just sees changes to
+the <code>Environment</code>.</li>
+<li>An <code>Environment</code> does not know what formula its <code>Judges</code> use to score
+changes; it just gives them a <code>Percept</code> and gets back a score.</li>
+</ul>
+
+<p><code>Actions</code> returned by different agent types may differ.  An AIMA3e
+ <code><a href="../Protocols/Agent.html">Agent</a></code> may return <code>Suck</code> while its <code>Judge</code> returns <code>+10</code>.</p>
+
+<p><code>Environments</code> synthesize <code>Percepts</code> for <code>Agents</code> and <code>Judges</code> and these
+ may also differ.  For example, while an <code><a href="../Protocols/Agent.html">Agent</a></code> may see a sequence of
+ <code>Percepts</code> in the local vicinity like <code>(Location, Dirty)</code>, its <code>Judge</code> sees
+ a sequence of <code>Environment</code> changes like <code>(dirtRemoved, atLocation)</code>.  If
+ an <code><a href="../Protocols/Agent.html">Agent</a></code> tries to <code>MoveLeft</code> through a wall, its <code>Judge</code> might see <code>NoOp</code>
+ since nothing changed in the environment.</p>
 
           </section>
           <section class="section task-group-section">
@@ -121,9 +140,9 @@ default implementations as needed.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:7AImaKit6ObjectCACycfc"></a>
-                    <a name="//apple_ref/swift/Method/init()" class="dashAnchor"></a>
-                    <a class="token" href="#/s:7AImaKit6ObjectCACycfc">init()</a>
+                    <a name="/s:7AImaKit5JudgeP11PerceptTypeQa"></a>
+                    <a name="//apple_ref/swift/Alias/PerceptType" class="dashAnchor"></a>
+                    <a class="token" href="#/s:7AImaKit5JudgeP11PerceptTypeQa">PerceptType</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -131,40 +150,14 @@ default implementations as needed.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Percept type for a <code>Judge</code>.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">()</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:SQ2eeoiySbx_xtFZ"></a>
-                    <a name="//apple_ref/swift/Method/==(_:_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:SQ2eeoiySbx_xtFZ">==(_:_:)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="o">==</span> <span class="p">(</span><span class="nv">lhs</span><span class="p">:</span> <span class="kt">Object</span><span class="p">,</span> <span class="nv">rhs</span><span class="p">:</span> <span class="kt">Object</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">associatedtype</span> <span class="kt">PerceptType</span></code></pre>
 
                         </div>
                       </div>
@@ -174,9 +167,9 @@ default implementations as needed.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:SH9hashValueSivp"></a>
-                    <a name="//apple_ref/swift/Property/hashValue" class="dashAnchor"></a>
-                    <a class="token" href="#/s:SH9hashValueSivp">hashValue</a>
+                    <a name="/s:7AImaKit5JudgeP7executeySd11PerceptTypeQzF"></a>
+                    <a name="//apple_ref/swift/Method/execute(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:7AImaKit5JudgeP7executeySd11PerceptTypeQzF">execute(_:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -184,13 +177,14 @@ default implementations as needed.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        
+                        <p>Agent program for a <code>Judge</code>.</p>
+
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">hashValue</span><span class="p">:</span> <span class="kt">Int</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">execute</span><span class="p">(</span><span class="n">_</span> <span class="nv">percept</span><span class="p">:</span> <span class="kt"><a href="../Protocols/Judge.html#/s:7AImaKit5JudgeP11PerceptTypeQa">PerceptType</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Double</span></code></pre>
 
                         </div>
                       </div>

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Object Class Reference</title>
+    <title>Agent Protocol Reference</title>
     <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
     <meta charset='utf-8'>
@@ -10,8 +10,8 @@
     
   </head>
   <body>
-    <a name="//apple_ref/swift/Class/Object" class="dashAnchor"></a>
-    <a title="Object Class Reference"></a>
+    <a name="//apple_ref/swift/Protocol/Agent" class="dashAnchor"></a>
+    <a title="Agent Protocol Reference"></a>
     <header>
       <div class="content-wrapper">
         <p><a href="../index.html">AImaKit Docs</a> (70% documented)</p>
@@ -21,7 +21,7 @@
       <p id="breadcrumbs">
         <a href="../index.html">AImaKit Reference</a>
         <img id="carat" src="../img/carat.png" />
-        Object Class Reference
+        Agent Protocol Reference
       </p>
     </div>
     <div class="content-wrapper">
@@ -102,17 +102,26 @@
       <article class="main-content">
         <section>
           <section class="section">
-            <h1>Object</h1>
+            <h1>Agent</h1>
               <div class="declaration">
                 <div class="language">
-                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">Object</span> <span class="p">:</span> <span class="kt">Hashable</span></code></pre>
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">Agent</span></code></pre>
 
                 </div>
               </div>
-            <p>Named in honor of Java&rsquo;s <code>Object</code>, this superclass provides a default
-equivalence relation and hash code for any Swift types you want to use
-in a <code>Collection</code> (like <code>Array</code> or <code>Set</code>).  Subclasses may override
-default implementations as needed.</p>
+            <p>&lsquo;An <strong>agent</strong> is anything that can be viewed as perceiving its
+ <strong>environment</strong> through <strong>sensors</strong> and acting upon that environment
+ through <strong>actuators</strong>.&rsquo; &ndash; AIMA3e, page 34.</p>
+
+<p>See <a href="https://github.com/realm/jazzy/issues/992">here</a> for jazzy issue
+ with quotes.</p>
+
+<p>&lsquo;When an agent is plunked down in an environment, it generates a sequence
+ of actions according to the percepts it receives. This sequence of actions
+ causes the environment to go through a sequence of states.  If the sequence
+ is <em>desirable</em>, then the agent has <em>performed well</em>.  This notion of
+ desirability is captured by a <strong>performance measure</strong> that evaluates any
+ given sequence of environment states.&rsquo; &ndash; AIMA3e, page 37, italics mine.</p>
 
           </section>
           <section class="section task-group-section">
@@ -121,9 +130,9 @@ default implementations as needed.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:7AImaKit6ObjectCACycfc"></a>
-                    <a name="//apple_ref/swift/Method/init()" class="dashAnchor"></a>
-                    <a class="token" href="#/s:7AImaKit6ObjectCACycfc">init()</a>
+                    <a name="/s:7AImaKit5AgentP10ActionTypeQa"></a>
+                    <a name="//apple_ref/swift/Alias/ActionType" class="dashAnchor"></a>
+                    <a class="token" href="#/s:7AImaKit5AgentP10ActionTypeQa">ActionType</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -131,14 +140,15 @@ default implementations as needed.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>The <code>Action</code> taken by an agent in response to a percept or percept
+sequence.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">()</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">associatedtype</span> <span class="kt">ActionType</span></code></pre>
 
                         </div>
                       </div>
@@ -148,9 +158,9 @@ default implementations as needed.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:SQ2eeoiySbx_xtFZ"></a>
-                    <a name="//apple_ref/swift/Method/==(_:_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:SQ2eeoiySbx_xtFZ">==(_:_:)</a>
+                    <a name="/s:7AImaKit5AgentP11PerceptTypeQa"></a>
+                    <a name="//apple_ref/swift/Alias/PerceptType" class="dashAnchor"></a>
+                    <a class="token" href="#/s:7AImaKit5AgentP11PerceptTypeQa">PerceptType</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -158,13 +168,22 @@ default implementations as needed.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        
+                        <p>&lsquo;We use the term <strong>percept</strong> to refer to the agent&rsquo;s perceptual inputs
+ at any given instant.  An agent&rsquo;s <strong>percept sequence</strong> is the complete
+ history of everything the agent has ever perceived.  In general, <em>an
+ agent&rsquo;s choice of action at any given instant can depend on the entire
+ percept sequence observed to date, but not on anything it hasn&rsquo;t
+ perceived</em>. &ndash; AIMA3e, page 34.</p>
+
+<p>Protocol generic <code>PerceptType</code> is reified (love that term) as soon as
+ this protocol is adopted.</p>
+
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="o">==</span> <span class="p">(</span><span class="nv">lhs</span><span class="p">:</span> <span class="kt">Object</span><span class="p">,</span> <span class="nv">rhs</span><span class="p">:</span> <span class="kt">Object</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">associatedtype</span> <span class="kt">PerceptType</span></code></pre>
 
                         </div>
                       </div>
@@ -174,9 +193,9 @@ default implementations as needed.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:SH9hashValueSivp"></a>
-                    <a name="//apple_ref/swift/Property/hashValue" class="dashAnchor"></a>
-                    <a class="token" href="#/s:SH9hashValueSivp">hashValue</a>
+                    <a name="/s:7AImaKit5AgentP7executey10ActionTypeQz07PerceptF0QzF"></a>
+                    <a name="//apple_ref/swift/Method/execute(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:7AImaKit5AgentP7executey10ActionTypeQz07PerceptF0QzF">execute(_:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -184,15 +203,46 @@ default implementations as needed.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        
+                        <p>&lsquo;Mathematically speaking, we say that an agent&rsquo;s behavior is described
+ by the <strong>agent function</strong> that maps any given percept sequence to an
+ action.  [The agent function is] an <em>external</em> characterization of the
+ agent.  <em>Internally</em>, the agent function for an artificial agent will
+ be implemented by an <strong>agent program</strong>.  It is important to keep these
+ two ideas distinct.&rsquo; &ndash; AIMA3e, page 35.</p>
+
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">hashValue</span><span class="p">:</span> <span class="kt">Int</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">execute</span><span class="p">(</span><span class="n">_</span> <span class="nv">percept</span><span class="p">:</span> <span class="kt"><a href="../Protocols/Agent.html#/s:7AImaKit5AgentP11PerceptTypeQa">PerceptType</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Protocols/Agent.html#/s:7AImaKit5AgentP10ActionTypeQa">ActionType</a></span></code></pre>
 
                         </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>percept</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The current <code>Percept</code> of a sequence perceived by
+the <code>Agent</code>.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The <code>Action</code> to be taken in response to the current
+<code>Percept</code>.</p>
                       </div>
                     </section>
                   </div>

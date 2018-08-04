@@ -27,12 +27,12 @@ public protocol Agent {
      */
     associatedtype ActionType
     /**
-     * "We use the term __percept__ to refer to the agent's perceptual inputs
+     * 'We use the term __percept__ to refer to the agent's perceptual inputs
      * at any given instant.  An agent's __percept sequence__ is the complete
      * history of everything the agent has ever perceived.  In general, _an
      * agent's choice of action at any given instant can depend on the entire
      * percept sequence observed to date, but not on anything it hasn't
-     * perceived_." -- AIMA3e, page 34.
+     * perceived_. -- AIMA3e, page 34.
      *
      * Protocol generic `PerceptType` is reified (love that term) as soon as
      * this protocol is adopted.
@@ -47,7 +47,7 @@ public protocol Agent {
      * two ideas distinct.' -- AIMA3e, page 35.
      *
      * - Parameter percept: The current `Percept` of a sequence perceived by
-     *   the `Actor`.
+     *   the `Agent`.
      * - Returns: The `Action` to be taken in response to the current
      *   `Percept`.
      */
@@ -79,7 +79,13 @@ public protocol Agent {
  *
  */
 public protocol Judge {
+    /**
+     * Percept type for a `Judge`.
+     */
     associatedtype PerceptType
+    /**
+     * Agent program for a `Judge`.
+     */
     func execute(_ percept: PerceptType) -> Double
 }
 

@@ -14,7 +14,7 @@
     <a title="Protocols  Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="index.html">AImaKit Docs</a> (62% documented)</p>
+        <p><a href="index.html">AImaKit Docs</a> (70% documented)</p>
       </div>
     </header>
     <div class="content-wrapper">
@@ -31,31 +31,16 @@
             <a href="Classes.html">Classes</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a href="Classes.html#/s:7AImaKit6AJudgeC">AJudge</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Classes/AnActor.html">AnActor</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Classes.html#/s:7AImaKit7AnAgentC">AnAgent</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Classes/AnEnvironment.html">AnEnvironment</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Classes.html#/s:7AImaKit17EnvironmentObjectC">EnvironmentObject</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Classes/EnvironmentView.html">EnvironmentView</a>
+                <a href="Classes/EuclideanSpace.html">EuclideanSpace</a>
               </li>
               <li class="nav-group-task">
                 <a href="Classes/Object.html">Object</a>
               </li>
               <li class="nav-group-task">
-                <a href="Classes/SimpleActionTracker.html">SimpleActionTracker</a>
+                <a href="Classes.html#/s:7AImaKit16ObserverDelegateC">ObserverDelegate</a>
               </li>
               <li class="nav-group-task">
-                <a href="Classes/Space.html">Space</a>
+                <a href="Classes/SimpleActionTracker.html">SimpleActionTracker</a>
               </li>
               <li class="nav-group-task">
                 <a href="Classes/VacuumWorld.html">VacuumWorld</a>
@@ -70,13 +55,19 @@
                 <a href="Classes/VacuumWorld/AgentAction.html">– AgentAction</a>
               </li>
               <li class="nav-group-task">
-                <a href="Classes/VacuumWorld/EnvironmentAction.html">– EnvironmentAction</a>
-              </li>
-              <li class="nav-group-task">
                 <a href="Classes/VacuumWorld/AgentPercept.html">– AgentPercept</a>
               </li>
               <li class="nav-group-task">
+                <a href="Classes/VacuumWorld/AnyAgent.html">– AnyAgent</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/VacuumWorld/EnvironmentAction.html">– EnvironmentAction</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="Classes/VacuumWorld.html#/s:7AImaKit11VacuumWorldC12JudgePerceptV">– JudgePercept</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/VacuumWorld/AnyJudge.html">– AnyJudge</a>
               </li>
               <li class="nav-group-task">
                 <a href="Classes/VacuumWorld/Environment.html">– Environment</a>
@@ -96,18 +87,13 @@
             <a href="Protocols.html">Protocols</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a href="Protocols/IAction.html">IAction</a>
+                <a href="Protocols/Agent.html">Agent</a>
               </li>
               <li class="nav-group-task">
-                <a href="Protocols.html#/s:7AImaKit8IPerceptP">IPercept</a>
+                <a href="Protocols/EuclideanEnvironment.html">EuclideanEnvironment</a>
               </li>
-            </ul>
-          </li>
-          <li class="nav-group-name">
-            <a href="Typealiases.html">Type Aliases</a>
-            <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a href="Typealiases.html#/s:7AImaKit8Locationa">Location</a>
+                <a href="Protocols/Judge.html">Judge</a>
               </li>
             </ul>
           </li>
@@ -126,9 +112,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:7AImaKit8IPerceptP"></a>
-                    <a name="//apple_ref/swift/Protocol/IPercept" class="dashAnchor"></a>
-                    <a class="token" href="#/s:7AImaKit8IPerceptP">IPercept</a>
+                    <a name="/s:7AImaKit5AgentP"></a>
+                    <a name="//apple_ref/swift/Protocol/Agent" class="dashAnchor"></a>
+                    <a class="token" href="#/s:7AImaKit5AgentP">Agent</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -136,19 +122,27 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p><q>We use the term __percept__ to refer to the agent&rsquo;s perceptual inputs at
-any given instant.  An agent&rsquo;s __percept sequence__ is the complete history
-of everything the agent has ever perceived.  In general, _an agent&rsquo;s choice
-of action at any given instant can depend on the entire percept sequence
-observed to date, but not on anything it hasn&rsquo;t perceived_.</q> &ndash; AIMA3e,
-page 34.</p>
+                        <p>&lsquo;An <strong>agent</strong> is anything that can be viewed as perceiving its
+ <strong>environment</strong> through <strong>sensors</strong> and acting upon that environment
+ through <strong>actuators</strong>.&rsquo; &ndash; AIMA3e, page 34.</p>
 
+<p>See <a href="https://github.com/realm/jazzy/issues/992">here</a> for jazzy issue
+ with quotes.</p>
+
+<p>&lsquo;When an agent is plunked down in an environment, it generates a sequence
+ of actions according to the percepts it receives. This sequence of actions
+ causes the environment to go through a sequence of states.  If the sequence
+ is <em>desirable</em>, then the agent has <em>performed well</em>.  This notion of
+ desirability is captured by a <strong>performance measure</strong> that evaluates any
+ given sequence of environment states.&rsquo; &ndash; AIMA3e, page 37, italics mine.</p>
+
+                        <a href="Protocols/Agent.html" class="slightly-smaller">See more</a>
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">IPercept</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">Agent</span></code></pre>
 
                         </div>
                       </div>
@@ -158,9 +152,9 @@ page 34.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:7AImaKit7IActionP"></a>
-                    <a name="//apple_ref/swift/Protocol/IAction" class="dashAnchor"></a>
-                    <a class="token" href="#/s:7AImaKit7IActionP">IAction</a>
+                    <a name="/s:7AImaKit5JudgeP"></a>
+                    <a name="//apple_ref/swift/Protocol/Judge" class="dashAnchor"></a>
+                    <a class="token" href="#/s:7AImaKit5JudgeP">Judge</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -168,16 +162,75 @@ page 34.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Describes an <code>Action</code> that can or has been taken by an <code>Agent</code> via
-one of its actuators.</p>
+                        <p>A <code>Judge</code> represents a performance measure.</p>
 
-                        <a href="Protocols/IAction.html" class="slightly-smaller">See more</a>
+<p>So a performance measure, or the program that implements it, takes a
+ sequence of environment states (like a percept sequence), and returns
+ a <em>score</em> (like an action).  Modeling this as an agent may help to
+ decouple things:</p>
+
+<ul>
+<li>A <code>Judge</code> has no idea how its <code>Agents</code> work;  it just sees changes to
+the <code>Environment</code>.</li>
+<li>An <code>Environment</code> does not know what formula its <code>Judges</code> use to score
+changes; it just gives them a <code>Percept</code> and gets back a score.</li>
+</ul>
+
+<p><code>Actions</code> returned by different agent types may differ.  An AIMA3e
+ <code><a href="Protocols/Agent.html">Agent</a></code> may return <code>Suck</code> while its <code>Judge</code> returns <code>+10</code>.</p>
+
+<p><code>Environments</code> synthesize <code>Percepts</code> for <code>Agents</code> and <code>Judges</code> and these
+ may also differ.  For example, while an <code><a href="Protocols/Agent.html">Agent</a></code> may see a sequence of
+ <code>Percepts</code> in the local vicinity like <code>(Location, Dirty)</code>, its <code>Judge</code> sees
+ a sequence of <code>Environment</code> changes like <code>(dirtRemoved, atLocation)</code>.  If
+ an <code><a href="Protocols/Agent.html">Agent</a></code> tries to <code>MoveLeft</code> through a wall, its <code>Judge</code> might see <code>NoOp</code>
+ since nothing changed in the environment.</p>
+
+                        <a href="Protocols/Judge.html" class="slightly-smaller">See more</a>
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">IAction</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">Judge</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:7AImaKit20EuclideanEnvironmentP"></a>
+                    <a name="//apple_ref/swift/Protocol/EuclideanEnvironment" class="dashAnchor"></a>
+                    <a class="token" href="#/s:7AImaKit20EuclideanEnvironmentP">EuclideanEnvironment</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>A protocol for Euclidean environments used in Chapter 2 of AIMA3e, this
+ represents the world as a grid of Cartesian coordinates, a <code>Space</code>, that
+ agents move around in.</p>
+
+<p>Remember: These protocols are not polymorphic like classes;
+ <a href="https://stackoverflow.com/questions/44703205">review this</a>
+ and test, test, test.</p>
+
+                        <a href="Protocols/EuclideanEnvironment.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">EuclideanEnvironment</span></code></pre>
 
                         </div>
                       </div>
@@ -189,7 +242,7 @@ one of its actuators.</p>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2018 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2018-07)</p>
+          <p>&copy; 2018 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2018-08)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.3</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

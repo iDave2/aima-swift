@@ -14,7 +14,7 @@
     <a title="Environment Class Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../../index.html">AImaKit Docs</a> (62% documented)</p>
+        <p><a href="../../index.html">AImaKit Docs</a> (70% documented)</p>
       </div>
     </header>
     <div class="content-wrapper">
@@ -31,31 +31,16 @@
             <a href="../../Classes.html">Classes</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a href="../../Classes.html#/s:7AImaKit6AJudgeC">AJudge</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../../Classes/AnActor.html">AnActor</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../../Classes.html#/s:7AImaKit7AnAgentC">AnAgent</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../../Classes/AnEnvironment.html">AnEnvironment</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../../Classes.html#/s:7AImaKit17EnvironmentObjectC">EnvironmentObject</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../../Classes/EnvironmentView.html">EnvironmentView</a>
+                <a href="../../Classes/EuclideanSpace.html">EuclideanSpace</a>
               </li>
               <li class="nav-group-task">
                 <a href="../../Classes/Object.html">Object</a>
               </li>
               <li class="nav-group-task">
-                <a href="../../Classes/SimpleActionTracker.html">SimpleActionTracker</a>
+                <a href="../../Classes.html#/s:7AImaKit16ObserverDelegateC">ObserverDelegate</a>
               </li>
               <li class="nav-group-task">
-                <a href="../../Classes/Space.html">Space</a>
+                <a href="../../Classes/SimpleActionTracker.html">SimpleActionTracker</a>
               </li>
               <li class="nav-group-task">
                 <a href="../../Classes/VacuumWorld.html">VacuumWorld</a>
@@ -70,13 +55,19 @@
                 <a href="../../Classes/VacuumWorld/AgentAction.html">– AgentAction</a>
               </li>
               <li class="nav-group-task">
-                <a href="../../Classes/VacuumWorld/EnvironmentAction.html">– EnvironmentAction</a>
-              </li>
-              <li class="nav-group-task">
                 <a href="../../Classes/VacuumWorld/AgentPercept.html">– AgentPercept</a>
               </li>
               <li class="nav-group-task">
+                <a href="../../Classes/VacuumWorld/AnyAgent.html">– AnyAgent</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Classes/VacuumWorld/EnvironmentAction.html">– EnvironmentAction</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../../Classes/VacuumWorld.html#/s:7AImaKit11VacuumWorldC12JudgePerceptV">– JudgePercept</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Classes/VacuumWorld/AnyJudge.html">– AnyJudge</a>
               </li>
               <li class="nav-group-task">
                 <a href="../../Classes/VacuumWorld/Environment.html">– Environment</a>
@@ -96,18 +87,13 @@
             <a href="../../Protocols.html">Protocols</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a href="../../Protocols/IAction.html">IAction</a>
+                <a href="../../Protocols/Agent.html">Agent</a>
               </li>
               <li class="nav-group-task">
-                <a href="../../Protocols.html#/s:7AImaKit8IPerceptP">IPercept</a>
+                <a href="../../Protocols/EuclideanEnvironment.html">EuclideanEnvironment</a>
               </li>
-            </ul>
-          </li>
-          <li class="nav-group-name">
-            <a href="../../Typealiases.html">Type Aliases</a>
-            <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a href="../../Typealiases.html#/s:7AImaKit8Locationa">Location</a>
+                <a href="../../Protocols/Judge.html">Judge</a>
               </li>
             </ul>
           </li>
@@ -119,7 +105,7 @@
             <h1>Environment</h1>
               <div class="declaration">
                 <div class="language">
-                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">Environment</span> <span class="p">:</span> <span class="kt"><a href="../../Classes/AnEnvironment.html">AnEnvironment</a></span></code></pre>
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="kt">Environment</span> <span class="p">:</span> <span class="kt"><a href="../../Protocols/EuclideanEnvironment.html">EuclideanEnvironment</a></span></code></pre>
 
                 </div>
               </div>
@@ -132,9 +118,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:7AImaKit11VacuumWorldC11EnvironmentCyAeA5SpaceCcfc"></a>
-                    <a name="//apple_ref/swift/Method/init(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:7AImaKit11VacuumWorldC11EnvironmentCyAeA5SpaceCcfc">init(_:)</a>
+                    <a name="/s:7AImaKit20EuclideanEnvironmentP5spaceAA0C5SpaceCvp"></a>
+                    <a name="//apple_ref/swift/Property/space" class="dashAnchor"></a>
+                    <a class="token" href="#/s:7AImaKit20EuclideanEnvironmentP5spaceAA0C5SpaceCvp">space</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -142,14 +128,118 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Initialize a <code>VacuumEnvironment</code> with the given <code><a href="../../Classes/Space.html">Space</a></code>.</p>
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">space</span><span class="p">:</span> <span class="kt"><a href="../../Classes/EuclideanSpace.html">EuclideanSpace</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:7AImaKit20EuclideanEnvironmentP10envObjectsSDyAA6ObjectCSaySiGGvp"></a>
+                    <a name="//apple_ref/swift/Property/envObjects" class="dashAnchor"></a>
+                    <a class="token" href="#/s:7AImaKit20EuclideanEnvironmentP10envObjectsSDyAA6ObjectCSaySiGGvp">envObjects</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">envObjects</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../../Classes/Object.html">Object</a></span> <span class="p">:</span> <span class="kt"><a href="../../Classes/VacuumWorld.html">VacuumWorld</a></span><span class="o">.</span><span class="kt"><a href="../../Classes/VacuumWorld.html#/s:7AImaKit11VacuumWorldC8Locationa">Location</a></span><span class="p">]</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:7AImaKit20EuclideanEnvironmentP6scoresSDy9AgentTypeQzSDy05JudgeG0QzSdGGvp"></a>
+                    <a name="//apple_ref/swift/Property/scores" class="dashAnchor"></a>
+                    <a class="token" href="#/s:7AImaKit20EuclideanEnvironmentP6scoresSDy9AgentTypeQzSDy05JudgeG0QzSdGGvp">scores</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">scores</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../../Classes/VacuumWorld.html">VacuumWorld</a></span><span class="o">.</span><span class="kt"><a href="../../Classes/VacuumWorld/AnyAgent.html">AnyAgent</a></span> <span class="p">:</span> <span class="kt">Dictionary</span><span class="o">&lt;</span><span class="kt"><a href="../../Classes/VacuumWorld.html">VacuumWorld</a></span><span class="o">.</span><span class="kt"><a href="../../Classes/VacuumWorld/AnyJudge.html">AnyJudge</a></span><span class="p">,</span> <span class="kt">Double</span><span class="o">&gt;</span><span class="p">]</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:7AImaKit20EuclideanEnvironmentP8delegateAA16ObserverDelegateCyxGSgvp"></a>
+                    <a name="//apple_ref/swift/Property/delegate" class="dashAnchor"></a>
+                    <a class="token" href="#/s:7AImaKit20EuclideanEnvironmentP8delegateAA16ObserverDelegateCyxGSgvp">delegate</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">delegate</span><span class="p">:</span> <span class="kt"><a href="../../Classes.html#/s:7AImaKit16ObserverDelegateC">ObserverDelegate</a></span><span class="o">&lt;</span><span class="kt"><a href="../../Classes/VacuumWorld.html">VacuumWorld</a></span><span class="o">.</span><span class="kt">Environment</span><span class="o">&gt;</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:7AImaKit11VacuumWorldC11EnvironmentCyAeA14EuclideanSpaceCcfc"></a>
+                    <a name="//apple_ref/swift/Method/init(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:7AImaKit11VacuumWorldC11EnvironmentCyAeA14EuclideanSpaceCcfc">init(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Initialize a <code>VacuumEnvironment</code> with the given <code>Space</code>.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">override</span> <span class="nf">init</span><span class="p">(</span><span class="n">_</span> <span class="nv">space</span><span class="p">:</span> <span class="kt"><a href="../../Classes/Space.html">Space</a></span><span class="p">)</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="n">_</span> <span class="nv">space</span><span class="p">:</span> <span class="kt"><a href="../../Classes/EuclideanSpace.html">EuclideanSpace</a></span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -178,9 +268,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:7AImaKit11VacuumWorldC11EnvironmentC13executeActionySayAA8IPercept_pGAA7AnAgentC_AA7IAction_ptF"></a>
+                    <a name="/s:7AImaKit11VacuumWorldC11EnvironmentC13executeActionySayAC12JudgePerceptVGAC8AnyAgentC_AC0kG0OtF"></a>
                     <a name="//apple_ref/swift/Method/executeAction(_:_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:7AImaKit11VacuumWorldC11EnvironmentC13executeActionySayAA8IPercept_pGAA7AnAgentC_AA7IAction_ptF">executeAction(_:_:)</a>
+                    <a class="token" href="#/s:7AImaKit11VacuumWorldC11EnvironmentC13executeActionySayAC12JudgePerceptVGAC8AnyAgentC_AC0kG0OtF">executeAction(_:_:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -190,14 +280,14 @@
                       <div class="abstract">
                         <p>Map an <code><a href="../../Classes/VacuumWorld/AgentAction.html">AgentAction</a></code> to an <code><a href="../../Classes/VacuumWorld/EnvironmentAction.html">EnvironmentAction</a></code> or environment change,
 if any.  These environment changes then become the <code>Percept</code>s seen
-by <code>Judge</code>s.</p>
+by <code><a href="../../Protocols/Judge.html">Judge</a></code>s.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">override</span> <span class="kd">func</span> <span class="nf">executeAction</span><span class="p">(</span><span class="n">_</span> <span class="nv">agent</span><span class="p">:</span> <span class="kt"><a href="../../Classes.html#/s:7AImaKit7AnAgentC">AnAgent</a></span><span class="p">,</span> <span class="n">_</span> <span class="nv">anAction</span><span class="p">:</span> <span class="kt"><a href="../../Protocols/IAction.html">IAction</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt"><a href="../../Protocols.html#/s:7AImaKit8IPerceptP">IPercept</a></span><span class="p">]</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">executeAction</span><span class="p">(</span><span class="n">_</span> <span class="nv">agent</span><span class="p">:</span> <span class="kt"><a href="../../Classes/VacuumWorld/AnyAgent.html">AnyAgent</a></span><span class="p">,</span> <span class="n">_</span> <span class="nv">action</span><span class="p">:</span> <span class="kt"><a href="../../Classes/VacuumWorld/AgentAction.html">AgentAction</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt"><a href="../../Classes/VacuumWorld.html#/s:7AImaKit11VacuumWorldC12JudgePerceptV">JudgePercept</a></span><span class="p">]</span></code></pre>
 
                         </div>
                       </div>
@@ -207,9 +297,9 @@ by <code>Judge</code>s.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:7AImaKit11VacuumWorldC11EnvironmentC16getPerceptSeenByyAA8IPercept_pAA7AnAgentCF"></a>
+                    <a name="/s:7AImaKit11VacuumWorldC11EnvironmentC16getPerceptSeenByyAC05AgentG0VAC03AnyJ0CF"></a>
                     <a name="//apple_ref/swift/Method/getPerceptSeenBy(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:7AImaKit11VacuumWorldC11EnvironmentC16getPerceptSeenByyAA8IPercept_pAA7AnAgentCF">getPerceptSeenBy(_:)</a>
+                    <a class="token" href="#/s:7AImaKit11VacuumWorldC11EnvironmentC16getPerceptSeenByyAC05AgentG0VAC03AnyJ0CF">getPerceptSeenBy(_:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -217,14 +307,14 @@ by <code>Judge</code>s.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Synthesize an <code><a href="../../Classes/VacuumWorld/AgentPercept.html">AgentPercept</a></code> for requesting <code>Agent</code>.</p>
+                        <p>Synthesize an <code><a href="../../Classes/VacuumWorld/AgentPercept.html">AgentPercept</a></code> for requesting <code><a href="../../Protocols/Agent.html">Agent</a></code>.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">override</span> <span class="kd">func</span> <span class="nf">getPerceptSeenBy</span><span class="p">(</span><span class="n">_</span> <span class="nv">agent</span><span class="p">:</span> <span class="kt"><a href="../../Classes.html#/s:7AImaKit7AnAgentC">AnAgent</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../../Protocols.html#/s:7AImaKit8IPerceptP">IPercept</a></span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">getPerceptSeenBy</span><span class="p">(</span><span class="n">_</span> <span class="nv">agent</span><span class="p">:</span> <span class="kt"><a href="../../Classes/VacuumWorld/AnyAgent.html">AnyAgent</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../../Classes/VacuumWorld/AgentPercept.html">AgentPercept</a></span></code></pre>
 
                         </div>
                       </div>
@@ -236,7 +326,7 @@ by <code>Judge</code>s.</p>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2018 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2018-07)</p>
+          <p>&copy; 2018 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2018-08)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.3</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

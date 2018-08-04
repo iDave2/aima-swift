@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Space Class Reference</title>
+    <title>EuclideanSpace Class Reference</title>
     <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
     <meta charset='utf-8'>
@@ -10,18 +10,18 @@
     
   </head>
   <body>
-    <a name="//apple_ref/swift/Class/Space" class="dashAnchor"></a>
-    <a title="Space Class Reference"></a>
+    <a name="//apple_ref/swift/Class/EuclideanSpace" class="dashAnchor"></a>
+    <a title="EuclideanSpace Class Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html">AImaKit Docs</a> (62% documented)</p>
+        <p><a href="../index.html">AImaKit Docs</a> (70% documented)</p>
       </div>
     </header>
     <div class="content-wrapper">
       <p id="breadcrumbs">
         <a href="../index.html">AImaKit Reference</a>
         <img id="carat" src="../img/carat.png" />
-        Space Class Reference
+        EuclideanSpace Class Reference
       </p>
     </div>
     <div class="content-wrapper">
@@ -31,31 +31,16 @@
             <a href="../Classes.html">Classes</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a href="../Classes.html#/s:7AImaKit6AJudgeC">AJudge</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Classes/AnActor.html">AnActor</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Classes.html#/s:7AImaKit7AnAgentC">AnAgent</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Classes/AnEnvironment.html">AnEnvironment</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Classes.html#/s:7AImaKit17EnvironmentObjectC">EnvironmentObject</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Classes/EnvironmentView.html">EnvironmentView</a>
+                <a href="../Classes/EuclideanSpace.html">EuclideanSpace</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Classes/Object.html">Object</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Classes/SimpleActionTracker.html">SimpleActionTracker</a>
+                <a href="../Classes.html#/s:7AImaKit16ObserverDelegateC">ObserverDelegate</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Classes/Space.html">Space</a>
+                <a href="../Classes/SimpleActionTracker.html">SimpleActionTracker</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Classes/VacuumWorld.html">VacuumWorld</a>
@@ -70,13 +55,19 @@
                 <a href="../Classes/VacuumWorld/AgentAction.html">– AgentAction</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Classes/VacuumWorld/EnvironmentAction.html">– EnvironmentAction</a>
-              </li>
-              <li class="nav-group-task">
                 <a href="../Classes/VacuumWorld/AgentPercept.html">– AgentPercept</a>
               </li>
               <li class="nav-group-task">
+                <a href="../Classes/VacuumWorld/AnyAgent.html">– AnyAgent</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/VacuumWorld/EnvironmentAction.html">– EnvironmentAction</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Classes/VacuumWorld.html#/s:7AImaKit11VacuumWorldC12JudgePerceptV">– JudgePercept</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/VacuumWorld/AnyJudge.html">– AnyJudge</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Classes/VacuumWorld/Environment.html">– Environment</a>
@@ -96,18 +87,13 @@
             <a href="../Protocols.html">Protocols</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a href="../Protocols/IAction.html">IAction</a>
+                <a href="../Protocols/Agent.html">Agent</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Protocols.html#/s:7AImaKit8IPerceptP">IPercept</a>
+                <a href="../Protocols/EuclideanEnvironment.html">EuclideanEnvironment</a>
               </li>
-            </ul>
-          </li>
-          <li class="nav-group-name">
-            <a href="../Typealiases.html">Type Aliases</a>
-            <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a href="../Typealiases.html#/s:7AImaKit8Locationa">Location</a>
+                <a href="../Protocols/Judge.html">Judge</a>
               </li>
             </ul>
           </li>
@@ -116,10 +102,10 @@
       <article class="main-content">
         <section>
           <section class="section">
-            <h1>Space</h1>
+            <h1>EuclideanSpace</h1>
               <div class="declaration">
                 <div class="language">
-                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">Space</span></code></pre>
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">EuclideanSpace</span></code></pre>
 
                 </div>
               </div>
@@ -129,7 +115,7 @@
 
 <p>This class models an N-dimensional <code>Space</code> of integer coordinates where
  <code>N &gt;= 0</code>.  Each dimension is initialized with a half-open interval, or
- <code>Range</code>, like <code>0..&lt;10</code> or <code>-5..&lt;5</code>.  A <code><a href="../Typealiases.html#/s:7AImaKit8Locationa">Location</a></code> then is just an array
+ <code>Range</code>, like <code>0..&lt;10</code> or <code>-5..&lt;5</code>.  A <code>Location</code> then is just an array
  of integers.</p>
 
 <p>The default initializer generates the special case of <code>N = 0</code> and permits
@@ -147,9 +133,37 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:7AImaKit5SpaceCyACs5RangeVySiGd_tcfc"></a>
+                    <a name="/s:7AImaKit14EuclideanSpaceC8Locationa"></a>
+                    <a name="//apple_ref/swift/Alias/Location" class="dashAnchor"></a>
+                    <a class="token" href="#/s:7AImaKit14EuclideanSpaceC8Locationa">Location</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>A <code>Location</code> is just an array of coordinates in its
+underlying <code>Space</code>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">typealias</span> <span class="kt">Location</span> <span class="o">=</span> <span class="p">[</span><span class="kt">Int</span><span class="p">]</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:7AImaKit14EuclideanSpaceCyACSnySiGd_tcfc"></a>
                     <a name="//apple_ref/swift/Method/init(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:7AImaKit5SpaceCyACs5RangeVySiGd_tcfc">init(_:)</a>
+                    <a class="token" href="#/s:7AImaKit14EuclideanSpaceCyACSnySiGd_tcfc">init(_:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -193,9 +207,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:7AImaKit5SpaceC12getDimensionSiyF"></a>
+                    <a name="/s:7AImaKit14EuclideanSpaceC12getDimensionSiyF"></a>
                     <a name="//apple_ref/swift/Method/getDimension()" class="dashAnchor"></a>
-                    <a class="token" href="#/s:7AImaKit5SpaceC12getDimensionSiyF">getDimension()</a>
+                    <a class="token" href="#/s:7AImaKit14EuclideanSpaceC12getDimensionSiyF">getDimension()</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -224,9 +238,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:7AImaKit5SpaceC8containsySbSaySiGF"></a>
+                    <a name="/s:7AImaKit14EuclideanSpaceC8containsySbSaySiGF"></a>
                     <a name="//apple_ref/swift/Method/contains(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:7AImaKit5SpaceC8containsySbSaySiGF">contains(_:)</a>
+                    <a class="token" href="#/s:7AImaKit14EuclideanSpaceC8containsySbSaySiGF">contains(_:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -234,7 +248,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Method checks whether a given <code><a href="../Typealiases.html#/s:7AImaKit8Locationa">Location</a></code> is <em>inside</em> this <code>Space</code>.</p>
+                        <p>Method checks whether a given <code><a href="../Classes/EuclideanSpace.html#/s:7AImaKit14EuclideanSpaceC8Locationa">Location</a></code> is <em>inside</em> this <code>Space</code>.</p>
 
 <p>A <code>location</code> is <em>inside</em> iff it&rsquo;s dimension is no greater than the <code>Space</code>&lsquo;s
  and each of its coordinates is contained in the corresponding <code>Space</code> range.</p>
@@ -244,7 +258,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">contains</span><span class="p">(</span><span class="n">_</span> <span class="nv">location</span><span class="p">:</span> <span class="kt"><a href="../Typealiases.html#/s:7AImaKit8Locationa">Location</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">contains</span><span class="p">(</span><span class="n">_</span> <span class="nv">location</span><span class="p">:</span> <span class="kt"><a href="../Classes/EuclideanSpace.html#/s:7AImaKit14EuclideanSpaceC8Locationa">Location</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
 
                         </div>
                       </div>
@@ -260,7 +274,7 @@
                               </td>
                               <td>
                                 <div>
-                                  <p>The <code><a href="../Typealiases.html#/s:7AImaKit8Locationa">Location</a></code> to test for containment.</p>
+                                  <p>The <code><a href="../Classes/EuclideanSpace.html#/s:7AImaKit14EuclideanSpaceC8Locationa">Location</a></code> to test for containment.</p>
                                 </div>
                               </td>
                             </tr>
@@ -277,9 +291,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:7AImaKit5SpaceC14randomLocationSaySiGyF"></a>
+                    <a name="/s:7AImaKit14EuclideanSpaceC14randomLocationSaySiGyF"></a>
                     <a name="//apple_ref/swift/Method/randomLocation()" class="dashAnchor"></a>
-                    <a class="token" href="#/s:7AImaKit5SpaceC14randomLocationSaySiGyF">randomLocation()</a>
+                    <a class="token" href="#/s:7AImaKit14EuclideanSpaceC14randomLocationSaySiGyF">randomLocation()</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -294,7 +308,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">randomLocation</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Typealiases.html#/s:7AImaKit8Locationa">Location</a></span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">randomLocation</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Classes/EuclideanSpace.html#/s:7AImaKit14EuclideanSpaceC8Locationa">Location</a></span></code></pre>
 
                         </div>
                       </div>
@@ -304,9 +318,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:7AImaKit5SpaceC7toArray9repeatingyXlSgx_tlF"></a>
+                    <a name="/s:7AImaKit14EuclideanSpaceC7toArray9repeatingyXlSgx_tlF"></a>
                     <a name="//apple_ref/swift/Method/toArray(repeating:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:7AImaKit5SpaceC7toArray9repeatingyXlSgx_tlF">toArray(repeating:)</a>
+                    <a class="token" href="#/s:7AImaKit14EuclideanSpaceC7toArray9repeatingyXlSgx_tlF">toArray(repeating:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -366,7 +380,7 @@
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2018 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2018-07)</p>
+          <p>&copy; 2018 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2018-08)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.3</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>
