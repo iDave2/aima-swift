@@ -24,7 +24,7 @@
 /* Begin PBXBuildFile section */
 		294348F42114D051003E6166 /* ObserverDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 294348F32114D051003E6166 /* ObserverDelegate.swift */; };
 		294348F52114D051003E6166 /* ObserverDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 294348F32114D051003E6166 /* ObserverDelegate.swift */; };
-		294ADC6820E6F1370053937E /* Agents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29F2431120DF0DF400927629 /* Agents.swift */; };
+		294ADC6820E6F1370053937E /* Object.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29F2431120DF0DF400927629 /* Object.swift */; };
 		294ADC6A20E70C3C0053937E /* SimpleActionTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 294ADC6920E70C3C0053937E /* SimpleActionTracker.swift */; };
 		294ADC6B20E70C3C0053937E /* SimpleActionTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 294ADC6920E70C3C0053937E /* SimpleActionTracker.swift */; };
 		295D62222113C19C004F3DBC /* Agent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 295D62212113C19C004F3DBC /* Agent.swift */; };
@@ -38,7 +38,7 @@
 		29F2430120DF0DA900927629 /* AImaKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29F242F720DF0DA900927629 /* AImaKit.framework */; };
 		29F2430620DF0DA900927629 /* AImaKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29F2430520DF0DA900927629 /* AImaKitTests.swift */; };
 		29F2430820DF0DA900927629 /* AImaKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 29F242FA20DF0DA900927629 /* AImaKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		29F2431220DF0DF400927629 /* Agents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29F2431120DF0DF400927629 /* Agents.swift */; };
+		29F2431220DF0DF400927629 /* Object.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29F2431120DF0DF400927629 /* Object.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -80,7 +80,7 @@
 		29F2430020DF0DA900927629 /* AImaKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AImaKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		29F2430520DF0DA900927629 /* AImaKitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AImaKitTests.swift; sourceTree = "<group>"; };
 		29F2430720DF0DA900927629 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		29F2431120DF0DF400927629 /* Agents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Agents.swift; sourceTree = "<group>"; };
+		29F2431120DF0DF400927629 /* Object.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Object.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -130,7 +130,7 @@
 				29F242FA20DF0DA900927629 /* AImaKit.h */,
 				29F242FB20DF0DA900927629 /* Info.plist */,
 				295D62212113C19C004F3DBC /* Agent.swift */,
-				29F2431120DF0DF400927629 /* Agents.swift */,
+				29F2431120DF0DF400927629 /* Object.swift */,
 				29B43C5E2112734000F9DE5B /* EuclideanEnvironment.swift */,
 				29B43C61211376F300F9DE5B /* EuclideanSpace.swift */,
 				294348F32114D051003E6166 /* ObserverDelegate.swift */,
@@ -285,7 +285,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				29B43C5F2112734000F9DE5B /* EuclideanEnvironment.swift in Sources */,
-				29F2431220DF0DF400927629 /* Agents.swift in Sources */,
+				29F2431220DF0DF400927629 /* Object.swift in Sources */,
 				294ADC6A20E70C3C0053937E /* SimpleActionTracker.swift in Sources */,
 				294348F42114D051003E6166 /* ObserverDelegate.swift in Sources */,
 				299BB9C020E58BD100E427E4 /* VacuumWorld.swift in Sources */,
@@ -300,7 +300,7 @@
 			files = (
 				29F2430620DF0DA900927629 /* AImaKitTests.swift in Sources */,
 				29B43C602112734000F9DE5B /* EuclideanEnvironment.swift in Sources */,
-				294ADC6820E6F1370053937E /* Agents.swift in Sources */,
+				294ADC6820E6F1370053937E /* Object.swift in Sources */,
 				294ADC6B20E70C3C0053937E /* SimpleActionTracker.swift in Sources */,
 				29B43C63211376F300F9DE5B /* EuclideanSpace.swift in Sources */,
 				299BB9C120E58BD100E427E4 /* VacuumWorld.swift in Sources */,
