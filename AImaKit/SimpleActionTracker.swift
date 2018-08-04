@@ -2,8 +2,6 @@
 //  SimpleActionTracker.swift
 //  AImaKit
 //
-//  Created by Dave King on 6/29/18.
-//
 
 import Foundation
 
@@ -11,15 +9,22 @@ import Foundation
  * Environment view implementation which logs performed action and
  * provides a comma-separated String with all actions performed so far.
  */
-public class SimpleActionTracker: EnvironmentView {
+public class SimpleActionTracker: ObserverDelegate<VacuumWorld.Environment> {
 
-  var actions: [String] = []
+    typealias E = VacuumWorld.Environment // So awkward...
 
-  public func getActions() -> String {
-    return actions.joined(separator: ", ")
-  }
+    var actions: [String] = []
 
-  public override func agentActed(_: AnAgent, _: IPercept, _ action: IAction, _: AnEnvironment) {
-    actions.append(action.getValue())
-  }
+    public func getActions() -> String {
+        return actions.joined(separator: ", ")
+    }
+
+    override func agentActed(_ agent:   E.AgentType,
+                             _ percept: E.AgentType.PerceptType,
+                             _ action:  E.AgentType.ActionType,
+                             _ source:  E)
+    {
+        actions.append(action.rawValue)
+    }
+
 }

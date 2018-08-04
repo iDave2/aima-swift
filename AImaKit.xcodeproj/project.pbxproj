@@ -6,18 +6,39 @@
 	objectVersion = 50;
 	objects = {
 
+/* Begin PBXAggregateTarget section */
+		29EF3E9A2106960C00BBDE25 /* AggregateShellScript */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 29EF3E9D2106960C00BBDE25 /* Build configuration list for PBXAggregateTarget "AggregateShellScript" */;
+			buildPhases = (
+				29EF3E9F210696DB00BBDE25 /* CopyFiles */,
+				29EF3E9E210696C500BBDE25 /* ShellScript */,
+			);
+			dependencies = (
+			);
+			name = AggregateShellScript;
+			productName = AggregateShellScript;
+		};
+/* End PBXAggregateTarget section */
+
 /* Begin PBXBuildFile section */
-		294ADC6820E6F1370053937E /* Agents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29F2431120DF0DF400927629 /* Agents.swift */; };
+		294348F42114D051003E6166 /* ObserverDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 294348F32114D051003E6166 /* ObserverDelegate.swift */; };
+		294348F52114D051003E6166 /* ObserverDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 294348F32114D051003E6166 /* ObserverDelegate.swift */; };
+		294ADC6820E6F1370053937E /* Object.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29F2431120DF0DF400927629 /* Object.swift */; };
 		294ADC6A20E70C3C0053937E /* SimpleActionTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 294ADC6920E70C3C0053937E /* SimpleActionTracker.swift */; };
 		294ADC6B20E70C3C0053937E /* SimpleActionTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 294ADC6920E70C3C0053937E /* SimpleActionTracker.swift */; };
-		297AF1FB20F7C7E900E98F6A /* Environments.swift in Sources */ = {isa = PBXBuildFile; fileRef = 297AF1FA20F7C7E900E98F6A /* Environments.swift */; };
-		297AF1FC20F8160A00E98F6A /* Environments.swift in Sources */ = {isa = PBXBuildFile; fileRef = 297AF1FA20F7C7E900E98F6A /* Environments.swift */; };
+		295D62222113C19C004F3DBC /* Agent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 295D62212113C19C004F3DBC /* Agent.swift */; };
+		295D62232113C19C004F3DBC /* Agent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 295D62212113C19C004F3DBC /* Agent.swift */; };
 		299BB9C020E58BD100E427E4 /* VacuumWorld.swift in Sources */ = {isa = PBXBuildFile; fileRef = 299BB9BF20E58BD100E427E4 /* VacuumWorld.swift */; };
 		299BB9C120E58BD100E427E4 /* VacuumWorld.swift in Sources */ = {isa = PBXBuildFile; fileRef = 299BB9BF20E58BD100E427E4 /* VacuumWorld.swift */; };
+		29B43C5F2112734000F9DE5B /* EuclideanEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29B43C5E2112734000F9DE5B /* EuclideanEnvironment.swift */; };
+		29B43C602112734000F9DE5B /* EuclideanEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29B43C5E2112734000F9DE5B /* EuclideanEnvironment.swift */; };
+		29B43C62211376F300F9DE5B /* EuclideanSpace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29B43C61211376F300F9DE5B /* EuclideanSpace.swift */; };
+		29B43C63211376F300F9DE5B /* EuclideanSpace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29B43C61211376F300F9DE5B /* EuclideanSpace.swift */; };
 		29F2430120DF0DA900927629 /* AImaKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29F242F720DF0DA900927629 /* AImaKit.framework */; };
 		29F2430620DF0DA900927629 /* AImaKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29F2430520DF0DA900927629 /* AImaKitTests.swift */; };
 		29F2430820DF0DA900927629 /* AImaKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 29F242FA20DF0DA900927629 /* AImaKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		29F2431220DF0DF400927629 /* Agents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29F2431120DF0DF400927629 /* Agents.swift */; };
+		29F2431220DF0DF400927629 /* Object.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29F2431120DF0DF400927629 /* Object.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -30,21 +51,36 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		29EF3E9F210696DB00BBDE25 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 7;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		294348F32114D051003E6166 /* ObserverDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObserverDelegate.swift; sourceTree = "<group>"; };
 		294ADC6920E70C3C0053937E /* SimpleActionTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleActionTracker.swift; sourceTree = "<group>"; };
-		297AF1FA20F7C7E900E98F6A /* Environments.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Environments.swift; sourceTree = "<group>"; };
+		295D62212113C19C004F3DBC /* Agent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Agent.swift; sourceTree = "<group>"; };
 		299BB9BA20E2DC6400E427E4 /* LICENSE.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = LICENSE.md; sourceTree = "<group>"; };
 		299BB9BB20E2DC6400E427E4 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		299BB9BC20E2DC6500E427E4 /* CONTRIBUTING.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CONTRIBUTING.md; sourceTree = "<group>"; };
 		299BB9BF20E58BD100E427E4 /* VacuumWorld.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VacuumWorld.swift; sourceTree = "<group>"; };
 		299D3FB020FE37B6003D10EA /* Rakefile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Rakefile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		29B43C5E2112734000F9DE5B /* EuclideanEnvironment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EuclideanEnvironment.swift; sourceTree = "<group>"; };
+		29B43C61211376F300F9DE5B /* EuclideanSpace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EuclideanSpace.swift; sourceTree = "<group>"; };
 		29F242F720DF0DA900927629 /* AImaKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AImaKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		29F242FA20DF0DA900927629 /* AImaKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AImaKit.h; sourceTree = "<group>"; };
 		29F242FB20DF0DA900927629 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		29F2430020DF0DA900927629 /* AImaKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AImaKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		29F2430520DF0DA900927629 /* AImaKitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AImaKitTests.swift; sourceTree = "<group>"; };
 		29F2430720DF0DA900927629 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		29F2431120DF0DF400927629 /* Agents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Agents.swift; sourceTree = "<group>"; };
+		29F2431120DF0DF400927629 /* Object.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Object.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -93,8 +129,11 @@
 			children = (
 				29F242FA20DF0DA900927629 /* AImaKit.h */,
 				29F242FB20DF0DA900927629 /* Info.plist */,
-				29F2431120DF0DF400927629 /* Agents.swift */,
-				297AF1FA20F7C7E900E98F6A /* Environments.swift */,
+				295D62212113C19C004F3DBC /* Agent.swift */,
+				29B43C5E2112734000F9DE5B /* EuclideanEnvironment.swift */,
+				29B43C61211376F300F9DE5B /* EuclideanSpace.swift */,
+				29F2431120DF0DF400927629 /* Object.swift */,
+				294348F32114D051003E6166 /* ObserverDelegate.swift */,
 				294ADC6920E70C3C0053937E /* SimpleActionTracker.swift */,
 				299BB9BF20E58BD100E427E4 /* VacuumWorld.swift */,
 			);
@@ -171,6 +210,9 @@
 				LastUpgradeCheck = 1000;
 				ORGANIZATIONNAME = "Dave King";
 				TargetAttributes = {
+					29EF3E9A2106960C00BBDE25 = {
+						CreatedOnToolsVersion = 10.0;
+					};
 					29F242F620DF0DA900927629 = {
 						CreatedOnToolsVersion = 9.4.1;
 						LastSwiftMigration = 1000;
@@ -195,6 +237,7 @@
 			targets = (
 				29F242F620DF0DA900927629 /* AImaKit */,
 				29F242FF20DF0DA900927629 /* AImaKitTests */,
+				29EF3E9A2106960C00BBDE25 /* AggregateShellScript */,
 			);
 		};
 /* End PBXProject section */
@@ -216,15 +259,38 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		29EF3E9E210696C500BBDE25 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		29F242F220DF0DA900927629 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				29F2431220DF0DF400927629 /* Agents.swift in Sources */,
-				297AF1FB20F7C7E900E98F6A /* Environments.swift in Sources */,
+				29B43C5F2112734000F9DE5B /* EuclideanEnvironment.swift in Sources */,
+				29F2431220DF0DF400927629 /* Object.swift in Sources */,
 				294ADC6A20E70C3C0053937E /* SimpleActionTracker.swift in Sources */,
+				294348F42114D051003E6166 /* ObserverDelegate.swift in Sources */,
 				299BB9C020E58BD100E427E4 /* VacuumWorld.swift in Sources */,
+				295D62222113C19C004F3DBC /* Agent.swift in Sources */,
+				29B43C62211376F300F9DE5B /* EuclideanSpace.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -233,10 +299,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				29F2430620DF0DA900927629 /* AImaKitTests.swift in Sources */,
-				294ADC6820E6F1370053937E /* Agents.swift in Sources */,
-				297AF1FC20F8160A00E98F6A /* Environments.swift in Sources */,
+				29B43C602112734000F9DE5B /* EuclideanEnvironment.swift in Sources */,
+				294ADC6820E6F1370053937E /* Object.swift in Sources */,
 				294ADC6B20E70C3C0053937E /* SimpleActionTracker.swift in Sources */,
+				29B43C63211376F300F9DE5B /* EuclideanSpace.swift in Sources */,
 				299BB9C120E58BD100E427E4 /* VacuumWorld.swift in Sources */,
+				294348F52114D051003E6166 /* ObserverDelegate.swift in Sources */,
+				295D62232113C19C004F3DBC /* Agent.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -251,6 +320,24 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		29EF3E9B2106960C00BBDE25 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = UCU7LB9MW7;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		29EF3E9C2106960C00BBDE25 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = UCU7LB9MW7;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 		29F2430920DF0DA900927629 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -470,6 +557,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		29EF3E9D2106960C00BBDE25 /* Build configuration list for PBXAggregateTarget "AggregateShellScript" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				29EF3E9B2106960C00BBDE25 /* Debug */,
+				29EF3E9C2106960C00BBDE25 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		29F242F120DF0DA900927629 /* Build configuration list for PBXProject "AImaKit" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
