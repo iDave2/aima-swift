@@ -1,5 +1,5 @@
 //
-//  AgentProtocol.swift
+//  Agent.swift
 //  AImaKit
 //
 //  Created by Dave King on 8/2/18.
