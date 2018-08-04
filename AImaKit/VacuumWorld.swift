@@ -16,13 +16,13 @@ import Foundation
  *
  * TODO: Say more, please.
  */
-public protocol VacuumWorldProtocol: ObserverDelegate { // For observer delegates, if any.
-    typealias VW = VacuumWorld
-    func agentActed(_ agent:   VW.AnyAgent,
-                    _ percept: VW.AgentPercept,
-                    _ action:  VW.AgentAction,
-                    _ source:  VW.Environment, x: Int)
-}
+//public protocol VacuumWorldProtocol: ObserverDelegate { // For observer delegates, if any.
+//    typealias VW = VacuumWorld
+//    func agentActed(_ agent:   VW.AnyAgent,
+//                    _ percept: VW.AgentPercept,
+//                    _ action:  VW.AgentAction,
+//                    _ source:  VW.Environment, x: Int)
+//}
 
 
 /**
@@ -125,14 +125,6 @@ public class VacuumWorld { // Begin VacuumWorld task environment.
     // --- ENVIRONMENTS ---
     // **+****-****+****-****+****-****+****-****+****-****+****-****+****-****
 
-//    class FooDelegate {
-//        func agentActed<E>(_ agent:   E.AgentType,
-//                           _ percept: E.AgentType.PerceptType,
-//                           _ action:  E.AgentType.ActionType,
-//                           _ source:  E) where E == VacuumWorld.Environment
-//        { }
-//    }
-
     /**
      * The `VacuumWorld` environment.
      */
@@ -143,7 +135,7 @@ public class VacuumWorld { // Begin VacuumWorld task environment.
         public var scores = Dictionary<AnyAgent, Dictionary<AnyJudge, Double>>()
         //public var views = Set<View<Environment>>()
         // public var delegate: ObserverDelegate? // VacuumWorldProtocol?
-        public var delegate: FooDelegate<Environment>? // Requires final class!
+        public var delegate: ObserverDelegate<Environment>? // Requires final class!
 
         /**
          * Initialize a `VacuumEnvironment` with the given `Space`.

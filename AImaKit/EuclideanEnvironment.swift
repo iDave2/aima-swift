@@ -71,7 +71,7 @@ public protocol EuclideanEnvironment {
      */
     // TODO: Move into Observers section?
     //associatedtype DelegateType: ObserverDelegate
-    var delegate: FooDelegate<Self>? { get set }
+    var delegate: ObserverDelegate<Self>? { get set }
 
 
     // ##+####-####+####-####+####-####+####-####+####-####+####-####+####-###

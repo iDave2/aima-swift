@@ -121,7 +121,7 @@ class AImaKitTests: XCTestCase {
             //let view = SimpleActionTracker()
             //environment.addEnvironmentView(view)
             let delegate = SimpleActionTracker()
-            environment.observerDelegate = delegate
+            environment.delegate = delegate
             
             environment.step(steps) // Run the simulation.
             var score = -10_000.0
