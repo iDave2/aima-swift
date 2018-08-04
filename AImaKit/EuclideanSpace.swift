@@ -26,6 +26,13 @@ import Foundation
  * are working on big bang theory).
  */
 public class EuclideanSpace {
+
+    /**
+     * A `Location` is just an array of coordinates in its
+     * underlying `Space`.
+     */
+    public typealias Location = [Int]
+
     let ranges: [Range<Int>]
 
     /**

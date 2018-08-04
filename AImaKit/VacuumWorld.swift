@@ -12,20 +12,6 @@ import Foundation
 // *-****+****-****+****-****+****-****+****-****+****-****+****-****+****-****
 
 /**
- * Protocol for delegation of vacuum world events.
- *
- * TODO: Say more, please.
- */
-//public protocol VacuumWorldProtocol: ObserverDelegate { // For observer delegates, if any.
-//    typealias VW = VacuumWorld
-//    func agentActed(_ agent:   VW.AnyAgent,
-//                    _ percept: VW.AgentPercept,
-//                    _ action:  VW.AgentAction,
-//                    _ source:  VW.Environment, x: Int)
-//}
-
-
-/**
  * Artificial Intelligence A Modern Approach (3rd Edition): pg 58.
  *
  * Let the world contain just two locations. Each location may or may not
@@ -36,6 +22,8 @@ import Foundation
  * clean up all the dirt.
  */
 public class VacuumWorld { // Begin VacuumWorld task environment.
+
+    public typealias Location = EuclideanSpace.Location
 
     /**
      * Pretty expression for `x = 0` in left-right vacuum world.

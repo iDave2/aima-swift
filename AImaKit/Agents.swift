@@ -196,10 +196,6 @@ import Foundation
 
 // ////////////////////////////////////////////////////////////////////////////
 
-/**
- * A `Location` is just an array of coordinates in its underlying `Space`.
- */
-public typealias Location = [Int]
 
 
 // *-****+****-****+****-****+****-****+****-****+****-****+****-****+****-****

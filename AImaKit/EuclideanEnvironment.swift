@@ -18,6 +18,8 @@ import Foundation
  */
 public protocol EuclideanEnvironment {
 
+    typealias Location = EuclideanSpace.Location
+
     // ##+####-####+####-####+####-####+####-####+####-####+####-####+####-###
     // MARK: State
 

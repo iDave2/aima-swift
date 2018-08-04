@@ -22,9 +22,38 @@ import Foundation
  * desirability is captured by a __performance measure__ that evaluates any
  * given sequence of environment states.' -- AIMA3e, page 37, italics mine.
  */
+// *-****+****-****+****-****+****-****+****-****+****-****+****-****+****-***
 public protocol Agent {
+    /**
+     * The `Action` taken by an agent in response to a percept or percept
+     * sequence.
+     */
     associatedtype ActionType
+    /**
+     * "We use the term __percept__ to refer to the agent's perceptual inputs
+     * at any given instant.  An agent's __percept sequence__ is the complete
+     * history of everything the agent has ever perceived.  In general, _an
+     * agent's choice of action at any given instant can depend on the entire
+     * percept sequence observed to date, but not on anything it hasn't
+     * perceived_." -- AIMA3e, page 34.
+     *
+     * Protocol generic `PerceptType` is reified (love that term) as soon as
+     * this protocol is adopted.
+     */
     associatedtype PerceptType
+    /**
+     * 'Mathematically speaking, we say that an agent's behavior is described
+     * by the __agent function__ that maps any given percept sequence to an
+     * action.  [The agent function is] an _external_ characterization of the
+     * agent.  _Internally_, the agent function for an artificial agent will
+     * be implemented by an __agent program__.  It is important to keep these
+     * two ideas distinct.' -- AIMA3e, page 35.
+     *
+     * - Parameter percept: The current `Percept` of a sequence perceived by
+     *   the `Actor`.
+     * - Returns: The `Action` to be taken in response to the current
+     *   `Percept`.
+     */
     func execute(_ percept: PerceptType) -> ActionType
 }
 

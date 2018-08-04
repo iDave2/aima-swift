@@ -29,45 +29,4 @@ public class SimpleActionTracker: ObserverDelegate<VacuumWorld.Environment> {
         actions.append(action.rawValue)
     }
 
-
-//    public func agentActed<E>(_ agent: E.AgentType,
-//                              _ percept: E.AgentType.PerceptType,
-//                              _ action: E.AgentType.ActionType,
-//                              _ source: E)
-//        where E : EuclideanEnvironment
-//    {
-//        <#code#>
-//    }
-
-
-
-//    public typealias VW = VacuumWorld
-//    public func agentActed(_ agent:   VW.AnyAgent,
-//                           _ percept: VW.AgentPercept,
-//                           _ action:  VW.AgentAction,
-//                           _ source:  VW.Environment)
-//    {
-//        actions.append(action.rawValue)
-//    }
-
-//    public func agentActed(
-//        _ agent: VWE.AgentType,
-//        _ percept: VWE.AgentType.PerceptType,
-//        _ action:  VWE.AgentType.ActionType,
-//        _ source: VWE)
-//    public func agentActed<E: VacuumWorld.Environment>(
-//        _ agent: E.AgentType,
-//        _ percept: E.AgentType.PerceptType,
-//        _ action:  E.AgentType.ActionType,
-//        _ source: E)
-//    public func agentActed<E>(_ agent: E.AgentType,
-//                              _ percept: E.AgentType.PerceptType,
-//                              _ action: E.AgentType.ActionType,
-//                              _ source: E) where E : VacuumWorld.Environment //EuclideanEnvironment
-//    {
-//        actions.append(action.rawValue)
-//    }
-//    {
-//        actions.append(action.rawValue)
-//    }
 }

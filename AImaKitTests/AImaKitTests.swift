@@ -10,6 +10,7 @@ import XCTest
 
 class AImaKitTests: XCTestCase {
 
+    typealias Location = EuclideanSpace.Location
     typealias VW = VacuumWorld
     typealias VWRunArgs = (Location, VW.LocationState, VW.LocationState, Bool)
 
