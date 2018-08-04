@@ -2,8 +2,6 @@
 //  Agent.swift
 //  AImaKit
 //
-//  Created by Dave King on 8/2/18.
-//
 
 import Foundation
 
@@ -12,8 +10,8 @@ import Foundation
  * __environment__ through __sensors__ and acting upon that environment
  * through __actuators__.' -- AIMA3e, page 34.
  *
- * See [here](https://github.com/realm/jazzy/issues/992) for jazzy issue with
- * quotes.
+ * See [here](https://github.com/realm/jazzy/issues/992) for jazzy issue
+ * with quotes.
  *
  * 'When an agent is plunked down in an environment, it generates a sequence
  * of actions according to the percepts it receives. This sequence of actions
@@ -22,7 +20,6 @@ import Foundation
  * desirability is captured by a __performance measure__ that evaluates any
  * given sequence of environment states.' -- AIMA3e, page 37, italics mine.
  */
-// *-****+****-****+****-****+****-****+****-****+****-****+****-****+****-***
 public protocol Agent {
     /**
      * The `Action` taken by an agent in response to a percept or percept
@@ -58,7 +55,7 @@ public protocol Agent {
 }
 
 /**
- * Performance measures are represented by judges.
+ * A `Judge` represents a performance measure.
  *
  * So a performance measure, or the program that implements it, takes a
  * sequence of environment states (like a percept sequence), and returns

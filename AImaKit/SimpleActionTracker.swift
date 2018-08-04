@@ -2,8 +2,6 @@
 //  SimpleActionTracker.swift
 //  AImaKit
 //
-//  Created by Dave King on 6/29/18.
-//
 
 import Foundation
 

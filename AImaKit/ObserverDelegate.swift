@@ -2,16 +2,13 @@
 //  ObserverDelegate.swift
 //  AImaKit
 //
-//  Created by Dave King on 8/3/18.
-//
 
 import Foundation
 
 /**
  * Environments send events to a single observer delegate.
  *
- * Modify this delegate to support multiple listeners if needed.
- *
+ * Modify subclasses to support multiple listeners if needed.
  */
 public class ObserverDelegate<E: EuclideanEnvironment> {
 

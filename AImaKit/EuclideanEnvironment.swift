@@ -141,6 +141,7 @@ public protocol EuclideanEnvironment {
 
 }
 
+// *-****+****-****+****-****+****-****+****-****+****-****+****-****+****-***
 //  MARK: CONTENTS
 
 extension EuclideanEnvironment {
@@ -196,6 +197,7 @@ extension EuclideanEnvironment {
 
 }
 
+// *-****+****-****+****-****+****-****+****-****+****-****+****-****+****-***
 // MARK: SIMULATION
 
 extension EuclideanEnvironment {
@@ -206,7 +208,8 @@ extension EuclideanEnvironment {
             //    continue
             //}
             //
-            // Synthesize an AgentPercept and ask Agent to map it to an AgentAction.
+            // Synthesize an AgentPercept and ask Agent to map it to
+            // an AgentAction.
             //
             let agentPercept = getPerceptSeenBy(agent)
             let agentAction = agent.execute(agentPercept)
@@ -216,17 +219,21 @@ extension EuclideanEnvironment {
             //
             let environmentChanges = executeAction(agent, agentAction)
             //
-            // Request a score from each Judge and update environment with results.
-            // This is effectively an executeAction() for judges except that we've
-            // decoupled the scoring algorithm from the environment.  FWIW.
+            // Request a score from each Judge and update environment with
+            // results.  This is effectively an executeAction() for judges
+            // except that we've decoupled the scoring algorithm from the
+            // environment.  FWIW.
             //
             for judgePercept in environmentChanges {
                 for judge in scores[agent]!.keys {
                     scores[agent]![judge]! += judge.execute(judgePercept)
                 }
             }
-            // Delegation is too difficult in this generic environment
-            // so we send a message instead?
+            // Delegation is still awkward in this generic environment
+            // but the pattern is pleasant so here it is.  If delegate
+            // has not been set by a controller (i.e., is nil), then
+            // this line quietly does nothing; otherwise, it tells delegate
+            // what happened.
             delegate?.agentActed(agent, agentPercept, agentAction, self)
         }
         // createExogenousChange();
@@ -240,6 +247,7 @@ extension EuclideanEnvironment {
 
 }
 
+// *-****+****-****+****-****+****-****+****-****+****-****+****-****+****-***
 // MARK: PERFORMANCE
 
 extension EuclideanEnvironment {

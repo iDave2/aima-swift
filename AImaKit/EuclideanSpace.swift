@@ -2,8 +2,6 @@
 //  EuclideanSpace.swift
 //  AImaKit
 //
-//  Created by Dave King on 8/2/18.
-//
 
 import Foundation
 
@@ -19,9 +17,9 @@ import Foundation
  *
  * The default initializer generates the special case of `N = 0` and permits
  * expressions like
- * ```swift
- * let mySpace = Space()
- * ```
+ *
+ *     let mySpace = Space()
+ *
  * which gives you a concrete representation of nothing (in case you
  * are working on big bang theory).
  */

@@ -2,8 +2,6 @@
 //  Object.swift
 //  AImaKit
 //
-//  Created by Dave King on 6/23/18.
-//
 
 /**
  * Named in honor of Java's `Object`, this superclass provides a default
