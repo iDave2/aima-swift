@@ -4,6 +4,9 @@
 //
 //  Created by Dave King on 6/23/18.
 //
+//  181207 - If this file is included in C++ source it Will Not compile without
+//  special option "clang -x objective-c++ ..." and THIS WAS HARD TO FIND.  Grr...
+//
 
 #import <Foundation/Foundation.h>
 
